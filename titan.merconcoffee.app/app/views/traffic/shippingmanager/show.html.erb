@@ -1,0 +1,115 @@
+<div class="dashboard-wrapper">
+  <div class="main-container">
+    <div class="row page-title">
+      <h2><%= t('shipping_manager') %>
+        <small>
+          <li><a href="/"><%= t('home') %></a></li>
+          <li>/</li>
+          <li><a><%= t('traffic') %></a></li>
+          <li>/</li>
+          <li><a data-no-turbolink='true' href="/traffic/shippingmanager"><%= t('shipping_manager') %></a></li>
+          <li>/</li>
+          <li><%= @itinerary.itinerary_num %></li>
+        </small>
+      </h2>
+      <ul class="stats hidden-xs">
+        <li>
+          <div class="details" style="height: 30px;">
+            <!-- Start - Loading animation -->
+            <div class="hidden loading-spinner" style="margin-top: 0;">
+              <div class="rect1"></div>
+              <div class="rect2"></div>
+              <div class="rect3"></div>
+              <div class="rect4"></div>
+              <div class="rect5"></div>
+            </div>
+            <!-- End - Loading animation -->
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="clearfix"></div>
+    <%= hidden_field_tag(:itinerary_num, @itinerary.itinerary_num) %>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-horizontal">
+          <h3 class="heading-a">Itinerary</h3>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+      <div class="table-responsive">
+        <table class="table table-condensed">
+          <thead>
+            <tr>
+              <th>Itinerary No.</th>
+              <th>Trade No.</th>
+              <th>Itinerary Name</th>
+              <th>Inte. Company</th>
+              <th>Operator</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="warning">
+              <td><%= @itinerary.itinerary_num %></td>
+              <td><%= @itinerary.itinerary_name %></td>
+              <td><%= @itinerary.itinerary_name %></td>
+              <td><%= @itinerary.internal_company.company_name %></td>
+              <td><%= @itinerary.operator.first_name + ' ' + @itinerary.operator.last_name %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-horizontal">
+          <h3 class="heading-a">Movements</h3>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+      <div aria-multiselectable="true" class="panel-group" id="acc_movement" role="tablist">
+        <% if @itinerary.movements.any? %>
+          <% @itinerary.movements.each do |m| %>
+            <div class="panel panel-primary">
+              <div class="panel-heading" id="heading_<%= m.movement_num %>" role="tab">
+                <h4 class="panel-title">
+                  <a aria-controls="collapse_<%= m.movement_num %>" aria-expanded="true" data-parent="acc_movement" data-toggle="collapse" href="#collapse_<%= m.movement_num %>">
+                    <%= m.movement_num %> <small style="color: #fff;">(Movement No.)</small>
+                  </a>
+                </h4>
+              </div>
+              <div aria-labelledby="heading_<%= m.movement_num %>" class="panel-collapse collapse" id="collapse_<%= m.movement_num %>" role="tabpanel">
+                <div class="panel-body">
+                  <div class="table-responsive">
+                    <table class="table table-condensed">
+                      <thead>
+                        <tr>
+                          <th>No. Movement</th>
+                          <th>MOT</th>
+                          <th>Vehicle</th>
+                          <th>Status</th>
+                          <th>Depart From</th>
+                          <th>Depart On</th>
+                          <th>Duration</th>
+                          <th>Arrive At</th>
+                          <th>Arrive On</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

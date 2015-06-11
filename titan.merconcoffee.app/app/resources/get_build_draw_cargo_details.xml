@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<request xmlns:xsi="http://www.w3.org/1999/XMLSchema-instance" xsi:noNamespaceSchemaLocation="request.xsd">
+  <mhead name="TPTReqGetBuildDrawCargoDetails">
+    <sender>{92EFD28D-E3F1-40D0-A902-BBC933DB7534}</sender>
+    <sent_dt>@@=val1=@@</sent_dt>
+  </mhead>
+  <mbody>
+    <data>
+      <GetBuildDrawCargoDetails>
+        <cargo_num><![CDATA[@@=val2=@@]]></cargo_num>
+        <in_store_transfer_num><![CDATA[-1]]></in_store_transfer_num>
+      </GetBuildDrawCargoDetails>
+    </data>
+  </mbody>
+</request>

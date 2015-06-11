@@ -1,0 +1,95 @@
+<div class="dashboard-wrapper">
+	<div class="main-container">
+	    <div class="row page-title">
+	      	<h2><%= t('yield_manager') %>
+	        <small>
+		        <ul class="breadcrumb" style="margin-bottom: 5px;">
+				    <li><a href="/">Home</a></li>
+				    <li><%= t('origin') %></li>
+				    <li class="active"><%= t('yield_manager') %></li>
+				    <li class="active"><%= t('standard_yields') %></li>
+				</ul>
+			</small>
+	     	 </h2>
+	      <ul class="stats hidden-xs">
+	        <li>
+	          <div class="details" style="height: 30px;">
+	            <!-- Start - Loading animation -->
+	            <div class="hidden loading-spinner" style="margin-top: 0;">
+	              <div class="rect1"></div>
+	              <div class="rect2"></div>
+	              <div class="rect3"></div>
+	              <div class="rect4"></div>
+	              <div class="rect5"></div>
+	            </div>
+	            <!-- End - Loading animation -->
+	          </div>
+	        </li>
+	      </ul>
+	    </div>
+	     <div class="clearfix"></div>
+    	<div class="row">
+    		<div class="col-md-12">
+    			<ul class="nav nav-tabs btn-material-teal-100" style="margin-bottom: 15px;">
+				    <li class="active"><a href="#view" data-toggle="tab">View</a></li>
+				    <li><a href="#upload" data-toggle="tab">Upload</a></li>
+			    </ul>
+			    <div id="myTabContent" class="tab-content">
+				    <div class="tab-pane fade active in" id="view">
+				    	<div class="col-md-12">
+			    			<a data-no-turbolink='true' href="/origin/yieldsmanager/standarYieldnew" class="btn btn-primary btn-raised">New Standard Yield</a>
+			    		</div>
+				    	<table class="table table-striped" data-source="<%= standardyields_origin_yieldsmanager_index_url(format: 'datatable') %>" id="tbl_standarYields" style="width: 100%;">
+				          <thead>
+				            <tr>
+				              <th>IdStandarYield</th>
+							  <th>LineGroupId</th>
+				              <th>Physical State Num</th>
+				              <th>Physical State</th>
+				              <th>Group 2 Num</th>
+				              <th>Group 2</th>
+				              <th>Location Num</th>
+				              <th>Collection Center</th>
+				              <th>Element Id</th>
+				              <th>Element</th>
+				              <th>User For Pay</th>
+				              <th>Percent</th>
+				              <th>Valid Date</th>
+				            </tr>
+				          </thead>
+				          <tbody>
+				          </tbody>
+				        </table>
+				    </div>
+				    <div class="tab-pane fade " id="upload">
+
+				    	<div class="jumbotron">
+						    <h3>Upload Standard Yields</h3>
+						    <h5>Use this tool to upload standard yield. Before uploading this file please make sure you understant the folowing statements</h5>
+						    <ul class="list-group">
+						    	<li class="list-group-item">The file must be an excel (.xls or .xlsx)</li>
+						    	<li class="list-group-item">The file must use the <a>template</a></li>
+						    	<li class="list-group-item">Please remove other sheets not related</li>
+						    </ul>
+						    <div class="pull-right">
+					              <%= text_field_tag(:btn_upload_yields, nil, { :class => "btn btn-success btn-raised", :type => "file" }) %>
+				            </div>
+
+				            <h6><b>The yields in this file are going to be used as the standard from the moment is uploaded</b></h6>
+						</div>	
+				    </div>
+
+				    
+			    </div>
+    				
+    		</div>
+    	</div>
+	</div>
+</div>
+<div id="standardYields_contextmenu">
+  <ul class="dropdown-menu" role="menu">
+    <li class="divider" role="presentation"></li>
+    <li role="presentation"><a href="#" id="lnk_edit_group" role="menuitem">Edit</a></li>
+    <li role="presentation"><a href="#" id="lnk_void_group" role="menuitem">Void</a></li>
+  </ul>
+</div>

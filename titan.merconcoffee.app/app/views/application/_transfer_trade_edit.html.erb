@@ -1,0 +1,254 @@
+<%= hidden_field_tag(:obligation_num_e, (type == 'from' ? @transfer.build.trade.obligation_hdr[0].obligation_num : @transfer.draw.trade.obligation_hdr[0].obligation_num)) %>
+<%= hidden_field_tag(:term_section_cd_e, (type == 'from' ? @transfer.build.trade.obligation_hdr[0].term_section_cd : @transfer.draw.trade.obligation_hdr[0].term_section_cd)) %>
+<%= hidden_field_tag(:build_num_e, @transfer.build_num) %>
+<%= hidden_field_tag(:draw_num_e, @transfer.draw_num) %>
+<%= hidden_field_tag(:trade_price_e, (type == 'from' ? @transfer.build.trade.obligation_hdr[0].std_price : @transfer.draw.trade.obligation_hdr[0].std_price)) %>
+<%= hidden_field_tag(:trade_price_uom_cd_e, (type == 'from' ? @transfer.build.trade.obligation_hdr[0].std_price_uom_cd : @transfer.draw.trade.obligation_hdr[0].std_price_uom_cd)) %>
+<%= hidden_field_tag(:trade_price_curr_cd_e, (type == 'from' ? @transfer.build.trade.obligation_hdr[0].std_price_curr_cd : @transfer.draw.trade.obligation_hdr[0].std_price_curr_cd)) %>
+
+<% if type == 'from' %>
+  <%= hidden_field_tag(:from_convertion_factor) %>
+<% else %>
+  <%= hidden_field_tag(:to_convertion_factor) %>
+<% end %>
+
+<div role="tabpanel">
+  <ul class="nav nav-tabs" id="<%= type == 'from' ? 'transfer_trade_from_tab' : 'transfer_trade_to_tab' %>" role="tablist">
+    <li class="active" role="presentation"><a aria-controls="<%= type == 'from' ? 'pnl_transfer_from' : 'pnl_transfer_to' %>" data-toggle="tab" href="#<%= type == 'from' ? 'pnl_transfer_from' : 'pnl_transfer_to' %>" role="tab">Transfer</a></li>
+    <li role="presentation"><a aria-controls="<%= type == 'from' ? 'pnl_udf_from' : 'pnl_udf_to' %>" data-toggle="tab" href="#<%= type == 'from' ? 'pnl_udf_from' : 'pnl_udf_to' %>" role="tab">UDF</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane active" id="<%= type == 'from' ? 'pnl_transfer_from' : 'pnl_transfer_to' %>" role="tabpanel">
+      <div class="col-md-12" style="margin-top: 30px;">
+        <div class="form-group" id="from_to_trade_pnl">
+          <label class="col-sm-2 control-label">Trade Number</label>
+          <div class="col-sm-10">
+            <div class="input-group">
+              <% if type == 'from' %>
+                <%=
+                  text_field_tag(
+                    :from_trade_e,
+                    @transfer.build.trade_num,
+                    {
+                      :class => "form-control",
+                      :disabled => "disabled",
+                      :placeholder => "No. Trade"
+                    }
+                  )
+                %>
+                <span class="input-group-addon"><%= link_to("", { :controller => 'trademanager', :action => 'show', :id => @transfer.build.trade_num }, :class => 'icon-link') %></span>
+              <% else %>
+                <%=
+                  text_field_tag(
+                    :to_trade_e,
+                    @transfer.draw.trade_num,
+                    {
+                      :class => "form-control",
+                      :disabled => "disabled",
+                      :placeholder => "No. Trade"
+                    }
+                  )
+                %>
+                <span class="input-group-addon"><%= link_to("", { :controller => 'trademanager', :action => 'show', :id => @transfer.draw.trade_num }, :class => 'icon-link') %></span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Counterpart</label>
+          <div class="col-sm-10">
+            <% if type == 'from' %>
+              <%= text_field_tag(:from_counterpart_e, @transfer.build.trade.counterpart.company_cd, { :class => "form-control", :disabled => "disabled", :placeholder => "Counterpart" }) %>
+            <% else %>
+              <%= text_field_tag(:to_counterpart_e, @transfer.draw.trade.counterpart.company_cd, { :class => "form-control", :disabled => "disabled", :placeholder => "Counterpart" }) %>
+            <% end %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Open Qty</label>
+          <div class="col-sm-4">
+            <div class="input-group">
+              <% if type == 'from' %>
+                <%= text_field_tag(:from_open_qty_e, @transfer.build.trade.obligation_hdr[0].open_qty, { :class => "form-control", :disabled => "disabled", :placeholder => "Open Qty" }) %>
+                <span class="input-group-addon" id="from_open_qty_uom_cd_e"><%= @transfer.build.trade.trade_dtl.qty_uom_cd %></span>
+              <% else %>
+                <%= text_field_tag(:to_open_qty_, @transfer.draw.trade.obligation_hdr[0].open_qty, { :class => "form-control", :disabled => "disabled", :placeholder => "Open Qty" }) %>
+                <span class="input-group-addon" id="to_open_qty_uom_cd_e"><%= @transfer.draw.trade.trade_dtl.qty_uom_cd %></span>
+              <% end %>
+            </div>
+          </div>
+          <label class="col-sm-2 control-label">Contract Qty</label>
+          <div class="col-sm-4">
+            <div class="input-group">
+              <% if type == 'from' %>
+                <%= text_field_tag(:from_contract_qty_e, @transfer.build.trade.trade_dtl.trade_qty, { :class => "form-control", :disabled => "disabled", :placeholder => "Contract Qty" }) %>
+                <span class="input-group-addon" id="from_contract_qty_uom_cd_e"><%= @transfer.build.trade.trade_dtl.qty_uom_cd %></span>
+              <% else %>
+                <%= text_field_tag(:to_contract_qty_e, @transfer.draw.trade.trade_dtl.trade_qty, { :class => "form-control", :disabled => "disabled", :placeholder => "Contract Qty" }) %>
+                <span class="input-group-addon" id="to_contract_qty_uom_cd_e"><%= @transfer.draw.trade.trade_dtl.qty_uom_cd %></span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Commodity</label>
+          <div class="col-sm-10">
+            <% if type == 'from' %>
+              <%= text_field_tag(:t_from_commodity_e, @transfer.build.trade.strategy.strategy_name, { :class => "form-control", :disabled => "disabled", :placeholder => "Commodity" }) %>
+            <% else %>
+              <%= text_field_tag(:t_to_commodity_e, @transfer.draw.trade.strategy.strategy_name, { :class => "form-control", :disabled => "disabled", :placeholder => "Commodity" }) %>
+            <% end %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Scheduled Qty</label>
+          <div class="col-sm-4">
+            <div class="input-group">
+              <% if type == 'from' %>
+                <%=
+                  text_field_tag(
+                    :from_scheduled_qty_e,
+                    @transfer.from_qty,
+                    {
+                      :class => "form-control",
+                      'data-parsley-error-message' => '<strong>Scheduled Qty</strong> is required',
+                      'data-parsley-errors-container' => '#error_container',
+                      'data-parsley-group' => 'grp_transfer',
+                      'data-parsley-trigger' => 'keyup',
+                      'data-parsley-type' => 'number',
+                      'data-parsley-required' => 'true',
+                      'data-parsley-validation-threshold' => '1',
+                      :placeholder => "Scheduled Qty"
+                    }
+                  )
+                %>
+                <span class="input-group-addon" id="from_scheduled_qty_uom_cd_e"><%= @transfer.from_uom_cd %></span>
+              <% else %>
+                <%=
+                  text_field_tag(
+                    :to_scheduled_qty_e,
+                    @transfer.to_qty,
+                    {
+                      :class => "form-control",
+                      'data-parsley-error-message' => '<strong>Scheduled Qty</strong> is required',
+                      'data-parsley-errors-container' => '#error_container',
+                      'data-parsley-group' => 'grp_transfer',
+                      'data-parsley-trigger' => 'keyup',
+                      'data-parsley-type' => 'number',
+                      'data-parsley-required' => 'true',
+                      'data-parsley-validation-threshold' => '1',
+                      :placeholder => "Scheduled Qty"
+                    }
+                  )
+                %>
+                <span class="input-group-addon" id="to_scheduled_qty_uom_cd_e"><%= @transfer.to_uom_cd %></span>
+              <% end %>
+            </div>
+          </div>
+          <label class="col-sm-2 control-label">Nominal Qty</label>
+          <div class="col-sm-4">
+            <div class="input-group">
+              <% if type == 'from' %>
+                <%= text_field_tag(:from_nominal_qty_e, @transfer.from_qty, { :class => "form-control", :disabled => "disabled", :placeholder => "Nominal Qty" }) %>
+                <span class="input-group-addon" id="from_nominal_qty_uom_cd_e"><%= @transfer.from_uom_cd %></span>
+              <% else %>
+                <%= text_field_tag(:to_nominal_qty_e, @transfer.to_qty, { :class => "form-control", :disabled => "disabled", :placeholder => "Nominal Qty" }) %>
+                <span class="input-group-addon" id="to_nominal_qty_uom_cd_e"><%= @transfer.to_uom_cd %></span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-pane" id="<%= type == 'from' ? 'pnl_udf_from' : 'pnl_udf_to' %>" role="tabpanel">
+      <div class="col-md-12" style="margin-top: 30px;">
+        <div class="pull-right">
+          <%= button_tag('Add UDF', { :class => "btn btn-primary btn-sm", :type => "button"}) %>
+        </div>
+        <div class="clearfix"></div>
+        <div class="table-responsive">
+          <table class="table table-condensed">
+            <thead>
+              <tr>
+                <th>Field</th>
+                <th>Value</th>
+                <th style="width: 25px;"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if type == 'from' %>
+                <% if @transfer.from_udf.any? %>
+                  <% @transfer.from_udf.each do |t| %>
+                  <tr class="warning">
+                    <td>
+                      <%=
+                        select_tag(
+                          nil,
+                          options_for_select(
+                            RefUdf.where("udf_entity_type_ind = ?", 2).where("status_ind = ?", 1).order(udf_desc: :asc).map { |c| [ c.udf_desc, c.udf_cd, { 'data-type-ind' => c.udf_data_type_ind, 'data-ref-value-ind' => c.udf_ref_value_ind } ] },
+                            "#{t.udf_cd}"
+                          ),
+                          {
+                            :class => "col-1 form-control"
+                          }
+                        )
+                      %>
+                    </td>
+                    <td>
+                      <%=
+                        text_field_tag(
+                          nil,
+                          "#{t.udf_value}",
+                          {
+                            :class => "col-2 form-control"
+                          }
+                        )
+                      %>
+                    </td>
+                    <td><i class="glyphicon glyphicon-trash" style="cursor: pointer; margin-top: 8px;"></i></td>
+                  </tr>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <% if @transfer.to_udf.any? %>
+                  <% @transfer.to_udf.each do |t| %>
+                  <tr class="warning">
+                    <td>
+                      <%=
+                        select_tag(
+                          nil,
+                          options_for_select(
+                            RefUdf.where("udf_entity_type_ind = ?", 2).where("status_ind = ?", 1).order(udf_desc: :asc).map { |c| [ c.udf_desc, c.udf_cd, { 'data-type-ind' => c.udf_data_type_ind, 'data-ref-value-ind' => c.udf_ref_value_ind } ] },
+                            "#{t.udf_cd}"
+                          ),
+                          {
+                            :class => "col-1 form-control"
+                          }
+                        )
+                      %>
+                    </td>
+                    <td>
+                      <%=
+                        text_field_tag(
+                          nil,
+                          "#{t.udf_value}",
+                          {
+                            :class => "col-2 form-control"
+                          }
+                        )
+                      %>
+                    </td>
+                    <td><i class="glyphicon glyphicon-trash" style="cursor: pointer; margin-top: 8px;"></i></td>
+                  </tr>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,1106 @@
+{
+  "name": "OpsCargo",
+  "base": "PersistedModel",
+  "idInjection": false,
+  "mssql": {
+    "schema": "dbo",
+    "table": "OPS_CARGO"
+  },
+  "properties": {
+    "cargoName": {
+      "type": "String",
+      "required": false,
+      "length": 50,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "cargo_name",
+        "dataType": "varchar",
+        "dataLength": 50,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "NO"
+      }
+    },
+    "cargo_type_ind": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 3,
+      "scale": 0,
+      "mssql": {
+        "columnName": "cargo_type_ind",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 3,
+        "dataScale": 0,
+        "nullable": "NO"
+      }
+    },
+    "strategy_num": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 9,
+      "scale": 0,
+      "mssql": {
+        "columnName": "strategy_num",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 9,
+        "dataScale": 0,
+        "nullable": "NO"
+      }
+    },
+    "valuation_type_ind": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 3,
+      "scale": 0,
+      "mssql": {
+        "columnName": "valuation_type_ind",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 3,
+        "dataScale": 0,
+        "nullable": "NO"
+      }
+    },
+    "qty_uom_cd": {
+      "type": "String",
+      "required": false,
+      "length": 5,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "qty_uom_cd",
+        "dataType": "varchar",
+        "dataLength": 5,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "NO"
+      }
+    },
+    "price_curr_cd": {
+      "type": "String",
+      "required": false,
+      "length": 3,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "price_curr_cd",
+        "dataType": "varchar",
+        "dataLength": 3,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "NO"
+      }
+    },
+    "price_uom_cd": {
+      "type": "String",
+      "required": false,
+      "length": 5,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "price_uom_cd",
+        "dataType": "varchar",
+        "dataLength": 5,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "NO"
+      }
+    },
+    "priceFxQuoteDefNum": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 9,
+      "scale": 0,
+      "mssql": {
+        "columnName": "price_fx_quote_def_num",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 9,
+        "dataScale": 0,
+        "nullable": "YES"
+      }
+    },
+    "mtmFwdCurveNum": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 9,
+      "scale": 0,
+      "mssql": {
+        "columnName": "mtm_fwd_curve_num",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 9,
+        "dataScale": 0,
+        "nullable": "YES"
+      }
+    },
+    "mtmQuoteDefNum": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 9,
+      "scale": 0,
+      "mssql": {
+        "columnName": "mtm_quote_def_num",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 9,
+        "dataScale": 0,
+        "nullable": "YES"
+      }
+    },
+    "mtmPremium": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 21,
+      "scale": 6,
+      "mssql": {
+        "columnName": "mtm_premium",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 21,
+        "dataScale": 6,
+        "nullable": "YES"
+      }
+    },
+    "mtmPremiumCurrCd": {
+      "type": "String",
+      "required": false,
+      "length": 3,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "mtm_premium_curr_cd",
+        "dataType": "varchar",
+        "dataLength": 3,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "YES"
+      }
+    },
+    "mtmPremiumUomCd": {
+      "type": "String",
+      "required": false,
+      "length": 5,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "mtm_premium_uom_cd",
+        "dataType": "varchar",
+        "dataLength": 5,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "YES"
+      }
+    },
+    "premFxQuoteDefNum": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 9,
+      "scale": 0,
+      "mssql": {
+        "columnName": "prem_fx_quote_def_num",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 9,
+        "dataScale": 0,
+        "nullable": "YES"
+      }
+    },
+    "openingVol": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 21,
+      "scale": 6,
+      "mssql": {
+        "columnName": "opening_vol",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 21,
+        "dataScale": 6,
+        "nullable": "YES"
+      }
+    },
+    "openingMass": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 21,
+      "scale": 6,
+      "mssql": {
+        "columnName": "opening_mass",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 21,
+        "dataScale": 6,
+        "nullable": "YES"
+      }
+    },
+    "currentVol": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 21,
+      "scale": 6,
+      "mssql": {
+        "columnName": "current_vol",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 21,
+        "dataScale": 6,
+        "nullable": "YES"
+      }
+    },
+    "currentMass": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 21,
+      "scale": 6,
+      "mssql": {
+        "columnName": "current_mass",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 21,
+        "dataScale": 6,
+        "nullable": "YES"
+      }
+    },
+    "scheduledVol": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 21,
+      "scale": 6,
+      "mssql": {
+        "columnName": "scheduled_vol",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 21,
+        "dataScale": 6,
+        "nullable": "YES"
+      }
+    },
+    "scheduledMass": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 21,
+      "scale": 6,
+      "mssql": {
+        "columnName": "scheduled_mass",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 21,
+        "dataScale": 6,
+        "nullable": "YES"
+      }
+    },
+    "openingQty": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 21,
+      "scale": 6,
+      "mssql": {
+        "columnName": "opening_qty",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 21,
+        "dataScale": 6,
+        "nullable": "YES"
+      }
+    },
+    "openingPrice": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 21,
+      "scale": 6,
+      "mssql": {
+        "columnName": "opening_price",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 21,
+        "dataScale": 6,
+        "nullable": "YES"
+      }
+    },
+    "currentQtyAvgPrice": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 21,
+      "scale": 6,
+      "mssql": {
+        "columnName": "current_qty_avg_price",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 21,
+        "dataScale": 6,
+        "nullable": "YES"
+      }
+    },
+    "currentQty": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 21,
+      "scale": 6,
+      "mssql": {
+        "columnName": "current_qty",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 21,
+        "dataScale": 6,
+        "nullable": "YES"
+      }
+    },
+    "capacity": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 21,
+      "scale": 6,
+      "mssql": {
+        "columnName": "capacity",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 21,
+        "dataScale": 6,
+        "nullable": "YES"
+      }
+    },
+    "minimumQty": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 21,
+      "scale": 6,
+      "mssql": {
+        "columnName": "minimum_qty",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 21,
+        "dataScale": 6,
+        "nullable": "YES"
+      }
+    },
+    "packagingUomCd": {
+      "type": "String",
+      "required": false,
+      "length": 5,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "packaging_uom_cd",
+        "dataType": "varchar",
+        "dataLength": 5,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "YES"
+      }
+    },
+    "resetDt": {
+      "type": "Date",
+      "required": false,
+      "length": null,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "reset_dt",
+        "dataType": "datetime",
+        "dataLength": null,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "YES"
+      }
+    },
+    "finalizedAmt": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 21,
+      "scale": 6,
+      "mssql": {
+        "columnName": "finalized_amt",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 21,
+        "dataScale": 6,
+        "nullable": "YES"
+      }
+    },
+    "theirRef": {
+      "type": "String",
+      "required": false,
+      "length": 30,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "their_ref",
+        "dataType": "varchar",
+        "dataLength": 30,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "YES"
+      }
+    },
+    "externalRef": {
+      "type": "String",
+      "required": false,
+      "length": 10,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "external_ref",
+        "dataType": "varchar",
+        "dataLength": 10,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "YES"
+      }
+    },
+    "createDt": {
+      "type": "Date",
+      "required": false,
+      "length": null,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "create_dt",
+        "dataType": "datetime",
+        "dataLength": null,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "YES"
+      }
+    },
+    "lastFixedPriceDt": {
+      "type": "Date",
+      "required": false,
+      "length": null,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "last_fixed_price_dt",
+        "dataType": "datetime",
+        "dataLength": null,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "YES"
+      }
+    },
+    "createPersonNum": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 9,
+      "scale": 0,
+      "mssql": {
+        "columnName": "create_person_num",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 9,
+        "dataScale": 0,
+        "nullable": "YES"
+      }
+    },
+    "noteNum": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 9,
+      "scale": 0,
+      "mssql": {
+        "columnName": "note_num",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 9,
+        "dataScale": 0,
+        "nullable": "YES"
+      }
+    },
+    "dontExecTrigger": {
+      "type": "String",
+      "required": false,
+      "length": 1,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "dont_exec_trigger",
+        "dataType": "varchar",
+        "dataLength": 1,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "YES"
+      }
+    },
+    "commingledInd": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 3,
+      "scale": 0,
+      "mssql": {
+        "columnName": "commingled_ind",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 3,
+        "dataScale": 0,
+        "nullable": "YES"
+      }
+    },
+    "storageMtmInd": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 3,
+      "scale": 0,
+      "mssql": {
+        "columnName": "storage_mtm_ind",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 3,
+        "dataScale": 0,
+        "nullable": "NO"
+      }
+    },
+    "lastModifyDt": {
+      "type": "Date",
+      "required": false,
+      "length": null,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "last_modify_dt",
+        "dataType": "datetime",
+        "dataLength": null,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "NO"
+      }
+    },
+    "modifyPersonNum": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 9,
+      "scale": 0,
+      "mssql": {
+        "columnName": "modify_person_num",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 9,
+        "dataScale": 0,
+        "nullable": "NO"
+      }
+    },
+    "lockNum": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 9,
+      "scale": 0,
+      "mssql": {
+        "columnName": "lock_num",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 9,
+        "dataScale": 0,
+        "nullable": "NO"
+      }
+    },
+    "ventureCd": {
+      "type": "String",
+      "required": false,
+      "length": 20,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "venture_cd",
+        "dataType": "varchar",
+        "dataLength": 20,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "YES"
+      }
+    },
+    "ourRef": {
+      "type": "String",
+      "required": false,
+      "length": 30,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "our_ref",
+        "dataType": "varchar",
+        "dataLength": 30,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "YES"
+      }
+    },
+    "cargoNameNl": {
+      "type": "String",
+      "required": false,
+      "length": 50,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "cargo_name_nl",
+        "dataType": "varchar",
+        "dataLength": 50,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "YES"
+      }
+    },
+    "languageCd": {
+      "type": "String",
+      "required": false,
+      "length": 3,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "language_cd",
+        "dataType": "varchar",
+        "dataLength": 3,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "YES"
+      }
+    },
+    "customsDutyStatusInd": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 3,
+      "scale": 0,
+      "mssql": {
+        "columnName": "customs_duty_status_ind",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 3,
+        "dataScale": 0,
+        "nullable": "NO"
+      }
+    },
+    "cargoLockedInd": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 3,
+      "scale": 0,
+      "mssql": {
+        "columnName": "cargo_locked_ind",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 3,
+        "dataScale": 0,
+        "nullable": "YES"
+      }
+    },
+    "sourceTypeInd": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 3,
+      "scale": 0,
+      "mssql": {
+        "columnName": "source_type_ind",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 3,
+        "dataScale": 0,
+        "nullable": "NO"
+      }
+    },
+    "internalCompanyNum": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 9,
+      "scale": 0,
+      "mssql": {
+        "columnName": "internal_company_num",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 9,
+        "dataScale": 0,
+        "nullable": "YES"
+      }
+    },
+    "buildDrawNum": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 9,
+      "scale": 0,
+      "mssql": {
+        "columnName": "build_draw_num",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 9,
+        "dataScale": 0,
+        "nullable": "YES"
+      }
+    },
+    "storageTypeCd": {
+      "type": "String",
+      "required": false,
+      "length": 20,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "storage_type_cd",
+        "dataType": "varchar",
+        "dataLength": 20,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "YES"
+      }
+    },
+    "inventoryMotNum": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 9,
+      "scale": 0,
+      "mssql": {
+        "columnName": "inventory_mot_num",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 9,
+        "dataScale": 0,
+        "nullable": "YES"
+      }
+    },
+    "inventoryMotTypeInd": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 3,
+      "scale": 0,
+      "mssql": {
+        "columnName": "inventory_mot_type_ind",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 3,
+        "dataScale": 0,
+        "nullable": "YES"
+      }
+    },
+    "inventoryCarrierCompanyNum": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 9,
+      "scale": 0,
+      "mssql": {
+        "columnName": "inventory_carrier_company_num",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 9,
+        "dataScale": 0,
+        "nullable": "YES"
+      }
+    },
+    "inventoryDelivPeriodCd": {
+      "type": "String",
+      "required": false,
+      "length": 20,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "inventory_deliv_period_cd",
+        "dataType": "varchar",
+        "dataLength": 20,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "YES"
+      }
+    },
+    "timePeriodCd": {
+      "type": "String",
+      "required": false,
+      "length": 20,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "time_period_cd",
+        "dataType": "varchar",
+        "dataLength": 20,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "YES"
+      }
+    },
+    "physicalCoverageInd": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 3,
+      "scale": 0,
+      "mssql": {
+        "columnName": "PHYSICAL_COVERAGE_IND",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 3,
+        "dataScale": 0,
+        "nullable": "NO"
+      }
+    },
+    "transferAtInd": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 3,
+      "scale": 0,
+      "mssql": {
+        "columnName": "transfer_at_ind",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 3,
+        "dataScale": 0,
+        "nullable": "YES"
+      }
+    },
+    "status_ind": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 3,
+      "scale": 0,
+      "mssql": {
+        "columnName": "status_ind",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 3,
+        "dataScale": 0,
+        "nullable": "NO"
+      }
+    },
+    "unownedInventoryInd": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 3,
+      "scale": 0,
+      "mssql": {
+        "columnName": "unowned_inventory_ind",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 3,
+        "dataScale": 0,
+        "nullable": "NO"
+      }
+    },
+    "invOwnerCompanyNum": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 9,
+      "scale": 0,
+      "mssql": {
+        "columnName": "inv_owner_company_num",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 9,
+        "dataScale": 0,
+        "nullable": "YES"
+      }
+    },
+    "storagePoolInd": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 3,
+      "scale": 0,
+      "mssql": {
+        "columnName": "storage_pool_ind",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 3,
+        "dataScale": 0,
+        "nullable": "YES"
+      }
+    },
+    "storagePoolNum": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 9,
+      "scale": 0,
+      "mssql": {
+        "columnName": "storage_pool_num",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 9,
+        "dataScale": 0,
+        "nullable": "YES"
+      }
+    },
+    "cmdty_cd": {
+      "type": "String",
+      "id": false,
+      "required": false,
+      "length": 50,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "cmdty_cd",
+        "dataType": "varchar",
+        "dataLength": 50,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "YES"
+      }
+    },
+    "cargo_num": {
+      "type": "Number",
+      "id": true,
+      "required": false,
+      "length": null,
+      "precision": 9,
+      "scale": 0,
+      "mssql": {
+        "columnName": "cargo_num",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 9,
+        "dataScale": 0,
+        "nullable": "NO"
+      }
+    },
+    "equipment_num": {
+      "type": "Number",
+      "id": true,
+      "required": false,
+      "length": null,
+      "precision": 9,
+      "scale": 0,
+      "mssql": {
+        "columnName": "equipment_num",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 9,
+        "dataScale": 0,
+        "nullable": "NO"
+      }
+    },
+    "locationNum": {
+      "type": "Number",
+      "id": false,
+      "required": false,
+      "length": null,
+      "precision": 9,
+      "scale": 0,
+      "mssql": {
+        "columnName": "location_num",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 9,
+        "dataScale": 0,
+        "nullable": "YES"
+      }
+    },
+    "mtmPeriodCd": {
+      "type": "String",
+      "id": false,
+      "required": false,
+      "length": 20,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "mtm_period_cd",
+        "dataType": "varchar",
+        "dataLength": 20,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "YES"
+      }
+    }
+  },
+  "validations": [],
+  "relations": {
+    "cargo_type": {
+      "type": "belongsTo",
+      "model": "GenIndicatorValue",
+      "foreignKey": "cargo_type_ind",
+      "scope": {
+        "where": {
+          "ind_name": "cargo_type_ind"
+        }
+      }
+    },
+    "strategy": {
+      "type": "belongsTo",
+      "model": "OrgStrategy",
+      "foreignKey": "strategy_num"
+    },
+    "valuation_type": {
+      "type": "belongsTo",
+      "model": "GenIndicatorValue",
+      "foreignKey": "valuation_type_ind",
+      "scope": {
+        "where": {
+          "ind_name": "valuation_type_ind"
+        }
+      }
+    },
+    "cmdty": {
+      "type": "belongsTo",
+      "model": "RefCommodity",
+      "foreignKey": "cmdty_cd",
+      "scope": {
+        "where": {
+          "status_ind": 1
+        }
+      }
+    },
+    "qty_uom": {
+      "type": "belongsTo",
+      "model": "RefUom",
+      "foreignKey": "qty_uom_cd",
+      "scope": {
+        "where": {
+          "status_ind": 1
+        }
+      }
+    },
+    "price_curr": {
+      "type": "belongsTo",
+      "model": "RefCurrency",
+      "foreignKey": "price_curr_cd",
+      "scope": {
+        "where": {
+          "status_ind": 1
+        }
+      }
+    },
+    "price_uom": {
+      "type": "belongsTo",
+      "model": "RefUom",
+      "foreignKey": "price_uom_cd",
+      "scope": {
+        "where": {
+          "status_ind": 1
+        }
+      }
+    }
+  },
+  "acls": [],
+  "methods": []
+}

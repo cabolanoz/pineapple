@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<request xmlns:xsi="http://www.w3.org/1999/XMLSchema-instance" xsi:noNamespaceSchemaLocation="request.xsd">
+  <mhead name="TPTReqGetBuildDrawTags">
+    <sender>{06C41606-6DE4-4931-B923-7CDF3A2492C2}</sender>
+    <sent_dt>@@=val1=@@</sent_dt>
+  </mhead>
+  <mbody>
+    <data>
+      <GetBuildDrawTags>
+        <cargo_num><![CDATA[@@=val2=@@]]></cargo_num>
+      </GetBuildDrawTags>
+    </data>
+  </mbody>
+</request>

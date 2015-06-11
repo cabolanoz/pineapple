@@ -1,0 +1,152 @@
+{
+  "name": "RefCurrency",
+  "base": "PersistedModel",
+  "idInjection": false,
+  "mssql": {
+    "schema": "dbo",
+    "table": "REF_CURRENCY"
+  },
+  "properties": {
+    "currName": {
+      "type": "String",
+      "required": false,
+      "length": 50,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "curr_name",
+        "dataType": "varchar",
+        "dataLength": 50,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "YES"
+      }
+    },
+    "currencySymbol": {
+      "type": "String",
+      "required": false,
+      "length": 5,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "currency_symbol",
+        "dataType": "varchar",
+        "dataLength": 5,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "YES"
+      }
+    },
+    "noteNum": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 9,
+      "scale": 0,
+      "mssql": {
+        "columnName": "note_num",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 9,
+        "dataScale": 0,
+        "nullable": "YES"
+      }
+    },
+    "status_ind": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 3,
+      "scale": 0,
+      "mssql": {
+        "columnName": "status_ind",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 3,
+        "dataScale": 0,
+        "nullable": "NO"
+      }
+    },
+    "lastModifyDt": {
+      "type": "Date",
+      "required": false,
+      "length": null,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "last_modify_dt",
+        "dataType": "datetime",
+        "dataLength": null,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "NO"
+      }
+    },
+    "lockNum": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 9,
+      "scale": 0,
+      "mssql": {
+        "columnName": "lock_num",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 9,
+        "dataScale": 0,
+        "nullable": "NO"
+      }
+    },
+    "interfaceValueCode": {
+      "type": "String",
+      "required": false,
+      "length": 50,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "interface_value_code",
+        "dataType": "varchar",
+        "dataLength": 50,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "YES"
+      }
+    },
+    "curr_cd": {
+      "type": "String",
+      "id": true,
+      "required": false,
+      "length": 3,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "curr_cd",
+        "dataType": "varchar",
+        "dataLength": 3,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "NO"
+      }
+    },
+    "modifyPersonNum": {
+      "type": "Number",
+      "id": false,
+      "required": false,
+      "length": null,
+      "precision": 9,
+      "scale": 0,
+      "mssql": {
+        "columnName": "modify_person_num",
+        "dataType": "numeric",
+        "dataLength": null,
+        "dataPrecision": 9,
+        "dataScale": 0,
+        "nullable": "NO"
+      }
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

@@ -1,0 +1,10 @@
+*.keep
+log/
+tmp/
+.idea/
+.editorconfig
+.jshintignore
+.jshintrc
+.npmignore
+node_modules/
+bower_components/

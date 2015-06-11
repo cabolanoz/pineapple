@@ -1,0 +1,32 @@
+{
+  "name": "Titan",
+  "version": "0.0.1",
+  "authors": [
+    "cbolanos <cbolanos@merconcorp.com>",
+    "esalazar <esalazar@merconcorp.com>"
+  ],
+  "license": "MIT",
+  "homepage": "http://localhost:3000/",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/assets/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.2",
+    "bootstrap-contextmenu": "~0.3.2",
+    "devbridge-autocomplete": "~1.2.16",
+    "parsleyjs": "~2.0.7",
+    "bootstrap-fileinput": "~4.1.7",
+    "jquery.easy-pie-chart": "~2.1.6",
+    "flippy": "*",
+    "highcharts": "~4.1.3",
+    "bootstrap-sass": "~3.3.4",
+    "bootstrap-material-design": "~0.3.0",
+    "datatables-tabletools": "~2.2.4"
+  }
+}

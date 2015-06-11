@@ -1,0 +1,33 @@
+/*
+  Place all the styles related to the matching controller here.
+  They will automatically be included in application.css.
+*/
+
+#formSeachStandard{
+	width: 100%;
+}
+#searchStandard{
+  width: 100%;
+  border: none !important;
+  /* background-color: gray; */
+  font-size: 1.5em;
+}
+
+/*input.form-control,input.form-control:hover,input.form-control:focus
+,select.form-control,select.form-control:hover,select.form-control:focus
+,div.form-control,div.form-control:hover,div.form-control:focus{
+*/
+input.remove-border,input.remove-border:hover,input.remove-border:focus
+,select.remove-border,select.remove-border:hover,select.remove-border:focus
+,div.remove-border,div.remove-border:hover,div.remove-border:focus{
+	border:none !important;
+}
+
+/*Pruchasing yields css*/
+/* MEJOR UTILIZA LA CLASE DE BOOTSTRAP: text-center (http://getbootstrap.com/css/#type-alignment)  */
+.center{
+	text-align: center;
+}
+#btnSavePY{
+	width: 	100%;
+}

@@ -1,0 +1,104 @@
+{
+  "_meta": {
+    "sources": [
+      "../common/models",
+      "./models"
+    ]
+  },
+  "User": {
+    "dataSource": "mcgens-dev",
+    "public": true
+  },
+  "AccessToken": {
+    "dataSource": "db",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "db",
+    "public": false
+  },
+  "Application": {
+    "dataSource": "mcgens-dev",
+    "public": true
+  },
+  "Department": {
+    "dataSource": "mcgens-dev",
+    "public": true
+  },
+  "GenIndicatorValue": {
+    "dataSource": "ciclon-pro-dev",
+    "public": true
+  },
+  "Language": {
+    "dataSource": "mcgens-dev",
+    "public": true
+  },
+  "OpsCargo": {
+    "dataSource": "ciclon-pro-dev",
+    "public": true
+  },
+  "OpsItinerary": {
+    "dataSource": "ciclon-pro-dev",
+    "public": true
+  },
+  "OpsMovement": {
+    "dataSource": "ciclon-pro-dev",
+    "public": true
+  },
+  "OpsObligationHdr": {
+    "dataSource": "ciclon-pro-dev",
+    "public": true
+  },
+  "OrgStrategy": {
+    "dataSource": "ciclon-pro-dev",
+    "public": true
+  },
+  "RefCommodity": {
+    "dataSource": "ciclon-pro-dev",
+    "public": true
+  },
+  "RefCompany": {
+    "dataSource": "ciclon-pro-dev",
+    "public": true
+  },
+  "RefCurrency": {
+    "dataSource": "ciclon-pro-dev",
+    "public": true
+  },
+  "RefLocation": {
+    "dataSource": "ciclon-pro-dev",
+    "public": true
+  },
+  "RefMotId": {
+    "dataSource": "ciclon-pro-dev",
+    "public": true
+  },
+  "RefPerson": {
+    "dataSource": "ciclon-pro-dev",
+    "public": true
+  },
+  "RefUom": {
+    "dataSource": "ciclon-pro-dev",
+    "public": true
+  },
+  "Role": {
+    "dataSource": "mcgens-dev",
+    "public": true
+  },
+  "TransactionLog": {
+    "dataSource": "mcgens-dev",
+    "public": true
+  },
+  "TrdHeader": {
+    "dataSource": "ciclon-pro-dev",
+    "public": true
+  },
+  "UserApplication": {
+    "dataSource": "mcgens-dev",
+    "public": true
+  },
+  "UserApplicationRole": {
+    "dataSource": "mcgens-dev",
+    "public": true
+  }
+}

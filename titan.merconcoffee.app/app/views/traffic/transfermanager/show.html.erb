@@ -1,0 +1,186 @@
+<div class="dashboard-wrapper">
+  <div class="main-container">
+    <div class="row page-title">
+      <h2><%= t('transfer_manager') %>
+        <small>
+          <li><a href="/"><%= t('home') %></a></li>
+          <li>/</li>
+          <li><a><%= t('traffic') %></a></li>
+          <li>/</li>
+          <li><a data-no-turbolink='true' href="/traffic/transfermanager"><%= t('transfer_manager') %></a></li>
+          <li>/</li>
+          <li><%= @transfer.transfer_num %></li>
+        </small>
+      </h2>
+      <ul class="stats hidden-xs">
+        <li>
+          <div class="details" style="height: 30px;">
+            <!-- Start - Loading animation -->
+            <div class="hidden loading-spinner" style="margin-top: 0;">
+              <div class="rect1"></div>
+              <div class="rect2"></div>
+              <div class="rect3"></div>
+              <div class="rect4"></div>
+              <div class="rect5"></div>
+            </div>
+            <!-- End - Loading animation -->
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="clearfix"></div>
+    <%= hidden_field_tag(:transfer_num, @transfer.transfer_num) %>
+    <div class="row">
+      <div class="col-md-12">
+        <a class="btn btn-success btn-sm" data-no-turbolink='true' href='/traffic/transfermanager/new' role='button'>New Transfer</a>
+        <% if @transfer.delivery_active_status.ind_value_name != 'Void' %>
+        <div class="pnl_left_actions hidden" style="display: inline-block;">
+          <a class="btn btn-warning btn-sm" data-no-turbolink='true' href="/traffic/transfermanager/<%= @transfer.transfer_num %>/edit" role="button">Edit</a>
+          <a class="btn btn-danger btn-sm" href="" id="lnk_void_s" role="button">Void</a>
+          <a class="btn btn-primary btn-sm" data-no-turbolink='true' href="/traffic/transfermanager/<%= @transfer.transfer_num %>/allocation" role="button">Allocate Tags</a>
+        </div>
+        <div class="pnl_right_actions hidden" style="display: inline-block;">
+          <a class="btn btn-primary btn-sm" href="" id="lnk_break_allocation_s" role="button">Break Allocation</a>
+        </div>
+        <% end %>
+        <a class="btn btn-info btn-sm hidden" role='button'>Copy Transfer</a>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <br />
+    <br />
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-horizontal">
+          <h3 class="heading-a"><span aria-hidden="true" class="fs1" data-icon="&#xe065;"></span> Transfer</h3>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+      <div class="table-responsive">
+        <table class="table table-condensed">
+          <thead>
+            <tr>
+              <th>From</th>
+              <th>To</th>
+              <th>Location</th>
+              <th>Operator</th>
+              <th>Effective Dt.</th>
+              <th>Comm. Dt.</th>
+              <th>Comp. Dt.</th>
+              <th>Application Dt.</th>
+              <th>B/L Number</th>
+              <th>B/L Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="warning">
+              <td><%= @transfer.from_type.ind_value_name %></td>
+              <td><%= @transfer.to_type.ind_value_name %></td>
+              <td><%= @transfer.location.location_cd %></td>
+              <td><%= @transfer.operator.first_name + ' ' + @transfer.operator.last_name if @transfer.operator %></td>
+              <td><%= @transfer.effective_dt.strftime("%m/%d/%Y") %></td>
+              <td><%= @transfer.transfer_comm_dt.strftime("%m/%d/%Y") %></td>
+              <td><%= @transfer.transfer_comp_dt.strftime("%m/%d/%Y") %></td>
+              <td><%= @transfer.application_dt.strftime("%m/%d/%Y") %></td>
+              <td><%= @transfer.bl_num_cd %></td>
+              <td><%= @transfer.bl_dt.strftime("%m/%d/%Y") %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-horizontal">
+          <h3 class="heading-a"><span aria-hidden="true" class="fs1" data-icon="&#xe05e;"></span> Transfer From</h3>
+          <% if @transfer.from_type_ind == 0 %>
+            <%= render partial: "transfer_trade_show", object: @transfer, locals: { type: "from" } %>
+          <% elsif @transfer.from_type_ind == 1 %>
+            <%= render partial: "transfer_storage_show", object: @transfer, locals: { type: "from" } %>
+          <% elsif @transfer.from_type_ind == 2 %>
+            <%= render partial: "transfer_vessel_show", object: @transfer, locals: { type: "from" } %>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-horizontal">
+          <h3 class="heading-a"><span aria-hidden="true" class="fs1" data-icon="&#xe05f;"></span> Transfer To</h3>
+          <% if @transfer.to_type_ind == 0 %>
+            <%= render partial: "transfer_trade_show", object: @transfer, locals: { type: "to" } %>
+          <% elsif @transfer.to_type_ind == 1 %>
+            <%= render partial: "transfer_storage_show", object: @transfer, locals: { type: "to" } %>
+          <% elsif @transfer.to_type_ind == 2 %>
+            <%= render partial: "transfer_vessel_show", object: @transfer, locals: { type: "to" } %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <br />
+    <br />
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-horizontal">
+          <h3 class="heading-a"><span aria-hidden="true" class="fs1" data-icon="&#xe031;"></span> Tags</h3>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+      <div class="table-responsive">
+        <table class="table table-condensed">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Chop Id</th>
+              <th>Value 1 <small>(Container)</small></th>
+              <th>Value 2 <small>(ICO)</small></th>
+              <th>Value 3 <small>(Warehouse)</small></th>
+              <th>Value 4 <small>(EWR)</small></th>
+              <th>Value 5 <small>(Cert #)</small></th>
+              <th>Value 6 <small>(Cert Status)</small></th>
+              <th>Value 7 <small>(Building)</small></th>
+              <th>Value 8 <small>(Comments)</small></th>
+              <th>Tag Qty</th>
+              <th>Tag Qty UOM</th>
+              <th>Tag Allocated Qty</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @tags.any? %>
+              <% @tags.each do |t| %>
+                <tr class="info">
+                  <td><%= t.tag_type_cd %></td>
+                  <td><%= t.chop_id %></td>
+                  <td><%= t.tag_value1 %></td>
+                  <td><%= t.tag_value2 %></td>
+                  <td><%= t.tag_value3 %></td>
+                  <td><%= t.tag_value4 %></td>
+                  <td><%= t.tag_value5 %></td>
+                  <td><%= t.tag_value6 %></td>
+                  <td><%= t.tag_value7 %></td>
+                  <td><%= t.tag_value8 %></td>
+                  <td><%= t.tag_qty %></td>
+                  <td><%= t.tag_qty_uom_cd %></td>
+                  <% if t.tag_alloc_qty != nil and t.tag_alloc_qty > 0 %>
+                    <td><%= t.tag_alloc_qty %></td>
+                  <% else %>
+                    <td><span class="label label-info">Nothing allocated</span></td>
+                  <% end %>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr class="danger">
+                <td colspan="13">No data available.</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+<div class="dashboard-wrapper">
+	<div class="main-container">
+	    <div class="row page-title">
+	      	<h2><%= t('yield_manager') %>
+		        <small>
+			        <ul class="breadcrumb" style="margin-bottom: 5px;">
+					    <li><a  data-no-turbolink='true' href="/">Home</a></li>
+					    <li><%= t('origin') %></li>
+					    <li><a data-no-turbolink='true' href="/origin/yieldsmanager"><%= t('yield_manager') %></a></li>
+					    <li><a data-no-turbolink='true' href="/origin/yieldsmanager/standardyields"><%= t('standard_yields') %></a></li>
+					    <li class="active"><%= t('groups') %></li>
+					</ul>
+				</small>
+	     	</h2>
+	     	<ul class="stats hidden-xs">
+		        <li>
+		          <div class="details" style="height: 30px;">
+		            <!-- Start - Loading animation -->
+		            <div class="hidden loading-spinner" style="margin-top: 0;">
+		              <div class="rect1"></div>
+		              <div class="rect2"></div>
+		              <div class="rect3"></div>
+		              <div class="rect4"></div>
+		              <div class="rect5"></div>
+		            </div>
+		            <!-- End - Loading animation -->
+		          </div>
+		        </li>
+	      	</ul>
+	    </div>
+
+
+
+	    <!-- Panel to show groups -->
+	     <div class="clearfix"></div>
+    	<div class="row">
+    		<div class="col-md-12">
+    			<a data-no-turbolink='true' href="/origin/yieldsmanager/groupsnew" class="btn btn-primary btn-raised">New Group</a>
+    		</div>
+	    	<div class="col-md-12">
+		      <div class="table-responsive jumbotron" id="dt_example">
+		        <table class="table table-striped" data-source="<%= groups_origin_yieldsmanager_index_url(format: 'datatable') %>" id="tbl_groups" style="width: 100%;">
+		          <thead>
+		            <tr>
+		              <th>Group Id</th>
+		              <th>Description</th>
+		              <th>Green Bean</th>
+		              <th>Sum</th>
+		              <th>Parent Group</th>
+		              <th>Calculation Type </th>
+		              <th>Physical State</th> 
+		            </tr>
+		          </thead>
+		          <tbody>
+		          </tbody>
+		        </table>
+		      </div>
+    		</div>
+    		<div class="col-md-12">
+				<div class="jumbotron">
+					<h3>Upload Groups</h3>
+					<h5>Use this tool to upload groups. Before uploading this file please make sure you understant the folowing statements</h5>
+					<ul class="list-group">
+						<li class="list-group-item">The file must be an excel (.xls or .xlsx)</li>
+						<li class="list-group-item">The file must use the <a>template</a></li>
+						<li class="list-group-item">Please remove other sheets not related</li>
+					</ul>
+					<div class="pull-right">
+						<%= text_field_tag(:btn_upload_groups, nil, { :class => "btn btn-success btn-raised", :type => "file" }) %>
+					</div>
+
+					<h6><b>This file is property of Mercon Coffe Corp</b></h6>
+				</div>	
+    		</div>
+    	</div>
+	</div>
+</div>
+<div id="groups_contextmenu">
+  <ul class="dropdown-menu" role="menu">
+    <li class="divider" role="presentation"></li>
+    <li role="presentation"><a href="#" id="lnk_edit_group" role="menuitem">Edit</a></li>
+    <li role="presentation"><a href="#" id="lnk_void_group" role="menuitem">Void</a></li>
+  </ul>
+</div>

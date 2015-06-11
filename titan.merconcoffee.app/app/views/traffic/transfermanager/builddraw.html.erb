@@ -1,0 +1,168 @@
+<div class="dashboard-wrapper">
+  <div class="main-container">
+    <div class="row page-title">
+      <h2><%= t('transfer_manager') %>
+        <small>
+          <li><a href="/"><%= t('home') %></a></li>
+          <li>/</li>
+          <li><a><%= t('traffic') %></a></li>
+          <li>/</li>
+          <li><a data-no-turbolink='true' href="/traffic/transfermanager"><%= t('transfer_manager') %></a></li>
+          <li>/</li>
+          <li>Build/Draw</li>
+        </small>
+      </h2>
+      <ul class="stats hidden-xs">
+        <li>
+          <div class="details" style="height: 30px;">
+            <!-- Start - Loading animation -->
+            <div class="hidden loading-spinner" style="margin-top: 0;">
+              <div class="rect1"></div>
+              <div class="rect2"></div>
+              <div class="rect3"></div>
+              <div class="rect4"></div>
+              <div class="rect5"></div>
+            </div>
+            <!-- End - Loading animation -->
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <a class="btn btn-success btn-sm" data-no-turbolink='true' href='/traffic/transfermanager/new' role='button'>New Transfer</a>
+        <% if @build.transfer_num != nil %>
+        <a class="btn btn-primary btn-sm" data-no-turbolink='true' href="/traffic/transfermanager/<%= @build.transfer_num %>/allocation" role="button">Allocate Tags</a>
+        <% end %>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <%= hidden_field_tag(:build_draw_num, @build != nil ? @build.build_draw_num : -1 ) %>
+    <%= hidden_field_tag(:equipment_num, @build != nil ? @build.storage.equipment_num : -1 ) %>
+    <%= hidden_field_tag(:cargo_num, @build != nil ? @build.cargo.cargo_num : -1 ) %>
+    <%= hidden_field_tag(:cmdty_cd, @build != nil ? @build.cmdty_cd : '' ) %>
+    <%= hidden_field_tag(:strategy_num, @build != nil ? @build.cargo.strategy_num : -1) %>
+    <%= hidden_field_tag(:build_draw_qty, @build != nil ? @build.build_draw_qty : 0) %>
+    <%= hidden_field_tag(:transfer_num,@build.transfer_num != nil ? @build.transfer_num : -1) %>
+    <%= hidden_field_tag(:lock_info,@lockinfo != nil ? @lockinfo : -1) %>
+    <div class="col-md-12 no-padding">
+      <h3><small>Storage</small> <%= @build != nil ? @build.storage.storage_cd : '' %><small><%= @build != nil ? ' ' + @build.storage.equipment_num.to_s : '' %></small></h3>
+      <h3><small>Level</small> <%= @build != nil ? @build.cargo.cargo_name : '' %><small><%= @build != nil ? ' ' + @build.cargo_num.to_s : '' %></small></h3>
+    </div>
+    <div class="clearfix"></div>
+    <br />
+    <br />
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive" id="dt_example">
+          <table class="table table-striped" id="tbl_builddraw" style="width: 100%;">
+            <thead>
+              <tr>
+                <th>No. Build/Draw</th>
+                <th>No. Trade</th>
+                <th>Transfer Start Dt.</th>
+                <th>Transfer End Dt.</th>
+                <th>Quantity</th>
+                <th>Open Qty.</th>
+                <th>Allocated Qty.</th>
+                <th>No. Transfer</th>
+                <th class="hidden">No. Strategy</th>
+                <th class="hidden">Tags</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="warning">
+                <td><%= @build.build_draw_num %></td>
+                <td><%= @build.trade_num != nil ? link_to(@build.trade_num, { :controller => 'trademanager', :action => 'show', :id => @build.trade_num }) : '' %></td>
+                <td><%= @build.transfer_start_dt.strftime("%m/%d/%Y") %></td>
+                <td><%= @build.transfer_end_dt.strftime("%m/%d/%Y") %></td>
+                <td><%= number_with_precision(@build.build_draw_qty, :precision => 2, :delimiter => ',') %></td>
+                <td><%= number_with_precision(@build.open_qty, :precision => 2, :delimiter => ',') %></td>
+                <td><%= number_with_precision((@build.build_draw_qty - @build.open_qty), :precision => 2, :delimiter => ',') %></td>
+                <td><%= @build.transfer_num != nil ? link_to(@build.transfer_num, { :controller => 'transfermanager', :action => 'show', :id => @build.transfer_num }) : '' %></td>
+                <td class="hidden"><%= @build.strategy_num %></td>
+                <td class="hidden"><%= @build.tags.to_json %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <br />
+    <br />
+    <div class="row">
+      <div class="col-md-12">
+        <div id="pnl_edit_tag" style="display: none;">
+          <div class="form-horizontal">
+            <h3 class="heading-a">Edit Tags</h3>
+          </div>
+          <div class="clearfix"></div>
+          <div class="table-responsive" id="dt_example">
+            <table class="table table-striped" id="tbl_tag_edit" style="width: 100%;">
+              <thead>
+                <tr>
+                  <th class="hidden">No. B/D Tag</th>
+                  <th>Type</th>
+                  <th>Chop Id</th>
+                  <th>Value 1 <small>(Container)</small></th>
+                  <th>Value 2 <small>(ICO)</small></th>
+                  <th>Value 3 <small>(Warehouse)</small></th>
+                  <th>Value 4 <small>(ERW)</small></th>
+                  <th>Value 7 <small>(Building)</small></th>
+                  <th>Value 8 <small>(Comments)</small></th>
+                  <th>Tag Qty</th>
+                  <th>Qty UOM</th>
+                  <th class="hidden">Ref B/D Tag</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="clearfix"></div>
+          <div class="pull-right">
+            <%= button_tag('Cancel', { :class => "btn btn-danger btn-sm", :id => "btn_edit_cancel_tag", :type => "button"}) %>
+            <%= button_tag('Save', { :class => "btn btn-success btn-sm", :id => "btn_edit_save_tag", :type => "button"}) %>
+          </div>
+        </div>
+        <div id="pnl_split_tag" style="display: none;">
+          <div class="form-horizontal">
+            <h3 class="heading-a">Split Tags</h3>
+          </div>
+          <div class="clearfix"></div>
+          <div class="pull-right">
+            <%= button_tag('Add Tag', { :class => "btn btn-primary btn-sm", :id => "btn_split_add_tag", :type => "button"}) %>
+          </div>
+          <div class="clearfix"></div>
+          <div class="table-responsive" id="dt_example">
+            <table class="table table-striped" id="tbl_tag_split" style="width: 100%;">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Chop Id</th>
+                  <th>Tag Qty.</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="clearfix"></div>
+          <div class="pull-right">
+            <%= button_tag('Cancel', { :class => "btn btn-danger btn-sm", :id => "btn_split_cancel_tag", :type => "button"}) %>
+            <%= button_tag('Save', { :class => "btn btn-success btn-sm", :id => "btn_split_save_tag", :type => "button"}) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="transfer_tag_contextmenu">
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header" role="presentation"><span style="color: #337ab7; font-weight: bold;">0000001</span></li>
+    <li class="divider" role="presentation"></li>
+    <li role="presentation"><a data-no-turbolink='true' href="#" id="lnk_edit_tag" role="menuitem">Edit</a></li>
+    <li role="presentation"><a data-no-turbolink='true' href="#" id="lnk_split_tag" role="menuitem">Split</a></li>
+    <li class="hidden" role="presentation"><a href="#" id="lnk_delete_tag" role="menuitem">Delete</a></li>
+  </ul>
+</div>

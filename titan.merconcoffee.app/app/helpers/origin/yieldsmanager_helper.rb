@@ -1,0 +1,2 @@
+module Origin::YieldsmanagerHelper
+end

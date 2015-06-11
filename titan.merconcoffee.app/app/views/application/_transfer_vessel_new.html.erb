@@ -1,0 +1,228 @@
+<div role="tabpanel">
+  <ul class="nav nav-tabs" id="<%= type == 'from' ? 'transfer_trade_from_tab' : 'transfer_trade_to_tab' %>" role="tablist">
+    <li class="active" role="presentation"><a aria-controls="<%= type == 'from' ? 'pnl_transfer_from' : 'pnl_transfer_to' %>" data-toggle="tab" href="#<%= type == 'from' ? 'pnl_transfer_from' : 'pnl_transfer_to' %>" role="tab">Transfer</a></li>
+    <li role="presentation"><a aria-controls="<%= type == 'from' ? 'pnl_udf_from' : 'pnl_udf_to' %>" data-toggle="tab" href="#<%= type == 'from' ? 'pnl_udf_from' : 'pnl_udf_to' %>" role="tab">UDF</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane active" id="<%= type == 'from' ? 'pnl_transfer_from' : 'pnl_transfer_to' %>" role="tabpanel">
+      <div class="col-md-12" style="margin-top: 30px;">
+        <div class="form-group" id="from_to_vessel_pnl">
+          <label class="col-sm-2 control-label">Itinerary Number</label>
+          <div class="col-sm-10">
+            <% if type == 'from' %>
+              <%=
+                text_field_tag(
+                  :from_itinerary,
+                  nil,
+                  {
+                    :class => "form-control",
+                    'data-parsley-error-message' => '<strong>Itinerary Number</strong> is required',
+                    'data-parsley-errors-container' => '#error_container',
+                    'data-parsley-group' => 'grp_transfer',
+                    'data-parsley-trigger' => 'keyup',
+                    'data-parsley-type' => 'number',
+                    'data-parsley-required' => 'true',
+                    'data-parsley-validation-threshold' => '1',
+                    :placeholder => "No.Itinerary"
+                  }
+                )
+              %>
+            <% else %>
+              <%=
+                text_field_tag(
+                  :to_itinerary,
+                  nil,
+                  {
+                    :class => "form-control",
+                    'data-parsley-error-message' => '<strong>Itinerary Number</strong> is required',
+                    'data-parsley-errors-container' => '#error_container',
+                    'data-parsley-group' => 'grp_transfer',
+                    'data-parsley-trigger' => 'keyup',
+                    'data-parsley-type' => 'number',
+                    'data-parsley-required' => 'true',
+                    'data-parsley-validation-threshold' => '1',
+                    :placeholder => "No. Itinerary"
+                  }
+                )
+              %>
+            <% end %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Vehicle</label>
+          <div class="col-sm-10">
+            <% if type == 'from' %>
+              <%= text_field_tag(:from_vehicle, nil, { :class => "form-control", :disabled => "disabled", :placeholder => "Vehicle" }) %>
+            <% else %>
+              <%= text_field_tag(:to_vehicle, nil, { :class => "form-control", :disabled => "disabled", :placeholder => "Vehicle" }) %>
+            <% end %>
+          </div>
+        </div>
+        <div class="form-group">
+          <% if type == 'from' %>
+            <label class="col-sm-2 control-label">MOT</label>
+            <div class="col-sm-4">
+              <%= text_field_tag(:from_mot_type, nil, { :class => "form-control", :disabled => "disabled", :placeholder => "MOT" }) %>
+            </div>
+            <label class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-4">
+              <%= text_field_tag(:from_mot, nil, { :class => "form-control", :disabled => "disabled", :placeholder => "Name" }) %>
+            </div>
+          <% else %>
+            <label class="col-sm-2 control-label">MOT</label>
+            <div class="col-sm-4">
+              <%= text_field_tag(:to_mot_type, nil, { :class => "form-control", :disabled => "disabled", :placeholder => "MOT" }) %>
+            </div>
+            <label class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-4">
+              <%= text_field_tag(:to_mot, nil, { :class => "form-control", :disabled => "disabled", :placeholder => "Name" }) %>
+            </div>
+          <% end %>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Cargo</label>
+          <div class="col-sm-10">
+            <% if type == 'from' %>
+              <%=
+                select_tag(
+                  :v_from_level,
+                  nil,
+                  {
+                    :class => "form-control",
+                    'data-parsley-error-message' => '<strong>Level</strong> is required',
+                    'data-parsley-errors-container' => '#error_container',
+                    'data-parsley-group' => 'grp_transfer',
+                    'data-parsley-required' => 'true',
+                    :style => "min-width: 100px;"
+                  }
+                )
+              %>
+            <% else %>
+              <%=
+                select_tag(
+                  :v_to_level,
+                  nil,
+                  {
+                    :class => "form-control",
+                    'data-parsley-error-message' => '<strong>Level</strong> is required',
+                    'data-parsley-errors-container' => '#error_container',
+                    'data-parsley-group' => 'grp_transfer',
+                    'data-parsley-required' => 'true',
+                    :style => "min-width: 100px;"
+                  }
+                )
+              %>
+            <% end %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Cargo Qty</label>
+          <div class="col-sm-10">
+            <div class="input-group">
+              <% if type == 'from' %>
+                <%=
+                  text_field_tag(
+                    :from_cargo_qty,
+                    nil,
+                    {
+                      :class => "form-control",
+                      'data-parsley-error-message' => '<strong>Cargo Qty</strong> is required',
+                      'data-parsley-errors-container' => '#error_container',
+                      'data-parsley-group' => 'grp_transfer',
+                      'data-parsley-trigger' => 'keyup',
+                      'data-parsley-type' => 'number',
+                      'data-parsley-required' => 'true',
+                      'data-parsley-validation-threshold' => '1',
+                      :placeholder => "Cargo Qty"
+                    }
+                  )
+                %>
+                <span class="input-group-addon" id="from_cargo_qty_uom_cd"></span>
+              <% else %>
+                <%=
+                  text_field_tag(
+                    :to_cargo_qty,
+                    nil,
+                    {
+                      :class => "form-control",
+                      'data-parsley-error-message' => '<strong>Cargo Qty</strong> is required',
+                      'data-parsley-errors-container' => '#error_container',
+                      'data-parsley-group' => 'grp_transfer',
+                      'data-parsley-trigger' => 'keyup',
+                      'data-parsley-type' => 'number',
+                      'data-parsley-required' => 'true',
+                      'data-parsley-validation-threshold' => '1',
+                      :placeholder => "Cargo Qty"
+                    }
+                  )
+                %>
+                <span class="input-group-addon" id="to_cargo_qty_uom_cd"></span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="form-group">
+          <label class="col-sm-2 control-label">Transfer At</label>
+          <div class="col-sm-10">
+            <% if type == 'from' %>
+              <%=
+                select_tag(
+                  :from_transfer_at_ind,
+                  options_from_collection_for_select(
+                    GenIndicatorValue.where("ind_name = ?", 'transfer_at_ind').order(ind_value: :asc),
+                    "ind_value",
+                    "ind_value_name",
+                    "1"
+                  ),
+                  {
+                    :class => "form-control",
+                    :style => "min-width: 100px;"
+                  }
+                )
+              %>
+            <% else %>
+              <%=
+                select_tag(
+                  :to_transfer_at_ind,
+                  options_from_collection_for_select(
+                    GenIndicatorValue.where("ind_name = ?", 'transfer_at_ind').order(ind_value: :asc),
+                    "ind_value",
+                    "ind_value_name",
+                    "1"
+                  ),
+                  {
+                    :class => "form-control",
+                    :style => "min-width: 100px;"
+                  }
+                )
+              %>
+            <% end %>
+          </div>
+        </div> -->
+      </div>
+    </div>
+
+    <div class="tab-pane" id="<%= type == 'from' ? 'pnl_udf_from' : 'pnl_udf_to' %>" role="tabpanel">
+      <div class="col-md-12" style="margin-top: 30px;">
+        <div class="pull-right">
+          <%= button_tag('Add UDF', { :class => "btn btn-primary btn-sm", :type => "button"}) %>
+        </div>
+        <div class="clearfix"></div>
+        <div class="table-responsive">
+          <table class="table table-condensed">
+            <thead>
+              <tr>
+                <th>Field</th>
+                <th>Value</th>
+                <th style="width: 25px;"></th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

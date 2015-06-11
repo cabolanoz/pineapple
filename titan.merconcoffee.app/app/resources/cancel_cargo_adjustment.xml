@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<request xmlns:xsi="http://www.w3.org/1999/XMLSchema-instance" xsi:noNamespaceSchemaLocation="request.xsd">
+  <mhead name="TPTReqCancelCargoAdjustment">
+    <sender>{31FCC635-26E7-4507-9809-3AC4F6D2EE7E}</sender>
+    <sent_dt>@@=val1=@@</sent_dt>
+  </mhead>
+  <mbody>
+    <data>
+      <CancelCargoAdjustment>
+        <build_draw_num><![CDATA[@@=val2=@@]]></build_draw_num>
+      </CancelCargoAdjustment>
+    </data>
+  </mbody>
+</request>

@@ -1,0 +1,46 @@
+auth:
+  service_name: Login
+  method_name: Authenticate
+  r_method_name: Authenticate
+itinerary:
+  service_name: PhysOps
+  get_method: GetItinerary
+  save_method: PutItinerary
+transfer:
+  service_name: PhysOps
+  get_method: GetMultipleTransfers
+  r_get_method: Get_Multiple_Transfers
+  save_method: PutTransfer
+  r_save_method: Put_Transfer
+  delete_method: CancelTransfer
+  r_delete_method: Cancel_Transfer
+build_draw:
+  service_name: PhysOps
+  get_cargo_method: GetBuildDrawCargoDetails
+  r_get_cargo_method: Get_Build_Draw_Cargo_Details
+  save_method: PutBuildDrawMatch
+  r_save_method: Put_Build_Draw_Match
+  delete_method: CancelBuildDrawMatch
+  r_delete_method: Cancel_Build_Draw_Match
+tag:
+  service_name: PhysOps
+  get_cargo_method: GetBuildDrawTags
+  r_get_cargo_method: Get_Build_Draw_Tags
+  split_method: SplitBuildDrawTag
+  r_split_method: Split_Build_Draw_Tag
+  validate_method: ValidateTransferBuildDrawTags
+  r_validate_method: Validate_Transfer_Build_Draw_Tags
+  validate_transfer_method: ValidateBuildDrawTags
+  r_validate_transfer_method: Validate_Build_Draw_Tags
+  save_method: PutBuildDrawTags
+  r_save_method: Put_Build_Draw_Tags
+inventory:
+  service_name: PhysOps
+  get_empty_cargo_adjustment_method: GetEmptyCargoAdjustment
+  r_get_empty_cargo_adjustment_method: Get_Empty_Cargo_Adjustment
+  put_cargo_adjustment_method: PutCargoAdjustment
+  r_put_cargo_adjustment_method: Put_Cargo_Adjustment
+  cancel_cargo_adjustment: CancelCargoAdjustment
+  r_cancel_cargo_adjustment: Cancel_Cargo_Adjustment
+  put_gain_loss_bd_tags_for_adj: PutGainLossBDTagsForAdj
+  r_put_gain_loss_bd_tags_for_adj: Put_Gain_Loss_BD_Tags_For_Adj

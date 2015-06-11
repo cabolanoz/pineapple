@@ -1,0 +1,398 @@
+<div class="dashboard-wrapper">
+	<div class="main-container">
+		<div class="row page-title">
+			<h2><%= t('storage_inspector') %>
+				<small>
+					<li><a href="/"><%= t('home') %></a></li>
+					<li>/</li>
+					<li><a><%= t('traffic') %></a></li>
+					<li>/</li>
+          <li><a><%= t('storage_inspector') %></a></li>
+					<li>/</li>
+					<li><%= t('adjustments') %></li>
+				</small>
+			</h2>
+			<ul class="stats hidden-xs">
+        <li>
+          <div class="details" style="height: 30px;">
+            <!-- Start - Loading animation -->
+            <div class="hidden loading-spinner" style="margin-top: 0;">
+              <div class="rect1"></div>
+              <div class="rect2"></div>
+              <div class="rect3"></div>
+              <div class="rect4"></div>
+              <div class="rect5"></div>
+            </div>
+            <!-- End - Loading animation -->
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="clearfix"></div>
+    <%= hidden_field_tag(:initial_equipment_num, @build.equipment_num) %>
+    <%= hidden_field_tag(:initial_cargo_num, @build.cargo_num) %>
+    <%= hidden_field_tag(:before_qty) %>
+    <%= hidden_field_tag(:effective_dt) %>
+    <%= form_tag(nil, { :id => 'frm_adjustment', :onkeypress => 'if(event.keyCode == 13) { return false; }' }) do %>
+      <div class="panel panel-default" style="border-radius: 0;">
+        <div class="panel-body" style="background-color: #3498db; padding-bottom: 0;">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label style="color: #fff;"><%= t('storage') %></label>
+                  <%=
+                    select_tag(
+                      :adjustment_storage,
+                      options_from_collection_for_select(
+                        RefStorage.where("status_ind = ?", 1).order(:storage_cd),
+                        "equipment_num",
+                        "storage_cd",
+                        @build.equipment_num
+                      ),
+                      {
+                        :class => "form-control",
+												:disabled => "disabled"
+                      }
+                    )
+                  %>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label style="color: #fff;"><%= t('level') %></label>
+                  <%=
+                    select_tag(
+                      :adjustment_level,
+                      nil,
+                      {
+                        :class => "form-control",
+												:disabled => "disabled"
+                      }
+                    )
+                  %>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label style="color: #fff;"><%= t('gain_loss') %></label>
+                  <%=
+                    text_field_tag(
+                      :adjustment_qty,
+                      nil,
+                      {
+                        :class => "form-control",
+                        'data-parsley-error-message' => '<strong>Gain/Loss Qty</strong> is required',
+                        'data-parsley-errors-container' => '#error_container',
+                        'data-parsley-group' => 'grp_adjustment',
+                        'data-parsley-trigger' => 'keyup',
+                        'data-parsley-type' => 'number',
+                        'data-parsley-required' => 'true',
+                        'data-parsley-validation-threshold' => '1',
+                        :placeholder => "#{t('gain_loss')}"
+                      }
+                    )
+                  %>
+                </div>
+              </div>
+							<div class="col-md-3">
+                <div class="form-group">
+                  <label style="color: #fff;"><%= t('adjustment_reason') %></label>
+                  <%=
+                    select_tag(
+                      :adjustment_reason,
+                      options_from_collection_for_select(
+                        AdjustmentReason.order(:adjustment_reason_cd),
+                        "adjustment_reason_num",
+                        "adjustment_reason_desc"
+                      ),
+                      {
+                        :class => "form-control"
+                      }
+                    )
+                  %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <br />
+          <div class="row" style="background-color: #34495e; padding-bottom: 20px; padding-top: 20px;">
+            <div class="col-md-12">
+              <div class="col-md-4">
+                <div class="pull-left" style="background: #5cb85c; padding: 10px 0;">
+                  <ul style="display: inline;">
+                    <li style="display: inline-block; margin: 0 10px;">
+                      <div>
+                        <span class="pull-right" id="lgd_before_adjustment_qty" style="color: #fff; font-size: 20px;">0.00</span>
+                        <div class="clearfix"></div>
+                        <span style="color: #fff;"><%= t('before_adjustment') %></span>
+                      </div>
+                    </li>
+                    <li style="border: 1px solid #fff; display: inline-block; height: 36px; width: 1px;"></li>
+                    <li style="display: inline-block; margin: 0 10px;">
+                      <div>
+                        <span class="pull-right" id="lgd_after_adjustment_qty" style="color: #fff; font-size: 20px;">0.00</span>
+                        <div class="clearfix"></div>
+                        <span style="color: #fff;"><%= t('after_adjustment') %></span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-4">
+              </div>
+              <div class="col-md-4">
+                <br />
+                <%= button_tag(t('create_adjustment'), { :class => "btn btn-success btn-sm pull-right", :id => "btn_create_adjustment", :type => "button" }) %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <br />
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-horizontal">
+            <h3 class="heading-a">Builds</h3>
+          </div>
+        </div>
+      </div>
+			<div class="clearfix"></div>
+			<div class="row hidden gain-loss-legend" style="padding: 20px 15px 20px 0;">
+				<div class="col-md-12" style="padding: 0;">
+					<div class="col-md-4">
+
+					</div>
+					<div class="col-md-4">
+					</div>
+					<div class="col-md-4" style="padding: 0;">
+						<div class="pull-right" style="background: #34495e; padding: 10px 0;">
+							<ul style="display: inline;">
+								<li style="display: inline-block; margin: 0 10px;">
+									<div>
+										<span class="pull-right" id="lgd_before_gain_loss_qty" style="color: #fff; font-size: 20px;">0.00</span>
+										<div class="clearfix"></div>
+										<span style="color: #fff;"><%= t('gain_loss_qty') %></span>
+									</div>
+								</li>
+								<li style="border: 1px solid #fff; display: inline-block; height: 36px; width: 1px;"></li>
+								<li style="display: inline-block; margin: 0 10px;">
+									<div>
+										<span class="pull-right" id="lgd_after_gain_loss_qty" style="color: #fff; font-size: 20px;">0.00</span>
+										<div class="clearfix"></div>
+										<span style="color: #fff;"><%= t('used_qty') %></span>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="pull-right" style="background: #3498db; padding: 10px;">
+							<div class="text-center">
+								<span id="lgd_build_draw" style="color: #fff; font-size: 20px;">-1</span>
+								<div class="clearfix"></div>
+								<span style="color: #fff;"><%= t('build_draw_num') %></span>
+							</div>
+						</div>
+						<div class="pull-right" style="padding: 10px;">
+							<div class="text-center">
+								<span aria-hidden="true" class="glyphicon glyphicon-remove" id="btn_void_build_draw" style="color: #c0392b; cursor: pointer; font-size: 22px;"></span>
+								<div class="clearfix"></div>
+								<span style="color: #c0392b;"><%= t('void_build_draw') %></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+      <div class="clearfix"></div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive" id="dt_example">
+            <table class="table table-striped" id="tbl_adjustment_tag" style="width: 100%;">
+              <thead>
+                <tr>
+                  <th>No. Build</th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+                  <th>Chop Id</th>
+                  <th>Value 1 <small>(Container)</small></th>
+                  <th>Value 2 <small>(ICO)</small></th>
+                  <th>Value 3 <small>(Warehouse)</small></th>
+                  <th>Value 4 <small>(ERW)</small></th>
+                  <th>Value 7 <small>(Building)</small></th>
+                  <th>Tag Qty</th>
+                  <th>Qty UOM</th>
+                  <th><%= t('allocated_qty') %></th>
+                  <th><%= t('gain_loss_qty') %></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+									<th class="hidden"></th>
+                </tr>
+              </thead>
+              <tbody>
+								<% if @builds.any? %>
+	                <% @builds.each do |b| %>
+										<% if b.tags.any? %>
+											<% b.tags.each_with_index do |t, i| %>
+												<tr>
+													<!-- Start - Build/Draw fields -->
+			                    <td class="col-1" style="padding: 0;"><%= text_field_tag(nil, b.build_draw_num, { :class => "form-control", :disabled => "disabled" }) %></td>
+													<td class="col-2 hidden" style="padding: 0;"><%= b.build_draw_ind %></td>
+													<td class="col-3 hidden" style="padding: 0;"><%= b.location_num %></td>
+													<td class="col-4 hidden" style="padding: 0;"><%= b.trade_num %></td>
+													<td class="col-5 hidden" style="padding: 0;"><%= b.obligation_num %></td>
+													<td class="col-6 hidden" style="padding: 0;"><%= b.transfer_start_dt.strftime("%Y%m%d%H%M%S") %></td>
+													<td class="col-7 hidden" style="padding: 0;"><%= b.transfer_end_dt.strftime("%Y%m%d%H%M%S") %></td>
+													<td class="col-8 hidden" style="padding: 0;"><%= b.build_draw_qty %></td>
+													<td class="col-9 hidden" style="padding: 0;"><%= b.open_qty %></td>
+													<td class="col-10 hidden" style="padding: 0;"><%= b.transfer_price %></td>
+													<td class="col-11 hidden" style="padding: 0;"><%= b.per_unit_cost %></td>
+													<td class="col-12 hidden" style="padding: 0;"><%= b.build_draw_type_ind %></td>
+													<td class="col-13 hidden" style="padding: 0;"><%= b.strategy_num %></td>
+													<td class="col-14 hidden" style="padding: 0;"><%= b.obligation_detail_num %></td>
+													<td class="col-15 hidden" style="padding: 0;"><%= b.transfer_num %></td>
+													<td class="col-16 hidden" style="padding: 0;"><%= b.transfer_at_ind %></td>
+													<td class="col-17 hidden" style="padding: 0;"><%= b.transfer_price_status_ind %></td>
+													<td class="col-18 hidden" style="padding: 0;"><%= b.net_qty %></td>
+													<td class="col-19 hidden" style="padding: 0;"><%= b.cargo_qty %></td>
+													<td class="col-20 hidden" style="padding: 0;"><%= b.packaging_qty %></td>
+													<td class="col-21 hidden" style="padding: 0;"><%= b.base_vol %></td>
+													<td class="col-22 hidden" style="padding: 0;"><%= b.base_mass %></td>
+													<td class="col-23 hidden" style="padding: 0;"><%= b.filled_ind %></td>
+													<td class="col-24 hidden" style="padding: 0;"><%= b.weighted_avg %></td>
+													<td class="col-25 hidden" style="padding: 0;"><%= b.import_ind %></td>
+													<td class="col-26 hidden" style="padding: 0;"><%= b.import_type_ind %></td>
+													<td class="col-27 hidden" style="padding: 0;"><%= b.mtm_price %></td>
+													<td class="col-28 hidden" style="padding: 0;"><%= b.p_l_value %></td>
+													<td class="col-29 hidden" style="padding: 0;"><%= b.price_locked_ind %></td>
+													<td class="col-30 hidden" style="padding: 0;"><%= b.last_modify_dt.strftime("%Y%m%d%H%M%S") %></td>
+													<td class="col-31 hidden" style="padding: 0;"><%= b.modify_person_num %></td>
+													<!-- is_tag_qty_non_zero_ind -->
+													<td class="col-32 hidden" style="padding: 0;"><%= b.gain_loss_factor %></td>
+													<td class="col-33 hidden" style="padding: 0;"><%= b.transfer_cost %></td>
+													<td class="col-34 hidden" style="padding: 0;"><%= b.delivery_active_status_ind %></td>
+													<td class="col-35 hidden" style="padding: 0;"><%= b.delivery_dt_mtm_ind %></td>
+													<!-- conf_warning_ind -->
+													<td class="col-36 hidden" style="padding: 0;"><%= b.transfer_split_ind %></td>
+													<td class="col-37 hidden" style="padding: 0;"><%= b.commodity_cost %></td>
+													<td class="col-38 hidden" style="padding: 0;"><%= b.sap_cur_bal_ind %></td>
+													<td class="col-39 hidden" style="padding: 0;"><%= b.effective_dt.strftime("%Y%m%d%H%M%S") %></td>
+													<td class="col-40 hidden" style="padding: 0;"><%= b.cmdty_cd %></td>
+													<!-- End - Build/Draw fields -->
+
+													<!-- Start - Tag fields -->
+													<td class="col-41 hidden" style="padding: 0;"><%= t.build_draw_num %></td>
+													<td class="col-42 hidden" style="padding: 0;"><%= t.tag_type_cd %></td>
+													<td class="col-43 hidden" style="padding: 0;"><%= t.bd_tag_num %></td>
+													<td class="col-54" style="padding: 0;"><%= text_field_tag(nil, t.chop_id, { :class => "form-control", :disabled => "disabled" }) %></td>
+													<td class="col-48" style="padding: 0;"><%= text_field_tag(nil, t.tag_value1, { :class => "form-control", :disabled => "disabled" }) %></td>
+													<td class="col-49" style="padding: 0;"><%= text_field_tag(nil, t.tag_value2, { :class => "form-control", :disabled => "disabled" }) %></td>
+													<td class="col-50" style="padding: 0;"><%= text_field_tag(nil, t.tag_value3, { :class => "form-control", :disabled => "disabled" }) %></td>
+													<td class="col-51" style="padding: 0;"><%= text_field_tag(nil, t.tag_value4, { :class => "form-control", :disabled => "disabled" }) %></td>
+													<td class="col-52" style="padding: 0;"><%= text_field_tag(nil, t.tag_value7, { :class => "form-control", :disabled => "disabled" }) %></td>
+													<td class="col-45" style="padding: 0;"><%= text_field_tag(nil, t.tag_qty, { :class => "form-control", :disabled => "disabled" }) %></td>
+													<td class="col-46" style="padding: 0;"><%= text_field_tag(nil, t.tag_qty_uom_cd, { :class => "form-control", :disabled => "disabled" }) %></td>
+													<td style="padding: 0;"><%= text_field_tag(nil, (t.tag_alloc_qty != nil ? t.tag_alloc_qty : 0.00), { :class => "form-control", :disabled => "disabled" }) %></td>
+													<td style="padding: 0;">
+														<%=
+															text_field_tag(
+																nil,
+																nil,
+																{
+																	:class => "col-44 form-control",
+					                        'data-parsley-trigger' => 'keyup',
+					                        'data-parsley-type' => 'number',
+					                        'data-parsley-validation-threshold' => '1'
+																}
+															)
+														%>
+													</td>
+													<td class="col-47 hidden" style="padding: 0;"><%= t.modify_person_num %></td>
+													<td class="col-53 hidden" style="padding: 0;"><%= t.tag_value8 %></td>
+													<td class="col-55 hidden" style="padding: 0;"><%= t.tag_source_ind %></td>
+													<td class="col-56 hidden" style="padding: 0;"><%= b.build_draw_type_ind %></td>
+													<td class="col-57 hidden" style="padding: 0;"><%= b.build_draw_ind %></td>
+													<td class="col-58 hidden" style="padding: 0;"><%= t.tag_type_ind %></td>
+													<td class="hidden"><%= t.ref_bd_tag_num %></td>
+													<td class="hidden"><%= t.gl_ref_bd_tag_num %></td>
+													<td class="hidden"><%= t.split_src_tag_num %></td>
+													<td class="hidden"><%= t.adj_ref_build_draw_num %></td>
+													<td class="hidden"><%= t.tag_loss_gain_adj_qty %></td>
+													<!-- End - Tag fields -->
+			                  </tr>
+											<% end %>
+										<% end %>
+	                <% end %>
+	              <% else %>
+	                <tr class="danger">
+	                  <td colspan="13">No data available.</td>
+	                </tr>
+	              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+			<div class="clearfix"></div>
+      <br />
+      <br />
+      <div class="row">
+        <div class="col-md-12">
+          <div class="pull-right">
+						<!-- <%= button_tag(t('add_motive'), { :class => "btn btn-primary", :id => "btn_add_motive", :type => "button" }) %> -->
+            <%= submit_tag("Save", { :class => "btn btn-success" }) %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

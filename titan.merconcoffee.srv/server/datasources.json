@@ -1,0 +1,23 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "ciclon-pro-dev": {
+    "host": "10.10.31.2",
+    "database": "CTRM_CICLON_PRO",
+    "password": "mcgdev9312",
+    "name": "ciclon-pro-dev",
+    "connector": "mssql",
+    "debug": false,
+    "user": "appMercon"
+  },
+  "mcgens-dev": {
+    "host": "10.10.31.2",
+    "database": "MCGENS",
+    "password": "mcgdev9312",
+    "name": "mcgens-dev",
+    "user": "appMercon",
+    "connector": "mssql"
+  }
+}

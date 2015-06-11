@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Build No.</Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('transfer_num') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('storage_type') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('storage') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('commodity') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('location') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('owner') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('owner_name') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('quantity') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('uom') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('bags') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('crop') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('lot') %></Data></Cell>
+      </Row>
+    <% @inventories.each do |inventory| %>
+      <Row>
+        <Cell><Data ss:Type="Number"><%= inventory.build_draw_num %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= inventory.transfer_num %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= inventory.storage_type_cd %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= inventory.storage_cd %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= inventory.cmdty_cd %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= inventory.location_cd %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= inventory.owner_cd %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= inventory.owner_nam %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= inventory.tag_qty %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= inventory.tag_qty_uom_cd %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= inventory.bag_qty %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= inventory.crop_cd %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= inventory.lot_num %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

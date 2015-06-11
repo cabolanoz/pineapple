@@ -1,0 +1,210 @@
+<div class="dashboard-wrapper">
+	<div class="main-container">
+	    <div class="row page-title">
+	      	<h2><%= t('yield_manager') %>
+		        <small>
+			        <ul class="breadcrumb" style="margin-bottom: 5px;">
+					    <li><a  data-no-turbolink='true' href="/">Home</a></li>
+					    <li><%= t('origin') %></li>
+					    <li><a data-no-turbolink='true' href="/origin/yieldsmanager"><%= t('yield_manager') %></a></li>
+					    <li><a data-no-turbolink='true' href="/origin/yieldsmanager/purchasingyields"><%= t('purchasing_yields') %></a></li>
+					</ul>
+				</small>
+	     	</h2>
+	     	<ul class="stats hidden-xs">
+		        <li>
+		          <div class="details" style="height: 30px;">
+		            <!-- Start - Loading animation -->
+		            <div class="hidden loading-spinner" style="margin-top: 0;">
+		              <div class="rect1"></div>
+		              <div class="rect2"></div>
+		              <div class="rect3"></div>
+		              <div class="rect4"></div>
+		              <div class="rect5"></div>
+		            </div>
+		            <!-- End - Loading animation -->
+		          </div>
+		        </li>
+	      	</ul>
+	    </div>
+
+	    <div class="clearfix"></div>
+		<div class="col-md-12">
+			<div class="widget">
+			  <div class="widget-header">
+			    <div class="title">
+			      <span class="fs1" aria-hidden="true" data-icon="&#xe14c;"></span>Sample Information
+			    </div>
+			  </div>
+			  <div class="widget-body">
+			    <form class="form-horizontal" role="form">
+			      <div class="form-group">
+			        <label for="txtTradeNumber" class="col-lg-2 control-label">Trade Number</label>
+			        <div class="col-lg-3">
+			          <input type="text" class="form-control remove-border" id="txtTradeNumber">
+			        </div>
+			        <label for="txtTradeNumber" class="col-lg-2 control-label">Mobile Transfer Number</label>
+			        <div class="col-lg-3">
+			          <input type="text" class="form-control remove-border" id="txtMobileTransfer">
+			        </div>
+			      </div>
+			      <div class="form-group">
+			        <label for="txtOperatorName" class="col-lg-2 control-label">Commodity</label>
+			        <div class="col-lg-9">
+			          <input type="text" class="form-control remove-border" id="txtPYCommodity" disabled>
+			        </div>
+			      </div>
+			      <div class="form-group">
+			        <label for="txtInternalCompany" class="col-lg-2 control-label">Quantity</label>
+			        <div class="col-lg-1">
+			          <input type="text" class="form-control remove-border" id="txtPYQuantity" disabled>
+			        </div>
+			        <label for="txtInternalCompany" class="col-lg-1 control-label">UOM</label>
+			        <div class="col-lg-1">
+			          <input type="text" class="form-control remove-border" id="txtPYUom" disabled>
+			        </div>
+			      </div>
+			      
+			    </form>
+			  </div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="col-md-12">
+			<div class="widget">
+				<div class="widget-header">
+					<div class="title">
+					  <span class="fs1" aria-hidden="true" data-icon="&#xe14c;"></span>Sample Results
+					</div>
+				</div>
+		    	<div class="panel-primary col-md-4">
+				    <div class="panel-heading">
+				        <h3 class="panel-title">Yield Results</h3>
+				    </div>
+				    <div class="panel-body">
+				        <table class="table table-striped table-hover ">
+		        			<thead>
+						        <tr>
+						            <th>Test</th>
+						            <th>Value</th>
+						            <th>%</th>
+						        </tr>
+						    </thead>
+						    <tbody>
+						    	<% @yieldTest.each do |ytest| %>
+								  <tr>
+								    <td><%= ytest.YT_Description %></td>
+								    <td><input type="text" class="form-control remove-border"></td>
+									<td></td>
+								  </tr>
+								<% end %>
+						    </tbody>
+						</table>
+				    </div>
+				</div>
+
+				<div class="panel-success col-md-4">
+				    <div class="panel-heading">
+				        <h3 class="panel-title">Screnning</h3>
+				        <small>Make sure Percentage equals 100%</small>
+				    </div>
+				    <div class="panel-body">
+				    	<div>
+					    	<label for="txtInternalCompany" class="col-lg-2 control-label">Sample Weight</label>
+					        <div class="col-lg-6">
+					          <input type="text" class="form-control remove-border" id="txtPYScreeningWeight" >
+					        </div>
+					        <span>gr</span>
+				        </div>
+			        	<table class="table table-striped table-hover">
+		        			<thead>
+						        <tr>
+						            <th>#</th>
+						            <th>Description</th>
+						            <th>Weight</th>
+						            <th>UOM</th>
+						        </tr>
+						    </thead>
+						    <tbody>
+						    	<% @screnningTest.each do |test| %>
+								  <tr>
+								    <td><%= test.SC_Id %></td>
+								    <td><%= test.SC_Description %></td>
+								    <td><input type="text" class="form-control remove-border pyscreening-values" ></td>
+								    <td>gr</td>
+								  </tr>
+								<% end %>
+						    </tbody>
+						    <tfoot>
+								<tr class="success">
+									<td></td>
+									<td>Sum</td>
+									<td><label id="sumPyScreening" class="hidden">0</label></td>
+									<td>gr</td>
+								</tr>
+								<tr class="success">
+									<td></td>
+									<td>Percentage</td>
+									<td><label id="totalPyScreening" class="hidden">100%</label></td>
+									<td></td>
+								</tr>
+							</tfoot>
+						</table>
+
+				    </div>
+				</div>
+
+				<div class="panel-warning col-md-4">
+				    <div class="panel-heading">
+				        <h3 class="panel-title">Defects</h3>
+				    </div>
+				    <div class="panel-body">
+				    	<div >
+					    	<label for="txtInternalCompany" class="col-lg-2 control-label">Sample Weight</label>
+					        <div class="col-lg-6">
+					          <input type="text" class="form-control remove-border" id="txtPYDefectWeight" >
+					        </div>
+					        gr
+				        </div>
+				       <table class="table table-striped table-hover ">
+		        			<thead>
+						        <tr>
+						            <th>#</th>
+						            <th>Description</th>
+						            <th>Weight</th>
+						            <th>UOM</th>
+						        </tr>
+						    </thead>
+						    <tbody>
+						    	<% @defects.each do |defect| %>
+								  <tr>
+								    <td><%= defect.DF_Id %></td>
+								    <td><%= defect.DF_Description %></td>
+								    <td><input type="text" class="form-control remove-border pyDefect-values" ></td>
+									<td>gr</td>
+								  </tr>
+								<% end %>
+						    </tbody>
+						    <tfoot>
+								<tr class="danger">
+									<td></td>
+									<td>Sum</td>
+									<td><label id="sumPyDefects" class="hidden">0</label></td>
+									<td>gr</td>
+								</tr>
+								<tr class="danger">
+									<td></td>
+									<td>Percentage</td>
+									<td><label id="totalPyDefects" class="hidden">100%</label></td>
+									<td></td>
+								</tr>
+							</tfoot>
+						</table>
+				    </div>
+				</div>
+
+				<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised mdi-content-add" id="btnSavePY"></a>
+		    </div>
+		</div>
+    </div>
+</div>

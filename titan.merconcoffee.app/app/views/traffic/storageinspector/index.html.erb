@@ -1,0 +1,452 @@
+<style>
+	td.details-control {
+		background: url('/assets/plus-normal.png') no-repeat center center;
+		cursor: pointer;
+	}
+	td.details-control:hover {
+		background: url('/assets/plus-hover.png') no-repeat center center;
+		cursor: pointer;
+	}
+	tr.shown td.details-control {
+		background: url('/assets/less-normal-hover.png') no-repeat center center;
+		background-position-y: -9px;
+	}
+</style>
+
+<div class="dashboard-wrapper">
+  <div class="main-container">
+    <div class="row page-title">
+      <h2><%= t('storage_inspector') %>
+        <small>
+          <li><a href="/"><%= t('home') %></a></li>
+          <li>/</li>
+          <li><a><%= t('traffic') %></a></li>
+          <li>/</li>
+          <li><%= t('storage_inspector') %></li>
+        </small>
+      </h2>
+			<ul class="stats hidden-xs">
+        <li>
+          <div class="details" style="height: 30px;">
+            <!-- Start - Loading animation -->
+            <div class="hidden loading-spinner" style="margin-top: 0;">
+              <div class="rect1"></div>
+              <div class="rect2"></div>
+              <div class="rect3"></div>
+              <div class="rect4"></div>
+              <div class="rect5"></div>
+            </div>
+            <!-- End - Loading animation -->
+          </div>
+        </li>
+      </ul>
+      <!-- <ul class="stats hidden-xs">
+        <li>
+          <div class="details">
+            <span class="big" style="color: #2980b9;"><%= number_with_precision((@inventory_by_uom.map { |q| q['build_draw_qty'] }.reduce(0, :+)), :precision => 2, :delimiter => ',') %></span>
+            <span class="small" style="color: #2980b9;">Total Build/Draw Qty</span>
+          </div>
+        </li>
+        <li>
+          <div class="details">
+            <span class="big" style="color: #16a085;"><%= number_with_precision((@inventory_by_uom.map { |q| q['open_qty'] }.reduce(0, :+)), :precision => 2, :delimiter => ',')  %></span>
+            <span class="small" style="color: #16a085;">Total Open Qty</span>
+          </div>
+        </li>
+        <li>
+          <div class="details">
+            <span class="big" style="color: #d35400;"><%= number_with_precision((@inventory_by_uom.map { |q| q['used_qty'] }.reduce(0, :+)), :precision => 2, :delimiter => ',')  %></span>
+            <span class="small" style="color: #d35400;">Total Used Qty</span>
+          </div>
+        </li>
+      </ul> -->
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="flippy-option pull-right">
+          <li class="active" data-placement="bottom" data-toggle="tooltip" id="lnk_list" title="View Storage Detail">
+						<i class="glyphicon glyphicon-th-list"></i>
+          </li>
+          <li  data-placement="bottom" data-toggle="tooltip" id="lnk_graph" title="View Storage Statistics">
+						<i class="glyphicon glyphicon-record"></i>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="flipbox-container">
+      <!-- Recto Panel -->
+      <div id="recto">
+				<br />
+				<div class="row">
+					<div class="col-md-4">
+						<div class="widget">
+							<div class="widget-header">
+								<div class="title">
+									Storage
+								</div>
+							</div>
+							<div class="widget-body">
+								<%=
+					        select_tag(
+					          :storage,
+					          options_from_collection_for_select(
+					            RefStorage.where("status_ind = ?", 1).order(:storage_cd),
+					            "equipment_num",
+					            "storage_cd"
+					          ),
+					          {
+					            :class => "form-control",
+											:prompt => "All Storages"
+					          }
+					        )
+					      %>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="widget">
+							<div class="widget-header">
+								<div class="title">
+									Level
+								</div>
+							</div>
+							<div class="widget-body">
+								<%= text_field_tag(:level, nil, { :class => "form-control", :placeholder => "Level" }) %>
+								<!-- <%=
+					        select_tag(
+					          :storage,
+					          options_from_collection_for_select(
+					            RefStorage.where("status_ind = ?", 1).order(:storage_cd),
+					            "equipment_num",
+					            "storage_cd"
+					          ),
+					          {
+					            :class => "form-control",
+											:prompt => "All Storages"
+					          }
+					        )
+					      %> -->
+							</div>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="widget">
+							<div class="widget-header">
+								<div class="title">
+									Open Qty > 0
+								</div>
+							</div>
+							<div class="widget-body">
+								<div class="onoffswitch">
+									<input class="onoffswitch-checkbox" id="chk_open_qty" type="checkbox" />
+									<label class="onoffswitch-label" for="chk_open_qty">
+                    <div class="onoffswitch-inner"></div>
+                    <div class="onoffswitch-switch"></div>
+                  </label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="col-md-4">
+						<div class="widget">
+							<div class="widget-header">
+								<div class="title">
+									Container
+								</div>
+							</div>
+							<div class="widget-body">
+								<%= text_field_tag(:container, nil, { :class => "form-control", :placeholder => "Container" }) %>
+							</div>
+						</div>
+					</div> -->
+					<div class="col-md-2">
+						<div class="widget">
+							<div class="widget-header">
+								<div class="title">
+								</div>
+							</div>
+							<div class="widget-body">
+								<%= button_tag('Filter', { :class => "btn btn-block btn-primary btn-sm", :id => "btn_filter", :type => "button"}) do %>
+									<i class="glyphicon glyphicon-filter"></i>
+									<%= content_tag(:span, 'Filter') %>
+								<% end %>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<br />
+        <div class="row">
+					<div role="tabpanel">
+						<ul class="nav nav-tabs" id="my_tab" role="tablist">
+			        <li class="active" role="presentation"><a aria-controls="pnl_build" data-toggle="tab" href="#pnl_build" role="tab">Builds</a></li>
+							<li role="presentation"><a aria-controls="pnl_draw" data-toggle="tab" href="#pnl_draw" role="tab">Draws</a></li>
+			        <li role="presentation"><a aria-controls="pnl_available_qty" data-toggle="tab" href="#pnl_available_qty" role="tab">Available Qty By Commodity</a></li>
+			      </ul>
+
+						<div class="tab-content">
+							<div class="tab-pane active" id="pnl_build" role="tabpanel">
+								<div class="table-responsive" id="dt_example">
+		              <table class="table table-striped" data-source="<%= traffic_storageinspector_index_url(format: 'datatable1') %>" id="tbl_build" style="width: 100% !important;">
+		      					<thead>
+		      						<tr>
+		      							<th>Build No.</th>
+		      							<th>Storage</th>
+		      							<th>Cargo Name</th>
+		      							<th>Commodity</th>
+												<th>Location</th>
+												<th>Transfer No.</th>
+												<th>Build Qty</th>
+												<th>Open Qty</th>
+												<th>Used Qty</th>
+												<th>Equipment No.</th>
+												<th>Cargo No.</th>
+												<th>Tags</th>
+		      						</tr>
+		      					</thead>
+		      					<tbody>
+		      					</tbody>
+		                <!-- <tfoot>
+		                  <tr class="info">
+		                    <th>Build No.</th>
+												<th>Storage</th>
+		      							<th>Cargo Name</th>
+		      							<th>Commodity</th>
+												<th>Location</th>
+												<th>Transfer No.</th>
+												<th>Build Qty</th>
+												<th>Open Qty</th>
+												<th>Used Qty</th>
+												<th>Equipment No.</th>
+												<th>Cargo No.</th>
+												<th>Tags</th>
+		                  </tr>
+		                </tfoot> -->
+		      				</table>
+		            </div>
+							</div>
+
+							<div class="tab-pane" id="pnl_draw" role="tabpanel">
+								<div class="table-responsive" id="dt_example">
+		              <table class="table table-striped" data-source="<%= traffic_storageinspector_index_url(format: 'datatable2') %>" id="tbl_draw" style="width: 100% !important;">
+		      					<thead>
+		      						<tr>
+		      							<th>Build No.</th>
+		      							<th>Storage</th>
+		      							<th>Cargo Name</th>
+		      							<th>Commodity</th>
+												<th>Location</th>
+												<th>Transfer No.</th>
+												<th>Build Qty</th>
+												<th>Open Qty</th>
+												<th>Used Qty</th>
+												<th>Equipment No.</th>
+												<th>Cargo No.</th>
+												<th>Tags</th>
+		      						</tr>
+		      					</thead>
+		      					<tbody>
+		      					</tbody>
+		      				</table>
+		            </div>
+							</div>
+
+							<div class="tab-pane" id="pnl_available_qty" role="tabpanel">
+								<div class="text-center" id="bubble_chart" style="height: 500px; width: 100%;">
+									<h1 style="color: #ed321d;">No Data Available!</h1>
+								</div>
+							</div>
+						</div>
+					</div>
+        </div>
+      </div>
+			<!-- Verso Panel -->
+			<div id="verso">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-horizontal">
+              <h3 class="heading-a"><span aria-hidden="true" class="fs1" data-icon="&#xe140;"></span> Available Quantity By UOM</h3>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="no-border statistic-1 text-center thumbnail">
+              <div class="chart" data-percent="<%= number_with_precision(((@inventory_by_uom[0].open_qty / @inventory_by_uom[0].build_draw_qty) * 100), :precision => 2, :delimiter => ',') %>" id="chart_1">
+                <span class="percent"><%= number_with_precision(((@inventory_by_uom[0].open_qty / @inventory_by_uom[0].build_draw_qty) * 100), :precision => 2, :delimiter => ',') %></span>
+              </div>
+              <div class="caption">
+                <h3 style="color: #fff;"><%= @inventory_by_uom[0].qty_uom_cd %></h3>
+                <span style="color: #fff;">Build Draw Qty: <strong><%= number_with_precision(@inventory_by_uom[0].build_draw_qty, :precision => 2, :delimiter => ',') %></strong></span>
+                <div class="clearfix"></div>
+                <span style="color: #fff;">Open Qty: <strong><%= number_with_precision(@inventory_by_uom[0].open_qty, :precision => 2, :delimiter => ',') %></strong></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="no-border statistic-2 text-center thumbnail">
+              <div class="chart" data-percent="<%= number_with_precision(((@inventory_by_uom[1].open_qty / @inventory_by_uom[1].build_draw_qty) * 100), :precision => 2, :delimiter => ',') %>" id="chart_2">
+                <span class="percent"><%= number_with_precision(((@inventory_by_uom[1].open_qty / @inventory_by_uom[1].build_draw_qty) * 100), :precision => 2, :delimiter => ',') %></span>
+              </div>
+              <div class="caption">
+                <h3 style="color: #fff;"><%= @inventory_by_uom[1].qty_uom_cd %></h3>
+                <span style="color: #fff;">Build Draw Qty: <strong><%= number_with_precision(@inventory_by_uom[1].build_draw_qty, :precision => 2, :delimiter => ',') %></strong></span>
+                <div class="clearfix"></div>
+                <span style="color: #fff;">Open Qty: <strong><%= number_with_precision(@inventory_by_uom[1].open_qty, :precision => 2, :delimiter => ',') %></strong></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="no-border statistic-3 text-center thumbnail">
+              <div class="chart" data-percent="<%= number_with_precision(((@inventory_by_uom[2].open_qty / @inventory_by_uom[2].build_draw_qty) * 100), :precision => 2, :delimiter => ',') %>" id="chart_3">
+                <span class="percent"><%= number_with_precision(((@inventory_by_uom[2].open_qty / @inventory_by_uom[2].build_draw_qty) * 100), :precision => 2, :delimiter => ',') %></span>
+              </div>
+              <div class="caption">
+                <h3 style="color: #fff;"><%= @inventory_by_uom[2].qty_uom_cd %></h3>
+                <span style="color: #fff;">Build Draw Qty: <strong><%= number_with_precision(@inventory_by_uom[2].build_draw_qty, :precision => 2, :delimiter => ',') %></strong></span>
+                <div class="clearfix"></div>
+                <span style="color: #fff;">Open Qty: <strong><%= number_with_precision(@inventory_by_uom[2].open_qty, :precision => 2, :delimiter => ',') %></strong></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="no-border statistic-4 text-center thumbnail">
+              <div class="chart" data-percent="<%= number_with_precision(((@inventory_by_uom[3].open_qty / @inventory_by_uom[3].build_draw_qty) * 100), :precision => 2, :delimiter => ',') %>" id="chart_4">
+                <span class="percent"><%= number_with_precision(((@inventory_by_uom[3].open_qty / @inventory_by_uom[3].build_draw_qty) * 100), :precision => 2, :delimiter => ',') %></span>
+              </div>
+              <div class="caption">
+                <h3 style="color: #fff;"><%= @inventory_by_uom[3].qty_uom_cd %></h3>
+                <span style="color: #fff;">Build Draw Qty: <strong><%= number_with_precision(@inventory_by_uom[3].build_draw_qty, :precision => 2, :delimiter => ',') %></strong></span>
+                <div class="clearfix"></div>
+                <span style="color: #fff;">Open Qty: <strong><%= number_with_precision(@inventory_by_uom[3].open_qty, :precision => 2, :delimiter => ',') %></strong></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="no-border statistic-5 text-center thumbnail">
+              <div class="chart" data-percent="<%= number_with_precision(((@inventory_by_uom[4].open_qty / @inventory_by_uom[4].build_draw_qty) * 100), :precision => 2, :delimiter => ',') %>" id="chart_5">
+                <span class="percent"><%= number_with_precision(((@inventory_by_uom[4].open_qty / @inventory_by_uom[4].build_draw_qty) * 100), :precision => 2, :delimiter => ',') %></span>
+              </div>
+              <div class="caption">
+                <h3 style="color: #fff;"><%= @inventory_by_uom[4].qty_uom_cd %></h3>
+                <span style="color: #fff;">Build Draw Qty: <strong><%= number_with_precision(@inventory_by_uom[4].build_draw_qty, :precision => 2, :delimiter => ',') %></strong></span>
+                <div class="clearfix"></div>
+                <span style="color: #fff;">Open Qty: <strong><%= number_with_precision(@inventory_by_uom[4].open_qty, :precision => 2, :delimiter => ',') %></strong></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="no-border statistic-6 text-center thumbnail">
+              <div class="chart" data-percent="<%= number_with_precision(((@inventory_by_uom[5].open_qty / @inventory_by_uom[5].build_draw_qty) * 100), :precision => 2, :delimiter => ',') %>" id="chart_6">
+                <span class="percent"><%= number_with_precision(((@inventory_by_uom[5].open_qty / @inventory_by_uom[5].build_draw_qty) * 100), :precision => 2, :delimiter => ',') %></span>
+              </div>
+              <div class="caption">
+                <h3 style="color: #fff;"><%= @inventory_by_uom[5].qty_uom_cd %></h3>
+                <span style="color: #fff;">Build Draw Qty: <strong><%= number_with_precision(@inventory_by_uom[5].build_draw_qty, :precision => 2, :delimiter => ',') %></strong></span>
+                <div class="clearfix"></div>
+                <span style="color: #fff;">Open Qty: <strong><%= number_with_precision(@inventory_by_uom[5].open_qty, :precision => 2, :delimiter => ',') %></strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <br />
+        <br />
+        <br />
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-horizontal">
+              <h3 class="heading-a"><span aria-hidden="true" class="fs1" data-icon="&#xe0b8;"></span> Available Quantity By Storage</h3>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="table-responsive" id="dt_example">
+              <table class="table table-condensed" id="tbl_storage" style="width: 100% !important;">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Storage</th>
+                    <th>Open Qty</th>
+                    <th>Build/Draw Qty</th>
+                    <th>Open Qty</th>
+                    <th>Used Qty</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if @inventory_by_storage.any? %>
+                    <% @inventory_by_storage.each do |t| %>
+                      <tr>
+                        <td class="warning"></td>
+                        <td class="warning">
+                          <%= t.storage_cd %>
+                        </td>
+                        <td>
+                          <div class="progress" style="border-radius: 0; margin-bottom: 0;">
+                            <% if ((t.open_qty / t.build_draw_qty) * 100) > 0 && ((t.open_qty / t.build_draw_qty) * 100) <= 30 %>
+                              <div
+                                aria-valuemax="<%= number_with_precision(((t.open_qty / t.build_draw_qty) * 100), :precision => 2, :delimiter => ',') %>"
+                                aria-valuemin="0"
+                                aria-valuenow="100"
+                                class="progress-bar progress-bar-danger"
+                                role="progressbar"
+                                style="width: <%= number_with_precision(((t.open_qty / t.build_draw_qty) * 100), :precision => 2, :delimiter => ',') %>%;">
+                                <%= number_with_precision(((t.open_qty / t.build_draw_qty) * 100), :precision => 2, :delimiter => ',') %> %
+                              </div>
+                            <% elsif ((t.open_qty / t.build_draw_qty) * 100) > 30 && ((t.open_qty / t.build_draw_qty) * 100) <= 50 %>
+                              <div
+                                aria-valuemax="<%= number_with_precision(((t.open_qty / t.build_draw_qty) * 100), :precision => 2, :delimiter => ',') %>"
+                                aria-valuemin="0"
+                                aria-valuenow="100"
+                                class="progress-bar progress-bar-warning"
+                                role="progressbar"
+                                style="width: <%= number_with_precision(((t.open_qty / t.build_draw_qty) * 100), :precision => 2, :delimiter => ',') %>%;">
+                                <%= number_with_precision(((t.open_qty / t.build_draw_qty) * 100), :precision => 2, :delimiter => ',') %> %
+                              </div>
+                            <% elsif ((t.open_qty / t.build_draw_qty) * 100) > 50 && ((t.open_qty / t.build_draw_qty) * 100) <= 80 %>
+                              <div
+                                aria-valuemax="<%= number_with_precision(((t.open_qty / t.build_draw_qty) * 100), :precision => 2, :delimiter => ',') %>"
+                                aria-valuemin="0"
+                                aria-valuenow="100"
+                                class="progress-bar progress-bar-info"
+                                role="progressbar"
+                                style="width: <%= number_with_precision(((t.open_qty / t.build_draw_qty) * 100), :precision => 2, :delimiter => ',') %>%;">
+                                <%= number_with_precision(((t.open_qty / t.build_draw_qty) * 100), :precision => 2, :delimiter => ',') %> %
+                              </div>
+                            <% else %>
+                              <div
+                                aria-valuemax="<%= number_with_precision(((t.open_qty / t.build_draw_qty) * 100), :precision => 2, :delimiter => ',') %>"
+                                aria-valuemin="0"
+                                aria-valuenow="100"
+                                class="progress-bar progress-bar-success"
+                                role="progressbar"
+                                style="width: <%= number_with_precision(((t.open_qty / t.build_draw_qty) * 100), :precision => 2, :delimiter => ',') %>%;">
+                                <%= number_with_precision(((t.open_qty / t.build_draw_qty) * 100), :precision => 2, :delimiter => ',') %> %
+                              </div>
+                            <% end %>
+                          </div>
+                        </td>
+                        <td><%= number_with_precision(t.build_draw_qty, :precision => 2, :delimiter => ',') %></td>
+                        <td><%= number_with_precision(t.open_qty, :precision => 2, :delimiter => ',') %></td>
+                        <td><%= number_with_precision(t.used_qty, :precision => 2, :delimiter => ',') %></td>
+                      </tr>
+                    <% end %>
+                  <% else %>
+                    <tr class="danger">
+                      <td colspan="2">No data available.</td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

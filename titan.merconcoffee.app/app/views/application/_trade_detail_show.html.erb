@@ -1,0 +1,27 @@
+<div class="form-horizontal">
+  <h3 class="heading-a">Buy/Sell</h3>
+  <div class="form-group">
+    <div class="col-sm-12">
+      <input class="form-control" disabled="disabled" type="text" value="<%= trade.obligation_hdr[0].buy_sell_ind == 1 ? 'Buy' : 'Sell' %>">
+    </div>
+  </div>
+  <br />
+  <h3 class="heading-a">Units</h3>
+  <div class="form-group">
+    <label class="col-sm-1 control-label">Commodity</label>
+    <div class="col-sm-3">
+      <input class="form-control" disabled="disabled" type="text" value="<%= trade.trade_trm.cmdty_cd %>">
+    </div>
+    <label class="col-sm-1 control-label">Crop Year</label>
+    <div class="col-sm-3">
+      <input class="form-control" disabled="disabled" type="text" value="<%= trade.trade_trm.crop_year %>">
+    </div>
+    <label class="col-sm-1 control-label">Mean Qty</label>
+    <div class="col-sm-3">
+      <div class="input-group">
+        <input class="form-control" disabled="disabled" type="text" value="<%= trade.trade_dtl.trade_qty %>">
+        <span class="input-group-addon"><%= trade.trade_dtl.qty_uom_cd %></span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,88 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  add_motive: "Add Motive"
+  adjustment_reason: "Adjustment Reason"
+  adjustments: "Adjustments"
+  after_adjustment: "After Adjustment"
+  allocated_qty: "Allocated Qty"
+  bag: "Bag"
+  bags: "Bags"
+  before_adjustment: "Before Adjustment"
+  build_draw_num: "No. Build/Draw"
+  close: "Close"
+  commodity: "Commodity"
+  company: "Company"
+  create_adjustment: "Create Adjustment"
+  create_transfer: "Create Transfer"
+  crop: "Crop"
+  detail: "Detail"
+  do_adjustment: "Adjustments"
+  edit_tag: "Edit Tag"
+  edit_tags: "Edit Tags"
+  edit_transfer: "Edit Transfer"
+  edit_transfers: "Edit Transfers"
+  export_to_excel: "Export to Excel"
+  filter: "Filter"
+  filters: "Filters"
+  gain_loss: "Gain/Loss"
+  gain_loss_qty: "Gain/Loss Qty"
+  groups: "Groups"
+  hello: "Hello world"
+  home: "Home"
+  inventory: "Inventory"
+  inventory_manager: "Inventory Manager"
+  level: "Level"
+  location: "Location"
+  lot: "Lot"
+  origin: "Origin"
+  owner: "Owner"
+  owner_name: "Owner Name"
+  reason: "Reason"
+  resume: "Summary"
+  save: "Save"
+  save_changes: "Save Changes"
+  shipping_manager: "Shipping Manager"
+  standard_yields: "Standard Yields"
+  storage: "Storage"
+  storage_inspector: "Storage Inspector"
+  storage_type: "Storage Type"
+  total_qty: "Total Qty."
+  total_bags: "Total Bags"
+  trade_manager: "Trade Manager"
+  traffic: "Traffic"
+  transfer_manager: "CXL Transfer Manager"
+  transfer_num: "Transfer No."
+  transfer_in: "Transfer In"
+  transfer_out: "Transfer Out"
+  type: "Type"
+  quantity: 'Quantity'
+  uom: "UOM"
+  update_location: "Update Location"
+  used_qty: "Used Qty"
+  void_build_draw: "Void Build/Draw"
+  yield_manager: 'AQUA'
+  edit: 'Edit'
+  save: 'Save'
+  purchasing_yields: "Purchasing Yields"
+  elements: "Elements"
+  lineclass: "Line - Class"

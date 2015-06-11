@@ -1,0 +1,7 @@
+<Message messageid='0'>
+	<Entity name='REF_LOGIN'>
+		<Property name='login_cd' value='@@=val1=@@' type='string' />
+		<Property name='password' value='@@=val2=@@' type='string' />
+		<Property name='machine_name' value='@@=val3=@@' type='string' />
+	</Entity>
+</Message>

@@ -1,0 +1,15 @@
+/*
+  Place all the styles related to the matching controller here.
+  They will automatically be included in application.css.
+*/
+#merconBrand{
+	margin-bottom:2em;
+	width: 20em
+}
+#btn-submit{
+	background-color: #006633;
+}
+input.form-control:hover{
+	border-color:#d24149;
+}
+

@@ -1,0 +1,2 @@
+module Position::PhysicalfuturelinkHelper
+end

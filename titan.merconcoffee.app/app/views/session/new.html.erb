@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= stylesheet_link_tag ('session.css') %>
+    <link href="http://webapplayers.com/inspinia_admin-v2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://webapplayers.com/inspinia_admin-v2.0/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="http://webapplayers.com/inspinia_admin-v2.0/css/animate.css" rel="stylesheet">
+    <link href="http://webapplayers.com/inspinia_admin-v2.0/css/style.css" rel="stylesheet">
+    <title>Mercon Coffee Corp | Login</title>
+
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div>
+            <div>
+
+                <div class="content center">
+                  <%= image_tag("merconlogo.png", alt: "Brand", id: "merconBrand") %>
+                	<!-- <img alt="Brand" id="merconBrand" src="/assets/merconlogo.png" > -->
+                </div>
+            </div>
+
+            </div>
+            <h3>Welcome to Mercon Coffee Corp Apps Portal</h3>
+            <p>Please sign in using your username and password provided by IT.
+
+            </p>
+
+            <%= form_for(:session, url: login_path) do |f|%>
+
+                <div class="form-group">
+                	<%= f.text_field :username, class: 'form-control', placeholder: 'Username', type: 'text', required: true %>
+
+                </div>
+                <div class="form-group">
+                	<%= f.password_field :password, class: 'form-control', placeholder: 'Password',required: true %>
+                </div>
+
+                <%= f.submit "Login", class: 'btn btn-primary block full-width m-b', id: 'btn-submit' %>
+
+                <a><small>Forgot password?</small></a>
+                <p class="text-muted text-center"><small>Do not have an account?</small></p>
+                <a class="btn btn-sm btn-white btn-block">Report issue</a>
+
+            <% end %>
+            <p class="m-t"> <small>Mercon Coffee Corp © 2015</small> </p>
+        </div>
+    </div>
+
+
+
+</body>
+</html>

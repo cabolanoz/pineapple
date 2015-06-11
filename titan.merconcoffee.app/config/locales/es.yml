@@ -1,0 +1,88 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+es:
+  add_motive: "Agregar Motivo"
+  adjustment_reason: "Razón del Ajuste"
+  adjustments: "Ajustes"
+  after_adjustment: "Antes del Ajuste"
+  allocated_qty: "Cant. Alocada"
+  bag: "Saco"
+  bags: "Sacos"
+  before_adjustment: "Después del Ajuste"
+  build_draw_num: "No. Build/Draw"
+  close: "Cerrar"
+  commodity: "Artículo"
+  company: "Compañía"
+  create_adjustment: "Crear Ajuste"
+  create_transfer: "Crear Transferencia"
+  crop: "Cosecha"
+  detail: "Detalle"
+  do_adjustment: "Ajustes"
+  edit_tag: "Editar Tag"
+  edit_tags: "Editar Tags"
+  edit_transfer: "Editar Transferencia"
+  edit_transfers: "Editar Transferencias"
+  export_to_excel: "Exportar a Excel"
+  filter: "Filtrar"
+  filters: "Filtros"
+  gain_loss: "Ganancia/Pérdida"
+  gain_loss_qty: "Cant. Ganancia/Pérdida"
+  groups: "Grupos"
+  hello: "Hola Mundo"
+  home: "Inicio"
+  inventory: "Inventario"
+  inventory_manager: "Manejador del Inventario"
+  level: "Nivel"
+  location: "Ubicación"
+  lot: "Lote"
+  origin: "Origen"
+  owner: "Propietario"
+  owner_name: "Nombre del Propietario"
+  reason: "Razón"
+  resume: "Resumen"
+  save: "Guardar"
+  save_changes: "Guardar Cambios"
+  shipping_manager: "Manejador de Embarque"
+  standard_yields: "Rendimientos Estandar"
+  storage: "Almacén"
+  storage_inspector: "Inspector del Almacén"
+  storage_type: "Tipo de Almacén"
+  total_qty: "Cant. Total"
+  total_bags: "Cant. Bolsas"
+  trade_manager: "Manejador de Contratos"
+  traffic: "Tráfico"
+  transfer_manager: "Manejador de Transferencia"
+  transfer_num: "Transferencia No."
+  transfer_in: "Transferir desde"
+  transfer_out: "Transferir hacia"
+  type: "Tipo"
+  quantity: "Cantidad"
+  uom: "UDM"
+  update_location: "Actualizar Ubicación"
+  used_qty: "Cant. Utilizada"
+  void_build_draw: "Eliminar Build/Draw"
+  yield_manager: "AQUA"
+  edit: "Editar"
+  new: "Nuevo"
+  purchasing_yields: "Rendimientos de Compra"
+  elements: "Elementos"
+  lineclass: "Linea Clase"

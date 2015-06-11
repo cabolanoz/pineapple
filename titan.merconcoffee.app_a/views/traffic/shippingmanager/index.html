@@ -1,0 +1,93 @@
+<div class="container" ng-controller="ShippingManagerCtrl" style="margin-top: 20px;">
+    <div class="main-container">
+        <div class="dashboard-wrapper">
+            <div class="row page-title">
+                <h2>{{ 'SHIPPING_MANAGER' | translate }}
+                    <small>
+                        <li><a href="#/">Home</a></li>
+                        <li>/</li>
+                        <li><a href="">{{ 'MNU_TRAFFIC' | translate }}</a></li>
+                        <li>/</li>
+                        <li style="color: #ed321d !important;">{{ 'SHIPPING_MANAGER' | translate }}</li>
+                    </small>
+                </h2>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-12">
+                <li class="btn btn-sm btn-success">
+                    <a href="#/shippingmanager/new">
+                        {{ 'NEW_ITINERARY' | translate }}
+                    </a>
+                </li>
+            </div>
+            <div class="clearfix"></div>
+            <br />
+            <div class="col-md-12">
+                <accordion>
+                    <table class="table table-condensed table-bordered" style="margin-bottom: 0;">
+                        <thead>
+                            <tr>
+                                <th style="width: 20%;">Itinerary Number</th>
+                                <th style="width: 20%;">Itinerary Name</th>
+                                <th style="width: 25%;">Operator</th>
+                                <th style="text-align: center; width: 10%;">Start Date</th>
+                                <th style="text-align: center; width: 10%;">End Date</th>
+                                <th style="text-align: center; width: 10%;">Created Date</th>
+                                <th style="text-align: center; width: 5%;"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <accordion-group ng-repeat="itinerary in itineraries track by itinerary.itinerary_num" style="border: none;">
+                        <accordion-heading style="padding: 0px;">
+                            <table class="table table-condensed table-pointer table-bordered" style="margin-bottom: 0;">
+                                <tbody>
+                                    <tr class="warning">
+                                        <td style="width: 20%;">{{itinerary.itinerary_num}}</td>
+                                        <td style="width: 20%;">{{itinerary.itinerary_name}}</td>
+                                        <td style="width: 25%;">{{itinerary.operator_person.first_name}} {{itinerary.operator_person.last_name}}</td>
+                                        <td style="text-align: center; width: 10%;">{{itinerary.start_dt | date: 'MM/dd/yyyy'}}</td>
+                                        <td style="text-align: center; width: 10%;">{{itinerary.end_dt | date: 'MM/dd/yyyy'}}</td>
+                                        <td style="text-align: center; width: 10%;">{{itinerary.create_dt | date: 'MM/dd/yyyy'}}</td>
+                                        <td style="text-align: center; width: 5%;"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </accordion-heading>
+                        <table class="table table-condensed table-striped table-bordered" style="margin-bottom: 0;">
+                            <thead>
+                                <tr>
+                                    <th>Movement Number</th>
+                                    <th>Equipment Number</th>
+                                    <th>MOT</th>
+                                    <th>Vehicle</th>
+                                    <th>Status</th>
+                                    <th>Depart From</th>
+                                    <th>Depart On</th>
+                                    <th>Arrive At</th>
+                                    <th>Arrive On</th>
+                                    <th>SI Date</th>
+                                    <th style="width: 40px;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="m in itinerary.movement track by m.movement_num">
+                                    <td>{{m.movement_num}}</td>
+                                    <td>{{m.equipment_num}}</td>
+                                    <td>{{m.mot_type_ind}}</td>
+                                    <td>{{m.mot.mot_cd}}</td>
+                                    <td>{{m.movement_status_ind}}</td>
+                                    <td>{{m.depart_location.location_name}}</td>
+                                    <td>{{m.depart_dt | date: 'MM/dd/yyyy'}}</td>
+                                    <td>{{m.arrive_location.location_name}}</td>
+                                    <td>{{m.arrive_dt | date: 'MM/dd/yyyy'}}</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </accordion-group>
+                </accordion>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="logo">
+        <a href="/">
+            <img src="img/logo-mercon.png" />
+        </a>
+    </div>
+    <div class="mini-nav">
+        <div class="pull-right" style="height: 75px;">
+            <span style="color: #26a37b; float: left; font-size: 14px; padding: 20px 0;">
+                <img src="img/user.png" style="border-radius: 100px; height: 32px; margin-right: 10px; width: 32px;"> {{ 'WELCOME' | translate }} Admin Admin
+            </span>
+        </div>
+        <ul class="pull-right" style="display: inline; padding: 25px;">
+            <li style="color: #cbcbcb; display: inline-block;"><span data-icon="&#xe053;" style="float: left; margin: 1px 4px 0 0;"></span>{{currentDt | date: 'EEEE, MMMM dd'}}</li>
+            <li style="display: inline-block; margin: 0 5px;"></li>
+            <li style="color: #cbcbcb; display: inline-block;"><span data-icon="&#xe048;" style="float: left; margin: 1px 4px 0 0;"></span><span dynamic-time></span></li>
+        </ul>
+    </div>
+</div>

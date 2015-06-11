@@ -1,0 +1,157 @@
+<!--<div class="md-modal" id="dlgItinerary">
+<div class="md-content">
+<input class="form-control" data-icon="&#xe07f;" id="txtSearchItinerary" placeholder="Search By Trade" type="text">
+<div class="clearfix"></div><br />
+<div id="dt_example" class="example_alt_pagination">
+<table class="table table-condensed table-striped table-hover table-bordered" id="tblItinerary">
+<thead>
+<tr>
+<th>Itinerary Number</th>
+<th>Itinerary Name</th>
+<th>Operator</th>
+<th>Created Date</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+<div class="clearfix"></div><br />
+<div>
+<input class="btn btn-danger" id="btnCloseDlg" type="button" value="Cancel">
+</div>
+</div>
+</div>-->
+<div class="dashboard-wrapper">
+  <div class="main-container">
+    <div class="dashboard-wrapper">
+      <div class="row page-title">
+        <h2>Shipping Manager
+          <small>
+            <li><a href="/">Home</a></li>
+            <li>/</li>
+            <li><a href="">Traffic</a></li>
+            <li>/</li>
+            <li>Shipping Manager</li>
+          </small>
+        </h2>
+        <ul class="stats hidden-xs">
+          <li>
+            <div class="details">
+              <span class="big" style="color: #0774b3; font-weight: bold;">0.00 Bags</span>
+              <span class="small" style="color: #666666;">Trade Qty</span>
+            </div>
+          </li>
+          <li>
+            <div class="details">
+              <span class="big" style="color: #ed321d; font-weight: bold;">0.00 Bags</span>
+              <span class="small" style="color: #666666;">Open Qty</span>
+            </div>
+          </li>
+          <li>
+            <div class="details" style="height: 30px;">
+              <!-- Start - Loading animation -->
+              <div class="hidden loading-spinner" style="margin-top: 0;">
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
+              </div>
+              <!-- End - Loading animation -->
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!--<div class="col-md-12">
+        <input class="btn btn-default pull-right" id="btnSearchItinerary" type="button" value="Search Itinerary">
+      </div>-->
+      <div class="clearfix"></div>
+      <div class="col-md-12">
+        <div class="widget">
+          <div class="widget-header">
+            <div class="title">
+              <span class="fs1" aria-hidden="true" data-icon="&#xe14c;"></span> General Information
+            </div>
+          </div>
+          <div class="widget-body">
+            <form class="form-horizontal" role="form">
+              <div class="form-group">
+                <label for="txtTradeNumber" class="col-lg-2 control-label">Trade Number</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" id="txtTradeNumber">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="txtItineraryName" class="col-lg-2 control-label">Itinerary Name</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" id="txtItineraryName">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="txtInternalCompany" class="col-lg-2 control-label">Internal Comp.</label>
+                <div class="col-lg-9">
+                  <select id="txtInternalCompany">
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="txtOperatorName" class="col-lg-2 control-label">Operator Name</label>
+                <div class="col-lg-9">
+                  <select id="txtOperatorName">
+                  </select>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="col-md-12">
+        <div class="widget">
+          <div class="widget-header">
+            <div class="title">
+              <span class="fs1" aria-hidden="true" data-icon="&#xe053;"></span> Movements & Cargos
+            </div>
+            <input class="btn btn-default pull-right" id="btnAddMovement" type="button" value="Add Movement">
+          </div>
+          <div class="widget-body">
+            <div id="dt_example" class="example_alt_pagination">
+              <table class="table table-condensed table-striped table-hover table-bordered" id="tblMovement">
+                <thead>
+                  <tr>
+                    <th style="width: 35px;"></th>
+                    <th>Mov. Number</th>
+                    <th>MOT</th>
+                    <th>Vehicle</th>
+                    <th>Status</th>
+                    <th>Depart From</th>
+                    <th>Depart On</th>
+                    <th>Duration</th>
+                    <th>Arrive At</th>
+                    <th>Arrive On</th>
+                    <th>SI Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="col-md-12">
+        <div class="widget">
+          <div class="widget-header">
+            <div class="title">
+              <span class="fs1" aria-hidden="true" data-icon="&#xe0b3;"></span> Obligation Match
+            </div>
+          </div>
+          <div class="widget-body">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

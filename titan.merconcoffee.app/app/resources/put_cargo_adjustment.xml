@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<request xmlns:xsi="http://www.w3.org/1999/XMLSchema-instance" xsi:noNamespaceSchemaLocation="request.xsd">
+  <mhead name="TPTReqPutCargoAdjustment">
+    <sender>{B9B2BC38-3D6B-41FF-8579-FC56B927361D}</sender>
+    <sent_dt>@@=val1=@@</sent_dt>
+  </mhead>
+  <mbody>
+    <data>
+      <PutCargoAdjustment>
+        <OPS_CARGO_ADJUSTMENT table="1">
+          <cargo_num><![CDATA[@@=val2=@@]]></cargo_num>
+          <effective_dt><![CDATA[@@=val3=@@]]></effective_dt>
+          <actual_qty><![CDATA[@@=val4=@@]]></actual_qty>
+          <packaging_qty><![CDATA[0]]></packaging_qty>
+          <import_ind><![CDATA[0]]></import_ind>
+        </OPS_CARGO_ADJUSTMENT>
+      </PutCargoAdjustment>
+    </data>
+  </mbody>
+</request>

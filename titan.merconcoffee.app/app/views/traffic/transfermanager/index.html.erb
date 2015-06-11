@@ -1,0 +1,87 @@
+<div class="dashboard-wrapper">
+  <div class="main-container">
+    <div class="row page-title">
+      <h2><%= t('transfer_manager') %>
+        <small>
+          <li><a href="/"><%= t('home') %></a></li>
+          <li>/</li>
+          <li><a><%= t('traffic') %></a></li>
+          <li>/</li>
+          <li><%= t('transfer_manager') %></li>
+        </small>
+      </h2>
+      <ul class="stats hidden-xs">
+        <li>
+          <div class="details" style="height: 30px;">
+            <!-- Start - Loading animation -->
+            <div class="hidden loading-spinner" style="margin-top: 0;">
+              <div class="rect1"></div>
+              <div class="rect2"></div>
+              <div class="rect3"></div>
+              <div class="rect4"></div>
+              <div class="rect5"></div>
+            </div>
+            <!-- End - Loading animation -->
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+      <a class="btn btn-primary" data-no-turbolink='true' href="/traffic/transfermanager/new" role="button">New Transfer</a>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+      <div class="table-responsive" id="dt_example">
+        <table class="table table-striped" data-source="<%= traffic_transfermanager_index_url(format: 'datatable') %>" id="tbl_transfer" style="width: 100%;">
+          <thead>
+            <tr>
+              <th colspan="12">Transfer</th>
+              <th colspan="5">From</th>
+              <th colspan="5">To</th>
+            </tr>
+            <tr>
+              <th>No. Transfer<t/h>
+              <th>Status</th>
+              <th>Location</th>
+              <th>Effective Dt.</th>
+              <th>Comm. Dt.</th>
+              <th>Completion Dt.</th>
+              <th>B/L Number</th>
+              <th>B/L Date</th>
+              <th>No. Obligation</th>
+              <th>No. Build</th>
+              <th>No. Draw</th>
+              <th>Gain/Loss Qty.</th>
+              <!-- From Columns -->
+              <th>From</th>
+              <th>Vehicle</th>
+              <th>No. Itinerary</th>
+              <th>Cargo/Level</th>
+              <th>Qty</th>
+              <!-- To Columns -->
+              <th>To</th>
+              <th>Vehicle</th>
+              <th>No. Itinerary</th>
+              <th>Cargo/Level</th>
+              <th>Qty</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="transfer_contextmenu">
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header" role="presentation"><span style="color: #337ab7; font-weight: bold;">0000001</span></li>
+    <li class="divider" role="presentation"></li>
+    <li role="presentation"><a href="#" id="lnk_edit" role="menuitem">Edit</a></li>
+    <li role="presentation"><a href="#" id="lnk_void" role="menuitem">Void</a></li>
+    <li role="presentation"><a href="#" id="lnk_allocate" role="menuitem">Allocate Tags</a></li>
+    <li role="presentation"><a href="#" id="lnk_break_allocation" role="menuitem">Break Allocation</a></li>
+    <li class="hidden" role="presentation"><a href="#" id="lnk_copy" role="menuitem">Copy Transfer</a></li>
+  </ul>
+</div>

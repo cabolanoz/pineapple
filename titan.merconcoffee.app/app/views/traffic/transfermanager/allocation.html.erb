@@ -1,0 +1,237 @@
+<div class="dashboard-wrapper">
+  <div class="main-container">
+    <div class="row page-title">
+      <h2><%= t('transfer_manager') %>
+        <small>
+          <li><a href="/"><%= t('home') %></a></li>
+          <li>/</li>
+          <li><a><%= t('traffic') %></a></li>
+          <li>/</li>
+          <li><a data-no-turbolink='true' href="/traffic/transfermanager"><%= t('transfer_manager') %></a></li>
+          <li>/</li>
+          <li>Allocation</li>
+        </small>
+      </h2>
+      <ul class="stats hidden-xs">
+        <li>
+          <div class="details" style="height: 30px;">
+            <!-- Start - Loading animation -->
+            <div class="hidden loading-spinner" style="margin-top: 0;">
+              <div class="rect1"></div>
+              <div class="rect2"></div>
+              <div class="rect3"></div>
+              <div class="rect4"></div>
+              <div class="rect5"></div>
+            </div>
+            <!-- End - Loading animation -->
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <a class="btn btn-success btn-sm" data-no-turbolink='true' href='/traffic/transfermanager/new' role='button'>New Transfer</a>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <%= hidden_field_tag(:equipment_num, @builds.any? ? @builds[0].storage.equipment_num : -1 ) %>
+    <%= hidden_field_tag(:cargo_num, @builds.any? ? @builds[0].cargo.cargo_num : -1 ) %>
+    <%= hidden_field_tag(:strategy_num, @builds.any? ? @builds[0].cargo.strategy_num : -1) %>
+    <div class="col-md-12 no-padding">
+      <h3><small>Storage</small> <%= @builds.any? ? @builds[0].storage.storage_cd : @draws[0].storage.storage_cd %><small><%= @builds.any? ? ' ' + @builds[0].storage.equipment_num.to_s : ' ' + @draws[0].storage.equipment_num.to_s %></small></h3>
+      <h3><small>Level</small> <%= @builds.any? ? @builds[0].cargo.cargo_name : @draws[0].cargo.cargo_name %><small><%= @builds.any? ? ' ' + @builds[0].cargo_num.to_s : ' ' + @draws[0].cargo_num.to_s %></small></h3>
+    </div>
+    <div class="clearfix"></div>
+    <br />
+    <br />
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-horizontal">
+          <h3 class="heading-a">Draws</h3>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive" id="dt_example">
+          <table class="table table-striped" id="tbl_allocation_draw" style="width: 100%;">
+            <thead>
+              <tr>
+                <th>No. Draw</th>
+                <th>Discharge Start Dt.</th>
+                <th>Discharge End Dt.</th>
+                <th>Quantity</th>
+                <th>Open Qty.</th>
+                <th>No. Trade</th>
+                <th>No. Obligation</th>
+                <th>No. Transfer</th>
+                <th>Comments</th>
+                <th>No. Strategy</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if @draws.any? %>
+                <% @draws.each_with_index do |d, index| %>
+                  <tr class="<%= (index % 2) == 0 ? 'danger' : '' %>">
+                    <td><%= d.build_draw_num %></td>
+                    <td><%= d.transfer_start_dt.strftime("%m/%d/%Y") %></td>
+                    <td><%= d.transfer_end_dt.strftime("%m/%d/%Y") %></td>
+                    <td><%= d.build_draw_qty %></td>
+                    <td><%= d.open_qty %></td>
+                    <td><%= d.trade_num != nil ? link_to(d.trade_num, { :controller => 'trademanager', :action => 'show', :id => d.trade_num }) : '' %></td>
+                    <td><%= d.obligation_num != nil ? d.obligation_num : '' %></td>
+                    <td><%= d.transfer_num != nil ? link_to(d.transfer_num, { :controller => 'transfermanager', :action => 'show', :id => d.transfer_num }) : '' %></td>
+                    <td><%= d.comments %></td>
+                    <td><%= d.strategy_num %></td>
+                  </tr>
+                <% end %>
+              <% else %>
+                <tr class="danger">
+                  <td colspan="10">No data available.</td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <br />
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-horizontal">
+          <h3 class="heading-a">Builds</h3>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive" id="dt_example">
+          <table class="table table-striped" id="tbl_allocation_build" style="width: 100%;">
+            <thead>
+              <tr>
+                <th>No. Build</th>
+                <th>No. Trade</th>
+                <th>Transfer Start Dt.</th>
+                <th>Transfer End Dt.</th>
+                <th>Quantity</th>
+                <th>Open Qty.</th>
+                <th>Allocated Qty.</th>
+                <th>No. Transfer</th>
+                <th>Comments</th>
+                <th>No. Strategy</th>
+                <th>Tags</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if @builds.any? %>
+                <% @builds.each_with_index do |b, index| %>
+                  <tr class="<%= (index % 2) == 0 ? 'warning' : '' %>">
+                    <td><%= link_to(b.build_draw_num, { :controller => 'transfermanager', :action => 'builddraw', :id => b.build_draw_num }, 'data-no-turbolink' => true ) %></td>
+                    <td><%= b.trade_num != nil ? link_to(b.trade_num, { :controller => 'trademanager', :action => 'show', :id => b.trade_num }) : '' %></td>
+                    <td><%= b.transfer_start_dt.strftime("%m/%d/%Y") %></td>
+                    <td><%= b.transfer_end_dt.strftime("%m/%d/%Y") %></td>
+                    <td><%= b.build_draw_qty %></td>
+                    <td><%= b.open_qty %></td>
+                    <td><%= (b.build_draw_qty - b.open_qty) %></td>
+                    <td><%= b.transfer_num != nil ? link_to(b.transfer_num, { :controller => 'transfermanager', :action => 'show', :id => b.transfer_num }) : '' %></td>
+                    <td><%= b.comments %></td>
+                    <td><%= b.strategy_num %></td>
+                    <td><%= b.tags.to_json %></td>
+                  </tr>
+                <% end %>
+              <% else %>
+                <tr class="danger">
+                  <td colspan="11">No data available.</td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <br />
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-horizontal">
+          <h3 class="heading-a">Tags</h3>
+          <div class="pull-right" style="background: #333; padding: 10px 0;">
+            <ul style="display: inline;">
+              <li style="display: inline-block; margin: 0 10px;">
+                <div>
+                  <span id="lgd_draw_qty" style="color: #fff; font-size: 20px;">0</span>
+                  <div class="clearfix"></div>
+                  <small style="color: #27ae60;">Draw Qty</small>
+                </div>
+              </li>
+              <li style="border: 1px solid #fff; display: inline-block; height: 36px; width: 1px;"></li>
+              <li style="display: inline-block; margin: 0 10px;">
+                <div>
+                  <span id="lgd_build_qty" style="color: #fff; font-size: 20px;">0</span>
+                  <div class="clearfix"></div>
+                  <small style="color: #d35400;">Build Qty</small>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <br />
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive" id="dt_example">
+          <table class="table table-striped" id="tbl_allocation_tag" style="width: 100%;">
+            <thead>
+              <tr>
+                <th>No. Build</th>
+                <th>Type</th>
+                <th>Chop Id</th>
+                <th>Value 1 <small>(Container)</small></th>
+                <th>Value 2 <small>(ICO)</small></th>
+                <th>Value 3 <small>(Warehouse)</small></th>
+                <th>Value 4 <small>(ERW)</small></th>
+                <th>Value 7 <small>(Building)</small></th>
+                <th>Value 8 <small>(Comments)</small></th>
+                <th class="hidden">Tag Qty</th>
+                <th class="hidden">Qty UOM</th>
+                <th>Qty Allocated</th>
+                <th>Qty Available</th>
+                <th>Qty To Allocate</th>
+                <th class="hidden">No. B.D. Tag</th>
+                <th class="hidden">No. Ref B.D. Tag</th>
+                <th class="hidden">Tag Source Ind.</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <br />
+    <br />
+    <div class="row">
+      <div class="col-md-12">
+        <div class="pull-right">
+          <%= submit_tag("Save", { :class => "btn btn-success", :id => "btn_save_allocation" }) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="transfer_allocate_tag_contextmenu">
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header" role="presentation"><span style="color: #337ab7; font-weight: bold;">0000001</span></li>
+    <li class="divider" role="presentation"></li>
+    <li role="presentation"><a href="#" id="lnk_edit_tag" role="menuitem">Edit</a></li>
+    <li role="presentation"><a href="#" id="lnk_split_tag" role="menuitem">Split</a></li>
+    <li class="hidden" role="presentation"><a href="#" id="lnk_delete_tag" role="menuitem">Delete</a></li>
+  </ul>
+</div>

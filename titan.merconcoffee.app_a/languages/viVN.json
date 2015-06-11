@@ -1,0 +1,12 @@
+{
+    "WELCOME": "Chào mừng",
+    "SEARCH": "Tìm kiếm",
+    // For Navigation Menu
+    "MNU_ALL": "Tất cả",
+    "MNU_TRAFFIC": "Giao thông",
+    "MNU_IT": "IT",
+    "MNU_FINANCE": "Tài chánh",
+    "MNU_POSITION": "Vị trí",
+    "MNU_ACCOUNTING": "Kế toán",
+    "MNU_MISCELLANEOUS": "Hỗn hợp"
+}

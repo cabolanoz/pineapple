@@ -1,0 +1,327 @@
+<div class="dashboard-wrapper">
+	<div class="main-container">
+		<div class="row page-title">
+			<h2><%= t('inventory_manager') %>
+				<small>
+					<li><a href="/"><%= t('home') %></a></li>
+					<li>/</li>
+					<li><a><%= t('origin') %></a></li>
+					<li>/</li>
+					<li><%= t('inventory_manager') %></li>
+				</small>
+			</h2>
+			<ul class="stats hidden-xs">
+        <li>
+          <div class="details" style="height: 30px;">
+            <!-- Start - Loading animation -->
+            <div class="hidden loading-spinner" style="margin-top: 0;">
+              <div class="rect1"></div>
+              <div class="rect2"></div>
+              <div class="rect3"></div>
+              <div class="rect4"></div>
+              <div class="rect5"></div>
+            </div>
+            <!-- End - Loading animation -->
+          </div>
+        </li>
+      </ul>
+			<!-- <ul class="stats hidden-xs">
+        <li class="ruby-red-bg">
+          <span id="currentSale" class="graph">
+            2, 4, 8, 2, 4, 1
+          </span>
+          <div class="details">
+            <span class="big">$8,597</span>
+            <span class="small"><%= t('total_qty') %></span>
+          </div>
+        </li>
+        <li class="light-grey-bg">
+          <span id="currentBalance" class="graph">
+            5, 2, 4, 9, 2, 3
+          </span>
+          <div class="details">
+            <span class="big">$21,345</span>
+            <span class="small"><%= t('total_bags') %></span>
+          </div>
+        </li>
+      </ul> -->
+		</div>
+		<div class="clearfix"></div>
+		<div aria-multiselectable="true" class="panel-group" id="acc_filter_inventory" role="tablist">
+			<div class="panel panel-primary" style="border-radius: 0;">
+				<div class="panel-heading" id="headingOne" role="tab" style="border-radius: 0;">
+					<h4 class="panel-title">
+						<a aria-controls="collapseOne" aria-expanded="true" data-parent="#acc_filter_inventory" data-toggle="collapse" href="#collapseOne">
+		          <span aria-hidden="true" class="glyphicon glyphicon-filter" style="color: #fff;"></span> <%= t('filters') %>
+		        </a>
+					</h4>
+				</div>
+				<div aria-labelledby="headingOne" class="panel-collapse collapse in" id="collapseOne" role="tabpanel">
+		      <div class="panel-body" style="padding: 0;">
+						<div class="jumbotron" style="background-color: #3498db; margin-bottom: 0;">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="col-md-4">
+										<div class="form-group">
+											<label style="color: #fff;"><%= t('company') %></label>
+											<%=
+									      select_tag(
+									        :inventory_internal_company,
+													options_from_collection_for_select(
+													RefCompany.where("company_type_ind = ?", 10).where("status_ind = ?", 1).where("restricted_ind = ?", 0).order(company_cd: :asc),
+														"company_num",
+														"company_cd",
+														2860
+													),
+									        {
+									          :class => "form-control"
+									        }
+									      )
+									    %>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label style="color: #fff;"><%= t('storage_type') %></label>
+											<%=
+									      select_tag(
+									        :inventory_storage_type,
+													options_from_collection_for_select(
+													RefStorageType.where("status_ind = ?", 1).order(storage_type_cd: :asc),
+														"storage_type_cd",
+														"storage_type_cd"
+													),
+									        {
+									          :class => "form-control",
+														:prompt => "Which storage type?"
+									        }
+									      )
+									    %>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label style="color: #fff;"><%= t('storage') %></label>
+											<%=
+												select_tag(
+													:inventory_storage,
+													nil,
+													{
+														:class => "form-control",
+														:prompt => "Which storage?"
+													}
+												)
+											%>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="cleafix"></div>
+							<br />
+							<div class="row">
+								<div class="col-md-12">
+									<div class="col-md-4">
+										<div class="form-group">
+											<label style="color: #fff;"><%= t('level') %></label>
+											<%=
+												select_tag(
+													:inventory_level,
+													nil,
+													{
+														:class => "form-control",
+														:prompt => "Which level?"
+													}
+												)
+											%>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label style="color: #fff;"><%= t('location') %></label>
+											<%=
+												text_field_tag(
+													:inventory_location,
+													nil,
+													{
+														:class => "form-control",
+														:placeholder => "#{t('location')}"
+													}
+												)
+											%>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label style="color: #fff;"><%= t('owner') %></label>
+											<%=
+												text_field_tag(
+													:inventory_owner,
+													nil,
+													{
+														:class => "form-control",
+														:placeholder => "#{t('owner')}"
+													}
+												)
+											%>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="col-md-12" style="background-color: #34495e; padding-bottom: 20px; padding-top: 20px;">
+							<div class="pull-left" style="padding-bottom: 10px; padding-right: 10px; padding-top: 10px;">
+								<label style="color: #fff;">Open Qty > 0</label>
+							</div>
+							<div class="pull-left">
+								<div class="widget" style="margin: 0;">
+									<div class="widget-body" style="padding: 0">
+										<div class="onoffswitch">
+											<!-- <%= check_box_tag("inventory_open_qty", true, class: 'onoffswitch-checkbox') %> -->
+											<input checked="checked" class="onoffswitch-checkbox" id="inventory_open_qty" type="checkbox" />
+											<label class="onoffswitch-label" for="inventory_open_qty">
+		                    <div class="onoffswitch-inner"></div>
+		                    <div class="onoffswitch-switch"></div>
+		                  </label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="pull-right">
+								<%= button_tag(t('filter'), { :class => "btn btn-success", :id => "btn_filter", :type => "button" }) %>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- <div class="panel-footer" style="background-color: #34495e; border-radius: 0;">
+					<%= button_tag(t('filter'), { :class => "btn btn-success", :id => "btn_filter", :type => "button"}) %>
+				</div> -->
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="tabpanel">
+					<!-- Navigation -->
+					<ul class="nav nav-tabs" id="my_tab" role="tablist">
+						<li class="active" id="lnk_1" role="presentation">
+							<a aria-controls="pnl_dtl" data-toggle="tab" href="#pnl_dtl" role="tab">
+								<%= t('inventory') %> (<%= t('detail') %>)
+							</a>
+						</li>
+						<li id="lnk_2" role="presentation">
+							<a aria-controls="pnl_hdr" data-toggle="tab" href="#pnl_hdr" role="tab">
+								<%= t('inventory') %> (<%= t('resume') %>)
+							</a>
+						</li>
+					</ul>
+
+					<!-- Content -->
+					<div class="tab-content">
+						<br />
+						<br />
+						<div class="tab-pane fade in active" id="pnl_dtl" role="tabpanel">
+							<div class="row">
+								<div class="col-md-12">
+									<%= link_to t('export_to_excel'), { :controller => 'inventorymanager', :action => :inventory_dtl, :format => 'xls', :sSearch_C1 => '', :sSearch_C2 => '', :sSearch_C3 => '', :sSearch_C4 => '', :sSearch_C5 => '', :sSearch_C6 => '', :sSearch_C7 => 'SUM([OPS_BUILD_DRAW].open_qty) > 0' }, { :class => "btn btn-success btn-sm pull-right", :id => "btn_export_dtl" } %>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+							<br />
+							<div class="table-responsive" id="dt_example">
+								<table class="table table-striped" data-source="<%= origin_inventorymanager_index_url(format: 'datatable1') %>" id="tbl_inventory_dtl" style="width: 100%;">
+									<thead>
+			              <tr>
+											<th>Build No.</th>
+											<th><%= t('transfer_num') %></th>
+			                <th><%= t('storage_type') %></th>
+											<th>Equipment No.</th>
+											<th><%= t('storage') %></th>
+			                <th><%= t('commodity') %></th>
+											<th><%= t('location') %></th>
+			                <th><%= t('owner') %></th>
+											<th><%= t('owner_name') %></th>
+			                <th><%= t('quantity') %></th>
+											<th><%= t('uom') %></th>
+			                <th><%= t('bags') %></th>
+											<th><%= t('crop') %></th>
+											<th><%= t('lot') %></th>
+			              </tr>
+			            </thead>
+									<tfoot>
+										<tr class="success">
+											<th></th>
+											<th></th>
+											<th></th>
+											<th></th>
+											<th></th>
+											<th></th>
+											<th></th>
+											<th></th>
+											<th></th>
+											<th>0</th>
+											<th></th>
+											<th>0</th>
+											<th></th>
+											<th></th>
+										</tr>
+									</tfoot>
+			            <tbody>
+									</tbody>
+								</table>
+							</div>
+						</div>
+
+						<div class="tab-pane fade" id="pnl_hdr" role="tabpanel">
+							<div class="table-responsive" id="dt_example">
+								<table class="table table-striped" data-source="<%= origin_inventorymanager_index_url(format: 'datatable2') %>" id="tbl_inventory_hdr" style="width: 100%;">
+									<thead>
+										<tr>
+											<th><%= t('storage_type') %></th>
+											<th>Equipment No.</th>
+											<th><%= t('storage') %></th>
+											<th><%= t('commodity') %></th>
+											<th><%= t('owner') %></th>
+											<th><%= t('owner_name') %></th>
+											<th><%= t('quantity') %></th>
+											<th><%= t('uom') %></th>
+											<th><%= t('bags') %></th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr class="success">
+											<th></th>
+											<th></th>
+											<th></th>
+											<th></th>
+											<th></th>
+											<th></th>
+											<th>0</th>
+											<th></th>
+											<th>0</th>
+										</tr>
+									</tfoot>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="inventory_dtl_contextmenu">
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header" role="presentation"><span style="color: #337ab7; font-weight: bold;">0000001</span></li>
+    <li class="divider" role="presentation"></li>
+    <li role="presentation"><a data-no-turbolink='true' href="#" id="lnk_transfer_in" role="menuitem"><%= t('transfer_in') %></a></li>
+    <li role="presentation"><a data-no-turbolink='true' href="#" id="lnk_transfer_out" role="menuitem"><%= t('transfer_out') %></a></li>
+    <li role="presentation"><a data-no-turbolink='true' href="#" id="lnk_edit_tag" role="menuitem"><%= t('edit_tags') %></a></li>
+	<li role="presentation"><a data-no-turbolink='true' href="#" id="lnk_create_transfer" role="menuitem"><%= t('create_transfer') %></a></li>
+    <li role="presentation"><a data-no-turbolink='true' href="#" id="lnk_edit_transfer" role="menuitem"><%= t('edit_transfer') %></a></li>
+    <li role="presentation"><a data-no-turbolink='true' href="#" id="lnk_do_adjustment" role="menuitem"><%= t('do_adjustment') %></a></li>
+		<li class="hidden" role="presentation"><a data-no-turbolink='true' href="#" id="lnk_update_location" role="menuitem"><%= t('update_location') %></a></li>
+  </ul>
+</div>

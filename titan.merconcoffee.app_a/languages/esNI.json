@@ -1,0 +1,12 @@
+{
+    "WELCOME": "Bienvenido",
+    "SEARCH": "Buscar",
+    // For Navigation Menu
+    "MNU_ALL": "Todo",
+    "MNU_TRAFFIC": "Tráfico",
+    "MNU_IT": "IT",
+    "MNU_FINANCE": "Finanzas",
+    "MNU_POSITION": "Posición",
+    "MNU_ACCOUNTING": "Contabilidad",
+    "MNU_MISCELLANEOUS": "Misceláneos"
+}

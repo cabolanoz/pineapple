@@ -1,0 +1,54 @@
+if ($('#frm_new_transfer').length > 0) {
+  $('#s_to_level').html("<%= escape_javascript(options_for_select(@levels)) %>")
+  $('#s_to_commodity').val('')
+  // $('#to_storage_qty').val('')
+  $('#to_storage_qty_uom_cd').text('')
+
+  $('.loading-spinner').removeClass('show').addClass('hidden')
+
+  if ($('#s_to_level').val()) {
+    $.ajax({
+      url: '/common/util/get_level_by_cargo',
+      data: {
+        id: $('#s_to_level').val()
+      },
+      beforeSend: function(xhr) {
+        $('.loading-spinner').removeClass('hidden').addClass('show')
+      }
+    })
+    .done(function(d) {
+      $('.loading-spinner').removeClass('show').addClass('hidden')
+
+      if (d) {
+        $('#s_to_commodity').val(d.cmdty_cd)
+        $('#to_storage_qty_uom_cd').text(d.qty_uom_cd)
+        $('#to_internal_company_num').val(d.internal_company_num)
+      }
+    })
+  }
+} else if ($('#frm_edit_transfer').length > 0) {
+  $('#s_to_level_e').html("<%= escape_javascript(options_for_select(@levels)) %>")
+  $('#s_to_commodity_e').val('')
+  $('#to_storage_qty_uom_cd_e').text('')
+  $('.loading-spinner').removeClass('show').addClass('hidden')
+
+  if ($('#s_to_level_e').val()) {
+    $.ajax({
+      url: '/common/util/get_level_by_cargo',
+      data: {
+        id: $('#s_to_level_e').val()
+      },
+      beforeSend: function(xhr) {
+        $('.loading-spinner').removeClass('hidden').addClass('show')
+      }
+    })
+    .done(function(d) {
+      $('.loading-spinner').removeClass('show').addClass('hidden')
+
+      if (d) {
+        $('#s_to_commodity_e').val(d.cmdty_cd)
+        $('#to_storage_qty_uom_cd_e').text(d.qty_uom_cd)
+      }
+    })
+  }
+}

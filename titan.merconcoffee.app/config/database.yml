@@ -1,0 +1,77 @@
+default: &default
+  adapter: sqlserver
+  database: <%= Rails.application.secrets[:mcgen_db][:name] %>
+  host: <%= Rails.application.secrets[:mcgen_db][:host] %>
+  username: <%= Rails.application.secrets[:mcgen_db][:username] %>
+  password: <%= Rails.application.secrets[:mcgen_db][:password] %>
+
+test:
+  adapter: sqlserver
+  database: <%= Rails.application.secrets[:mcgen_db][:name] %>
+  host: <%= Rails.application.secrets[:mcgen_db][:host] %>
+  username: <%= Rails.application.secrets[:mcgen_db][:username] %>
+  password: <%= Rails.application.secrets[:mcgen_db][:password] %>
+
+development:
+  <<: *default
+  adapter: sqlserver
+  database: <%= Rails.application.secrets[:mcgen_db][:name] %>
+  host: <%= Rails.application.secrets[:mcgen_db][:host] %>
+  username: <%= Rails.application.secrets[:mcgen_db][:username] %>
+  password: <%= Rails.application.secrets[:mcgen_db][:password] %>
+
+production:
+  <<: *default
+  adapter: sqlserver
+  database: <%= Rails.application.secrets[:mcgen_db][:name] %>
+  host: <%= Rails.application.secrets[:mcgen_db][:host] %>
+  username: <%= Rails.application.secrets[:mcgen_db][:username] %>
+  password: <%= Rails.application.secrets[:mcgen_db][:password] %>
+
+ctrm_ciclon_pro_development:
+  adapter: sqlserver
+  database: <%= Rails.application.secrets[:ciclon_pro_db][:name] %>
+  host: <%= Rails.application.secrets[:ciclon_pro_db][:host] %>
+  username: <%= Rails.application.secrets[:ciclon_pro_db][:username] %>
+  password: <%= Rails.application.secrets[:ciclon_pro_db][:password] %>
+
+ctrm_ciclon_pro_production:
+  adapter: sqlserver
+  database: <%= Rails.application.secrets[:ciclon_pro_db][:name] %>
+  host: <%= Rails.application.secrets[:ciclon_pro_db][:host] %>
+  username: <%= Rails.application.secrets[:ciclon_pro_db][:username] %>
+  password: <%= Rails.application.secrets[:ciclon_pro_db][:password] %>
+
+mcgens_development:
+  adapter: sqlserver
+  database: <%= Rails.application.secrets[:mcgen_db][:name] %>
+  host: <%= Rails.application.secrets[:mcgen_db][:host] %>
+  username: <%= Rails.application.secrets[:mcgen_db][:username] %>
+  password: <%= Rails.application.secrets[:mcgen_db][:password] %>
+
+mcgens_production:
+  adapter: sqlserver
+  database: <%= Rails.application.secrets[:mcgen_db][:name] %>
+  host: <%= Rails.application.secrets[:mcgen_db][:host] %>
+  username: <%= Rails.application.secrets[:mcgen_db][:username] %>
+  password: <%= Rails.application.secrets[:mcgen_db][:password] %>
+
+coffeeorigin_development:
+  adapter: sqlserver
+  database: <%= Rails.application.secrets[:coffeeorigin_db][:name] %>
+  host: <%= Rails.application.secrets[:coffeeorigin_db][:host] %>
+  username: <%= Rails.application.secrets[:coffeeorigin_db][:username] %>
+  password: <%= Rails.application.secrets[:coffeeorigin_db][:password] %>
+
+coffeeorigin_production:
+  adapter: sqlserver
+  database: <%= Rails.application.secrets[:coffeeorigin_db][:name] %>
+  host: <%= Rails.application.secrets[:coffeeorigin_db][:host] %>
+  username: <%= Rails.application.secrets[:coffeeorigin_db][:username] %>
+  password: <%= Rails.application.secrets[:coffeeorigin_db][:password] %>
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+# test:
+#    <<: *default

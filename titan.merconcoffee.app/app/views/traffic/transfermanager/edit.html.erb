@@ -1,0 +1,463 @@
+<div class="dashboard-wrapper">
+  <div class="main-container">
+    <div class="row page-title">
+      <h2><%= t('transfer_manager') %>
+        <small>
+          <li><a href="/"><%= t('home') %></a></li>
+          <li>/</li>
+          <li><a><%= t('traffic') %></a></li>
+          <li>/</li>
+          <li><a data-no-turbolink='true' href="/traffic/transfermanager"><%= t('transfer_manager') %></a></li>
+          <li>/</li>
+          <li><%= @transfer.transfer_num %></li>
+        </small>
+      </h2>
+      <ul class="stats hidden-xs">
+        <li>
+          <div class="details" style="height: 30px;">
+            <!-- Start - Loading animation -->
+            <div class="hidden loading-spinner" style="margin-top: 0;">
+              <div class="rect1"></div>
+              <div class="rect2"></div>
+              <div class="rect3"></div>
+              <div class="rect4"></div>
+              <div class="rect5"></div>
+            </div>
+            <!-- End - Loading animation -->
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <a class="btn btn-success btn-sm" data-no-turbolink='true' href='/traffic/transfermanager/new' role='button'>New Transfer</a>
+        <% if @transfer.delivery_active_status.ind_value_name != 'Void' %>
+        <a class="btn btn-danger btn-sm" href="" id="lnk_void_e" role="button">Void</a>
+        <a class="btn btn-primary btn-sm" data-no-turbolink='true' href="/traffic/transfermanager/<%= @transfer.transfer_num %>/allocation" role="button">Allocate Tags</a>
+        <% end %>
+        <a class="btn btn-info btn-sm hidden" role='button'>Copy Transfer</a>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <br />
+    <br />
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-horizontal">
+          <h3 class="heading-a"><span aria-hidden="true" class="fs1" data-icon="&#xe065;"></span> Transfer</h3>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <%=
+      select_tag(
+        :from_type_udf_e,
+        options_for_select(
+          RefUdf.where("udf_entity_type_ind = ?", 2).where("status_ind = ?", 1).order(udf_desc: :asc).map { |c| [ c.udf_desc, c.udf_cd, { 'data-type-ind' => c.udf_data_type_ind, 'data-ref-value-ind' => c.udf_ref_value_ind } ] }
+        ),
+        {
+          :class => "form-control hidden"
+        }
+      )
+    %>
+    <%=
+      select_tag(
+        :to_type_udf_e,
+        options_for_select(
+          RefUdf.where("udf_entity_type_ind = ?", 2).where("mot_type_ind <> ?", -1).where("status_ind = ?", 1).order(udf_desc: :asc).map { |c| [ c.udf_desc, c.udf_cd, { 'data-type-ind' => c.udf_data_type_ind, 'data-ref-value-ind' => c.udf_ref_value_ind } ] }
+        ),
+        {
+          :class => "form-control hidden"
+        }
+      )
+    %>
+
+    <%= form_tag(nil, { :id => 'frm_edit_transfer', :multipart => true, :onkeypress => 'if(event.keyCode == 13) { return false; }' }) do %>
+    <%= hidden_field_tag(:transfer_num, @transfer.transfer_num) %>
+    <%= hidden_field_tag(:from_internal_company_num_e, @transfer.from_inv_owner_company_num) %>
+    <%= hidden_field_tag(:to_internal_company_num_e, @transfer.to_inv_owner_company_num) %>
+
+    <% if @transfer.from_type.ind_value == 1 and @transfer.to_type.ind_value != 1 %>
+      <%= hidden_field_tag(:daily_build_draw_num_e_from, @transfer.transfer_daily_detail[0].build_draw_num) %>
+      <%= hidden_field_tag(:daily_detail_dt_e_from, @transfer.transfer_daily_detail[0].daily_detail_dt) %>
+      <%= hidden_field_tag(:daily_cargo_num_e_from, @transfer.transfer_daily_detail[0].cargo_num) %>
+      <%= hidden_field_tag(:daily_equipment_num_e_from, @transfer.transfer_daily_detail[0].equipment_num) %>
+      <%= hidden_field_tag(:daily_cmdty_cd_e_from, @transfer.transfer_daily_detail[0].cmdty_cd) %>
+      <%= hidden_field_tag(:daily_trade_num_e_from, @transfer.transfer_daily_detail[0].trade_num) %>
+      <%= hidden_field_tag(:daily_term_section_cd_e_from, @transfer.transfer_daily_detail[0].term_section_cd) %>
+      <%= hidden_field_tag(:daily_detail_qty_e_from, @transfer.transfer_daily_detail[0].daily_detail_qty) %>
+      <%= hidden_field_tag(:daily_detail_mass_qty_e_from, @transfer.transfer_daily_detail[0].daily_detail_mass_qty) %>
+      <%= hidden_field_tag(:daily_detail_vol_qty_e_from, @transfer.transfer_daily_detail[0].daily_detail_vol_qty) %>
+      <%= hidden_field_tag(:daily_company_num_e_from, @transfer.transfer_daily_detail[0].company_num) %>
+    <% end %>
+
+    <% if @transfer.from_type.ind_value != 1 and @transfer.to_type.ind_value == 1 %>
+      <%= hidden_field_tag(:daily_build_draw_num_e_to, @transfer.transfer_daily_detail[0].build_draw_num) %>
+      <%= hidden_field_tag(:daily_detail_dt_e_to, @transfer.transfer_daily_detail[0].daily_detail_dt) %>
+      <%= hidden_field_tag(:daily_cargo_num_e_to, @transfer.transfer_daily_detail[0].cargo_num) %>
+      <%= hidden_field_tag(:daily_equipment_num_e_to, @transfer.transfer_daily_detail[0].equipment_num) %>
+      <%= hidden_field_tag(:daily_cmdty_cd_e_to, @transfer.transfer_daily_detail[0].cmdty_cd) %>
+      <%= hidden_field_tag(:daily_trade_num_e_to, @transfer.transfer_daily_detail[0].trade_num) %>
+      <%= hidden_field_tag(:daily_term_section_cd_e_to, @transfer.transfer_daily_detail[0].term_section_cd) %>
+      <%= hidden_field_tag(:daily_detail_qty_e_to, @transfer.transfer_daily_detail[0].daily_detail_qty) %>
+      <%= hidden_field_tag(:daily_detail_mass_qty_e_to, @transfer.transfer_daily_detail[0].daily_detail_mass_qty) %>
+      <%= hidden_field_tag(:daily_detail_vol_qty_e_to, @transfer.transfer_daily_detail[0].daily_detail_vol_qty) %>
+      <%= hidden_field_tag(:daily_company_num_e_to, @transfer.transfer_daily_detail[0].company_num) %>
+    <% end %>
+
+    <% if @transfer.from_type.ind_value == 1 && @transfer.to_type.ind_value == 1 %>
+      <%= hidden_field_tag(:daily_build_draw_num_e_from, @transfer.transfer_daily_detail[0].build_draw_num) %>
+      <%= hidden_field_tag(:daily_detail_dt_e_from, @transfer.transfer_daily_detail[0].daily_detail_dt) %>
+      <%= hidden_field_tag(:daily_cargo_num_e_from, @transfer.transfer_daily_detail[0].cargo_num) %>
+      <%= hidden_field_tag(:daily_equipment_num_e_from, @transfer.transfer_daily_detail[0].equipment_num) %>
+      <%= hidden_field_tag(:daily_cmdty_cd_e_from, @transfer.transfer_daily_detail[0].cmdty_cd) %>
+      <%= hidden_field_tag(:daily_detail_qty_e_from, @transfer.transfer_daily_detail[0].daily_detail_qty) %>
+      <%= hidden_field_tag(:daily_detail_mass_qty_e_from, @transfer.transfer_daily_detail[0].daily_detail_mass_qty) %>
+      <%= hidden_field_tag(:daily_detail_vol_qty_e_from, @transfer.transfer_daily_detail[0].daily_detail_vol_qty) %>
+      <%= hidden_field_tag(:daily_build_draw_ind_e_from, @transfer.transfer_daily_detail[0].build_draw_ind) %>
+
+      <%= hidden_field_tag(:daily_build_draw_num_e_to, @transfer.transfer_daily_detail[1].build_draw_num) %>
+      <%= hidden_field_tag(:daily_detail_dt_e_to, @transfer.transfer_daily_detail[1].daily_detail_dt) %>
+      <%= hidden_field_tag(:daily_cargo_num_e_to, @transfer.transfer_daily_detail[1].cargo_num) %>
+      <%= hidden_field_tag(:daily_equipment_num_e_to, @transfer.transfer_daily_detail[1].equipment_num) %>
+      <%= hidden_field_tag(:daily_cmdty_cd_e_to, @transfer.transfer_daily_detail[1].cmdty_cd) %>
+      <%= hidden_field_tag(:daily_detail_qty_e_to, @transfer.transfer_daily_detail[1].daily_detail_qty) %>
+      <%= hidden_field_tag(:daily_detail_mass_qty_e_to, @transfer.transfer_daily_detail[1].daily_detail_mass_qty) %>
+      <%= hidden_field_tag(:daily_detail_vol_qty_e_to, @transfer.transfer_daily_detail[1].daily_detail_vol_qty) %>
+      <%= hidden_field_tag(:daily_build_draw_ind_e_to, @transfer.transfer_daily_detail[1].build_draw_ind) %>
+    <% end %>
+
+    <%= hidden_field_tag(:lockinfo, @lockinfo) %>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>From</label>
+            <%=
+              select_tag(
+                :from_type_ind_e,
+                options_from_collection_for_select(
+                  GenIndicatorValue.where("ind_name = ?", 'from_type_ind').order(ind_value: :asc),
+                  "ind_value",
+                  "ind_value_name",
+                  "#{@transfer.from_type.ind_value}"
+                ),
+                {
+                  :class => "form-control",
+                  :disabled => "disabled"
+                }
+              )
+            %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>To</label>
+            <%=
+              select_tag(
+                :to_type_ind_e,
+                options_from_collection_for_select(
+                  GenIndicatorValue.where("ind_name = ?", 'to_type_ind').order(ind_value: :asc),
+                  "ind_value",
+                  "ind_value_name",
+                  "#{@transfer.to_type.ind_value}"
+                ),
+                {
+                  :class => "form-control",
+                  :disabled => "disabled"
+                }
+              )
+            %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Location</label>
+            <%=
+              select_tag(
+                :location_num_e,
+                options_from_collection_for_select(
+                  RefLocation.where("status_ind = ?", 1).order(location_cd: :asc),
+                  "location_num",
+                  "location_cd",
+                  "#{@transfer.location.location_num}"
+                ),
+                {
+                  :class => "form-control"
+                }
+              )
+            %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Operator</label>
+            <%=
+              select_tag(
+                :operator_person_num_e,
+                options_from_collection_for_select(
+                  RefPerson.where("job_title_ind = ? AND status_ind = ?", 3, 1).order(first_name: :asc, last_name: :asc),
+                  "person_num",
+                  "name",
+                  "#{@transfer.operator !=nil ? @transfer.operator.person_num : ''}"
+                ),
+                {
+                  :class => "form-control"
+                }
+              )
+            %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Effective Dt.</label>
+            <%=
+              date_field_tag(
+                :effective_dt_e,
+                nil,
+                {
+                  :class => "form-control",
+                  'data-parsley-error-message' => '<strong>Effective Date</strong> is required',
+                  'data-parsley-errors-container' => '#error_container',
+                  'data-parsley-group' => 'grp_transfer',
+                  'data-parsley-required' => 'true',
+                  :value => "#{@transfer.effective_dt.strftime("%Y-%m-%d")}"
+                }
+              )
+            %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Commencement Dt.</label>
+            <%=
+              date_field_tag(
+                :transfer_comm_dt_e,
+                nil,
+                {
+                  :class => "form-control",
+                  'data-parsley-error-message' => '<strong>Commencement Date</strong> is required',
+                  'data-parsley-errors-container' => '#error_container',
+                  'data-parsley-group' => 'grp_transfer',
+                  'data-parsley-required' => 'true',
+                  :value => "#{@transfer.transfer_comm_dt.strftime("%Y-%m-%d")}"
+                }
+              )
+            %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Completion Dt.</label>
+            <%=
+              date_field_tag(
+                :transfer_comp_dt_e,
+                nil,
+                {
+                  :class => "form-control",
+                  'data-parsley-error-message' => '<strong>Completion Date</strong> is required',
+                  'data-parsley-errors-container' => '#error_container',
+                  'data-parsley-group' => 'grp_transfer',
+                  'data-parsley-required' => 'true',
+                  :value => "#{@transfer.transfer_comp_dt.strftime("%Y-%m-%d")}"
+                }
+              )
+            %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Application Dt.</label>
+            <%=
+              date_field_tag(
+                :application_dt_e,
+                nil,
+                {
+                  :class => "form-control",
+                  :value => "#{@transfer.application_dt.strftime("%Y-%m-%d")}"
+                }
+              )
+            %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>B/L Number</label>
+            <%=
+              text_field_tag(
+                :bl_num_cd_e,
+                nil,
+                {
+                  :class => "form-control",
+                  :value => "#{@transfer.bl_num_cd}"
+                }
+              )
+            %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>B/L Date</label>
+            <%=
+              date_field_tag(
+                :bl_dt_e,
+                nil,
+                {
+                  :class => "form-control",
+                  'data-parsley-error-message' => '<strong>B/L Date</strong> is required',
+                  'data-parsley-errors-container' => '#error_container',
+                  'data-parsley-group' => 'grp_transfer',
+                  'data-parsley-required' => 'true',
+                  :value => "#{@transfer.bl_dt.strftime("%Y-%m-%d")}"
+                }
+              )
+            %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <br />
+    <br />
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-horizontal">
+          <h3 class="heading-a"><span aria-hidden="true" class="fs1" data-icon="&#xe05e;"></span> Transfer From</h3>
+          <% if @transfer.from_type_ind == 0 %>
+            <%= render partial: "transfer_trade_edit", object: @transfer, locals: { type: "from" } %>
+          <% elsif @transfer.from_type_ind == 1 %>
+            <%= render partial: "transfer_storage_edit", object: @transfer, locals: { type: "from" } %>
+          <% elsif @transfer.from_type_ind == 2 %>
+            <!-- <%= render partial: "transfer_vessel_show", object: @transfer %> -->
+          <% end %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-horizontal">
+          <h3 class="heading-a"><span aria-hidden="true" class="fs1" data-icon="&#xe05f;"></span> Transfer To</h3>
+          <% if @transfer.to_type_ind == 0 %>
+            <%= render partial: "transfer_trade_edit", object: @transfer, locals: { type: "to" } %>
+          <% elsif @transfer.to_type_ind == 1 %>
+            <%= render partial: "transfer_storage_edit", object: @transfer, locals: { type: "to" } %>
+          <% elsif @transfer.to_type_ind == 2 %>
+            <!-- <%= render partial: "transfer_vessel_show", object: @transfer %> -->
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <br />
+    <br />
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-horizontal">
+          <h3 class="heading-a"><span aria-hidden="true" class="fs1" data-icon="&#xe031;"></span> Tags</h3>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="pull-right">
+          <%= button_tag('Add Tag', { :class => "btn btn-primary btn-sm", :id => "btn_add_tag_e", :type => "button"}) %>
+          <%= button_tag('Remove Items', { :class => "btn btn-danger btn-sm", :id => "btn_remove_tag_e", :type => "button" }) %>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+      <div class="table-responsive">
+        <table class="table table-condensed" id="tbl_transfer_tag_e">
+          <thead>
+            <tr>
+              <th class="hidden">No. BD Tag</th>
+              <th class="hidden">No. Build/Draw</th>
+              <th class="hidden">No. Equipment</th>
+              <th class="hidden">No. Cargo</th>
+              <th>Type</th>
+              <th>Chop Id</th>
+              <th>Value 1 <small>(Container)</small></th>
+              <th>Value 2 <small>ICO</small></th>
+              <th>Value 3 <small>(Warehouse)</small></th>
+              <th>Value 4 <small>(EWR)</small></th>
+              <th>Value 5 <small>(Cert #)</small></th>
+              <th>Value 6 <small>(Cert Status)</small></th>
+              <th>Value 7 <small>(Building)</small></th>
+              <th>Value 8 <small>(Comments)</small></th>
+              <th>Tag Qty</th>
+              <th>Tag Qty UOM</th>
+              <th>Tag Allocated Qty</th>
+              <th class="hidden">No. Split Tag</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @tags.any? %>
+              <% @tags.each do |t| %>
+                <tr class="info">
+                  <td class="col-1 hidden"><%= t.bd_tag_num %></td>
+                  <td class="col-2 hidden"><%= t.build_draw_num %></td>
+                  <td class="col-3 hidden"><%= t.equipment_num %></td>
+                  <td class="col-4 hidden"><%= t.cargo_num %></td>
+                  <td class="col-5 "><%= t.tag_type_cd %></td>
+                  <td class="col-6"><%= t.chop_id %></td>
+                  <td class="col-7"><input class="form-control col-7" value='<%= t.tag_value1 %>'></td>
+                  <td class="col-8"><input class="form-control col-8" value='<%= t.tag_value2 %>'></td>
+                  <td class="col-9"><input class="form-control col-9" value='<%= t.tag_value3 %>'></td>
+                  <td class="col-10"> <input class="form-control col-10" value='<%= t.tag_value4 %>'></td>
+                  <td class="col-11"><input class="form-control col-11" value='<%= t.tag_value5 %>' disabled></td>
+                  <td class="col-12"><input class="form-control col-12" value='<%= t.tag_value6 %>' disabled></td>
+                  <td class="col-13"> <input class="form-control col-13" value='<%= t.tag_value7 %>'></td>
+                  <td class="col-14"><input class="form-control col-14" value='<%= t.tag_value8 %>'></td>
+                  <td class="col-15"><input class="form-control col-15" value='<%= t.tag_qty %>'></td>
+                  <td class="col-16"><%= t.tag_qty_uom_cd %></td>
+                  <% if t.tag_alloc_qty != nil and t.tag_alloc_qty > 0 %>
+                    <td class="col-17"><%= t.tag_alloc_qty %></td>
+                  <% else %>
+                    <td class="col-17">0.00</td>
+                  <% end %>
+                  <td class="col-18 hidden"><%= t.split_src_tag_num %></td>
+                  <td><i class="glyphicon glyphicon-trash" data-placement="bottom" data-toggle="tooltip" style="cursor: pointer; margin-top: 8px;" title="Remove Tag"></i></td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr class="danger">
+                <td colspan="13">No data available.</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <br />
+    <br />
+    <div class="row">
+      <div class="col-md-12">
+        <div class="pull-right">
+          <%= submit_tag("Save", { :class => "btn btn-success" }) %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+<div id="transfer_allocate_tag_contextmenu">
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header" role="presentation"><span style="color: #337ab7; font-weight: bold;">0000001</span></li>
+    <li class="divider" role="presentation"></li>
+    <li role="presentation"><a href="#" id="lnk_edit_tag" role="menuitem">Edit</a></li>
+    <li role="presentation"><a href="#" id="lnk_split_tag" role="menuitem">Split</a></li>
+    <li class="hidden" role="presentation"><a href="#" id="lnk_delete_tag" role="menuitem">Delete</a></li>
+  </ul>
+</div>

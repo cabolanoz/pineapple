@@ -1,0 +1,65 @@
+<div class="form-group">
+  <label class="col-sm-2 control-label">Vehicle</label>
+  <div class="col-sm-10">
+    <% if @transfer.from_type_ind == 2 %>
+      <input class="form-control" disabled="disabled" type="text" value="<%= @transfer.from_equipment_num %>">
+    <% else %>
+    <input class="form-control" disabled="disabled" type="text" value="<%= @transfer.to_equipment_num %>">
+    <% end %>
+  </div>
+</div>
+<div class="form-group">
+  <% if @transfer.from_type_ind == 2 %>
+    <% for v in @transfer.from_itinerary.movements %>
+      <% if v.equipment_num == @transfer.from_equipment_num %>
+        <label class="col-sm-2 control-label">MOT</label>
+        <div class="col-sm-4">
+          <input class="form-control" disabled="disabled" type="text" value="<%= v.mot_type.ind_value_name %>">
+        </div>
+        <label class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-4">
+          <input class="form-control" disabled="disabled" type="text" value="<%= v.mot.mot_cd %>">
+        </div>
+        <% break %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <% for v in @transfer.to_itinerary.movements %>
+      <% if v.equipment_num == @transfer.to_equipment_num %>
+        <label class="col-sm-2 control-label">MOT</label>
+        <div class="col-sm-4">
+          <input class="form-control" disabled="disabled" type="text" value="<%= v.mot_type.ind_value_name %>">
+        </div>
+        <label class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-4">
+          <input class="form-control" disabled="disabled" type="text" value="<%= v.mot.mot_cd %>">
+        </div>
+        <% break %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+<div class="form-group">
+  <label class="col-sm-2 control-label">Cargo</label>
+  <div class="col-sm-10">
+    <% if @transfer.from_type_ind == 2 %>
+      <input class="form-control" disabled="disabled" type="text" value="<%= @transfer.from_cargo_num %>">
+    <% else %>
+    <input class="form-control" disabled="disabled" type="text" value="<%= @transfer.to_cargo_num %>">
+    <% end %>
+  </div>
+</div>
+<div class="form-group">
+  <label class="col-sm-2 control-label">Cargo Qty</label>
+  <div class="col-sm-10">
+    <div class="input-group">
+      <% if @transfer.from_type_ind == 2 %>
+        <input class="form-control" disabled="disabled" type="text" value="<%= number_with_precision(@transfer.from_qty, :precision => 2, :delimiter => ',') %>">
+        <span class="input-group-addon"><%= @transfer.from_uom_cd %></span>
+      <% else %>
+        <input class="form-control" disabled="disabled" type="text" value="<%= number_with_precision(@transfer.to_qty, :precision => 2, :delimiter => ',') %>">
+        <span class="input-group-addon"><%= @transfer.to_uom_cd %></span>
+      <% end %>
+    </div>
+  </div>
+</div>

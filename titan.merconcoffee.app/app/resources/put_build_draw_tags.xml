@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<request xmlns:xsi="http://www.w3.org/1999/XMLSchema-instance" xsi:noNamespaceSchemaLocation="request.xsd">
+  <mhead name="TPTReqPutBuildDrawTags">
+    <sender>{7F01F27A-70CF-44EB-B6CB-EB65A4AEBFD4}</sender>
+    <sent_dt>@@=val1=@@</sent_dt>
+  </mhead>
+  <mbody>
+    <data>
+      <PutBuildDrawTags>
+        <OPS_CARGO table="1">
+          <cargo_num><![CDATA[@@=val4=@@]]></cargo_num>
+          <cmdty_cd><![CDATA[@@=val5=@@]]></cmdty_cd>
+          <cargo_locked_ind><![CDATA[0]]></cargo_locked_ind>
+          <OPS_BUILD_DRAW table="2">
+            <build_draw_num><![CDATA[@@=val2=@@]]></build_draw_num>
+            <build_draw_ind><![CDATA[0]]></build_draw_ind>
+            <build_draw_qty><![CDATA[@@=val6=@@]]></build_draw_qty>
+            <build_draw_type_ind><![CDATA[3]]></build_draw_type_ind>
+            <is_tag_qty_non_zero_ind><![CDATA[1]]></is_tag_qty_non_zero_ind>
+            <OPS_BUILD_DRAW_TAG repeat="@@=val7=@@" table="3">
+              <bd_tag_num><![CDATA[@=@=val1=@=@]]></bd_tag_num>
+              <build_draw_num><![CDATA[@@=val2=@@]]></build_draw_num>
+              <equipment_num><![CDATA[@@=val3=@@]]></equipment_num>
+              <cargo_num><![CDATA[@@=val4=@@]]></cargo_num>
+              <tag_type_cd><![CDATA[@=@=val2=@=@]]></tag_type_cd>
+              <tag_type_ind><![CDATA[0]]></tag_type_ind>
+              <tag_value1><![CDATA[@=@=val3=@=@]]></tag_value1>
+              <tag_value2><![CDATA[@=@=val4=@=@]]></tag_value2>
+              <tag_value3><![CDATA[@=@=val5=@=@]]></tag_value3>
+              <tag_value4><![CDATA[@=@=val6=@=@]]></tag_value4>
+              <tag_value7><![CDATA[@=@=val7=@=@]]></tag_value7>
+              <tag_value8><![CDATA[@=@=val8=@=@]]></tag_value8>
+              <tag_qty_uom_cd><![CDATA[@=@=val9=@=@]]></tag_qty_uom_cd>
+              <chop_id><![CDATA[@=@=val10=@=@]]></chop_id>
+              <tag_qty><![CDATA[@=@=val11=@=@]]></tag_qty>
+              <tag_source_ind><![CDATA[1]]></tag_source_ind>
+              <last_modify_dt><![CDATA[@@=val1=@@]]></last_modify_dt>
+              <modify_person_num><![CDATA[@=@=val12=@=@]]></modify_person_num>
+              <ref_bd_tag_num><![CDATA[@=@=val13=@=@]]></ref_bd_tag_num>
+              <validate_reqd_soft_ind><![CDATA[0]]></validate_reqd_soft_ind>
+              <build_draw_type_ind><![CDATA[3]]></build_draw_type_ind>
+              <build_draw_ind><![CDATA[0]]></build_draw_ind>
+              <tag_adj_qty><![CDATA[0]]></tag_adj_qty>
+            </OPS_BUILD_DRAW_TAG>
+          </OPS_BUILD_DRAW>
+        </OPS_CARGO>
+        <LockNumList>
+          <lockinfo><![CDATA[@@=val8=@@]]></lockinfo>
+        </LockNumList>
+      </PutBuildDrawTags>
+    </data>
+  </mbody>
+</request>

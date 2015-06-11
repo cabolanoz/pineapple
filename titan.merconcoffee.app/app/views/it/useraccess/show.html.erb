@@ -1,0 +1,140 @@
+<div class="dashboard-wrapper">
+	<div class="main-container">
+		<div class="row page-title">
+			<h2>User Access
+				<small>
+					<li><a href="/">Home</a></li>
+					<li>/</li>
+					<li><a href="">IT</a></li>
+					<li>/</li>
+					<li><a data-no-turbolink='true' href="/it/useraccess">User Access</a></li>
+          <li>/</li>
+          <li><%= params[:username] %></li>
+				</small>
+			</h2>
+			<ul class="stats hidden-xs">
+				<li>
+					<div class="details" style="height: 30px;">
+						<!-- Start - Loading animation -->
+						<div class="hidden loading-spinner" id="tbl_users" style="margin-top: 0;">
+							<div class="rect1"></div>
+							<div class="rect2"></div>
+							<div class="rect3"></div>
+							<div class="rect4"></div>
+							<div class="rect5"></div>
+						</div>
+						<!-- End - Loading animation -->
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="clearfix"></div>
+		<div class="row">
+      <div role="tabpanel">
+        <ul class="nav nav-tabs" id="user_tab" role="tablist">
+          <li class="active" role="presentation"><a aria-controls="pnl_general_info" data-toggle="tab" href="#pnl_general_info" role="tab">User Info</a></li>
+          <li role="presentation"><a aria-controls="pnl_permissions" data-toggle="tab" href="#pnl_permissions" role="tab">Permissions</a></li>
+          <li role="presentation"><a aria-controls="pnl_timeline" data-toggle="tab" href="#pnl_timeline" role="tab">Timeline</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div class="tab-pane active" id="pnl_general_info" role="tabpanel">
+            <div class="col-md-12" style="margin-top: 30px;">
+							<div class="no-margin widget">
+								<div class="widget-header">
+									<div class="title">
+									</div>
+								</div>
+								<div class="widget-body">
+									<div class="row">
+										<div class="col-md-2 col-sm-3">
+											<div class="no-border thumbnail">
+												<img src="/assets/profile.png" />
+											</div>
+										</div>
+										<div class="col-md-10 col-sm-9">
+											<div class="form-horizontal">
+				                <h3 class="heading-a">General</h3>
+				                <div class="form-group">
+				                  <label class="col-sm-2 control-label">Username</label>
+				                  <div class="col-sm-10">
+				                    <input class="form-control" disabled value="<%= @userl != nil ? @userl.user_name : @userad[0].sAMAccountName.first %>" />
+				                  </div>
+				                </div>
+				                <div class="form-group">
+				                  <label class="col-sm-2 control-label">Name</label>
+				                  <div class="col-sm-5">
+				                    <input class="form-control" disabled value="<%= @userl != nil ? @userl.first_name : @userad[0].givenName.first %>" />
+				                  </div>
+				                  <div class="col-sm-5">
+				                    <input class="form-control" disabled value="<%= @userl != nil ? @userl.first_lastname : @userad[0].sn.first %>" />
+				                  </div>
+				                </div>
+												<h3 class="heading-a">Contact Info</h3>
+												<div class="form-group">
+				                  <label class="col-sm-2 control-label">E-mail</label>
+				                  <div class="col-sm-10">
+				                    <input class="form-control" disabled value="<%= @userl != nil ? @userl.email : @userad[0].mail.first %>" />
+				                  </div>
+				                </div>
+				              </div>
+										</div>
+									</div>
+								</div>
+							</div>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="pnl_permissions" role="tabpanel">
+						<div class="col-md-12" style="margin-top: 30px;">
+							<div class="col-md-2">
+								<%= content_tag(:ul, nil, :class => 'fb-menu') do -%>
+									<% if @departments.any? %>
+										<% @departments.each_with_index do |d, index| %>
+										<li>
+											<input checked id="opt<%= index %>" name="opts" type="radio" />
+											<label class="text-uppercase" for="opt<%= index %>"><%= d.department_name %></label>
+										</li>
+										<% end %>
+									<% end %>
+								<% end -%>
+							</div>
+							<div class="col-md-5">
+							</div>
+							<div class="col-md-5">
+							</div>
+						</div>
+					</div>
+					<!-- no es nada recursivo :D dame un data sample para yo crearlo, OKIS? -->
+          <div class="tab-pane" id="pnl_timeline" role="tabpanel">
+            <div class="col-md-12">
+              <div class="btn-menu-left hidden" style="left: -54px; position: absolute; top: 50%; z-index: 1;">
+                <i class="glyphicon glyphicon-menu-left" style="background: #333; border-radius: 50%; color: #fff; cursor: pointer; font-size: 30px; padding: 10px;"></i>
+              </div>
+              <div class="pnl-left-tl" style="width: 100%;">
+                <section class="cd-timeline">
+                  <% if @transactions.any? %>
+                    <% @transactions.each do |t| %>
+                      <div class="cd-timeline-block">
+                        <div class="cd-timeline-img <%= t.level_response == 'SUCCESS - 200' ? 'cd-success' : 'cd-error' %>">
+                          <img src="/assets/xml.png" />
+                        </div>
+                        <div class="cd-timeline-content">
+                          <h2><strong><%= t.description %></strong></h2>
+                          <pre><%= t.xml_request %></pre>
+                          <a class="btn btn-primary btn-sm pull-right" data-source="<%= t.transaction_id %>" data-time="<%= t.execution_date.strftime("%b %d, %Y - %I:%M %P") %>">See details</a>
+                          <span class="cd-date"><%= t.execution_date.strftime("%b %d, %Y - %I:%M %P") %></span>
+                        </div>
+                      </div>
+                    <% end %>
+                  <% end %>
+                </section>
+              </div>
+              <div class="pnl-right-tl" style="display: none; width: 100%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

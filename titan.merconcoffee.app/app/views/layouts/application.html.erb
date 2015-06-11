@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TITAN - MERCON Coffee Corporation</title>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <!-- <%= swf_path('/swf/copy_csv_xls_pdf.swf') %> -->
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <!-- Start - Overlay panel -->
+  <div class="hidden overlay"></div>
+  <!-- End - Overlay panel -->
+  <header>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="header-wrapper">
+        <div class="navbar-header">
+          <button class="navbar-toggle collapsed" data-target=".navbar-collapse" data-toggle="collapse" type="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" data-no-turbolink='true' href="/">
+            <%= image_tag("mercon.png", alt: "Brand") %>
+            <!-- <img alt="Brand" src="/assets/mercon.png"> -->
+          </a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav hidden">
+            <li class="dropdown">
+              <a aria-expanded="false" class="dropdown-toggle text-uppercase" data-toggle="dropdown" href="#" role="button">
+                <%= t('traffic') %> <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a data-no-turbolink='true' href="/traffic/trademanager"><%= t('trade_manager') %></a></li>
+                <li><a data-no-turbolink='true' href="/traffic/shippingmanager"><%= t('shipping_manager') %></a></li>
+                <li><a data-no-turbolink='true' href="/traffic/transfermanager"><%= t('transfer_manager') %></a></li>
+                <li><a data-no-turbolink='true' href="/traffic/storageinspector"><%= t('storage_inspector') %></a></li>
+              </ul>
+            </li>
+            <!-- <li><a href="#">IT</a></li>
+            <li><a href="#">FINANCE</a></li>
+            <li><a href="#">POSITION</a></li>
+            <li><a href="#">ACCOUNTING</a></li> -->
+          </ul>
+          <div class="navbar-right" style="margin-right: 15px; margin-top: 20px;">
+            <span style="color: #26a37b; font-size: 14px;">
+              <%= image_tag("user.png", style: "border-radius: 100px; height: 32px; margin-right: 10px; width: 32px;") %> Welcome back <%=  session[:firstName][0] + ' ' + session[:lastName][0]%>
+            </span>
+            <%= link_to "", logout_path, method: :delete, class: "glyphicon glyphicon-off", 'data-toggle' => 'Log out' %>
+          </div>
+
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!-- Start - Confirmation dialog -->
+  <div class="hidden modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          <p>Modal content</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default btn-sm" id="btn_close_modal"><%= t('close') %></button>
+          <button type="button" class="btn btn-primary btn-sm" id="btn_save_modal"><%= t('save_changes') %></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End - Confirmation dialog -->
+  <!-- Start - Error container -->
+  <div class="alert alert-danger alert-dismissible hidden" role="alert" style="position: fixed; right: 5%; top: 95px; width: 50%; z-index: 5;">
+    <button aria-label="Close" class="close" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <div id="error_container">
+    </div>
+  </div>
+  <!-- End - Error container -->
+  <!-- Start - Success container -->
+  <div class="alert alert-success alert-dismissible hidden" role="alert" style="position: fixed; right: 5%; top: 95px; width: 50%; z-index: 5;">
+    <div id="success_container">
+    </div>
+  </div>
+  <!-- End - Success container -->
+  <!-- Start - Warning container -->
+  <div class="alert alert-warning alert-dismissible hidden" role="alert" style="position: fixed; right: 5%; top: 95px; width: 50%; z-index: 5;">
+    <button aria-label="Close" class="close" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <div id="warning_container">
+    </div>
+  </div>
+  <!-- End - Warning container -->
+  <%= yield  %>
+  <div class="clearfix"></div>
+  <footer>
+    <div style="display: inline;">
+      <%= link_to 'English', :locale => 'en' %>
+      <!-- <li style="cursor: pointer; display: inline-block; list-style: none;">English</li> -->
+      <li style="display: inline-block; list-style: none; margin: 0 10px;">|</li>
+      <%= link_to 'Español', :locale => 'es' %>
+      <!-- <li style="cursor: pointer; display: inline-block; list-style: none;">Español</li> -->
+    </div>
+    <div class="clearfix"></div>
+    <br />
+    <small>&copy; Copyright <%= Time.now.strftime("%Y") %>, Mercon Coffee Corporation</small>
+  </footer>
+</body>
+
+</html>

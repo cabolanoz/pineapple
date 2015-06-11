@@ -1,0 +1,131 @@
+<div class="dashboard-wrapper">
+  <div class="main-container">
+    <div class="row page-title">
+      <h2><%= t('trade_manager') %>
+        <small>
+          <li><a href="/"><%= t('home') %></a></li>
+          <li>/</li>
+          <li><a><%= t('traffic') %></a></li>
+          <li>/</li>
+          <li><a data-no-turbolink='true' href="/traffic/trademanager"><%= t('trade_manager') %></a></li>
+          <li>/</li>
+          <li><%= @trade.trade_num %></li>
+        </small>
+      </h2>
+      <ul class="stats hidden-xs">
+        <li>
+          <div class="details" style="height: 30px;">
+            <!-- Start - Loading animation -->
+            <div class="hidden loading-spinner" style="margin-top: 0;">
+              <div class="rect1"></div>
+              <div class="rect2"></div>
+              <div class="rect3"></div>
+              <div class="rect4"></div>
+              <div class="rect5"></div>
+            </div>
+            <!-- End - Loading animation -->
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+      <div class="table-responsive">
+        <table class="table table-condensed">
+          <thead>
+            <tr>
+              <th colspan="2">Trade</th>
+              <th colspan="1">Seller</th>
+              <th colspan="3">Buyer</th>
+            </tr>
+            <tr>
+              <th>Name</th>
+              <th>Trade Date</th>
+              <th>Counterpart</th>
+              <th>Internal Company</th>
+              <th>Trader</th>
+              <th>Strategy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="warning">
+              <td><%= @trade.deal_name_str %></td>
+              <td><%= @trade.trade_dt.strftime("%m/%d/%Y") %></td>
+              <td><%= @trade.counterpart.company_cd %></td>
+              <td><%= @trade.internal_company.company_cd %></td>
+              <td><%= @trade.trader.first_name + ' ' + @trade.trader.last_name %></td>
+              <td><%= @trade.strategy.strategy_name %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+      <ul class="nav nav-tabs">
+        <li class="active" id="lnk-detail" role="presentation"><a onclick="updateSwitchPnl(0);">Details</a></li>
+        <li id="lnk-cost" role="presentation"><a onclick="updateSwitchPnl(1);">Costs</a></li>
+        <li id="lnk-note" role="presentation"><a onclick="updateSwitchPnl(2);">Notes</a></li>
+        <li id="lnk-udf" role="presentation"><a onclick="updateSwitchPnl(3);">UDFs</a></li>
+      </ul>
+      <br />
+      <div class="col-md-12">
+        <div id="switch-pnl">
+          <%= render partial: 'trade_detail_show', locals: { trade: @trade } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var detailVisible = true;
+  var costVisible = false;
+  var noteVisible = false;
+  var udfVisible = false;
+
+  function updateSwitchPnl(val) {
+    if (val == 0 && !detailVisible) {
+      $('.nav-tabs li.active').removeClass('active');
+
+      $('#lnk-detail').addClass('active');
+      $('#switch-pnl').html('<%= escape_javascript(render partial: "trade_detail_show", locals: { trade: @trade }) %>');
+
+      detailVisible = true;
+      costVisible = false;
+      noteVisible = false;
+      udfVisible = false;
+    } else if (val == 1 && !costVisible) {
+      $('.nav-tabs li.active').removeClass('active');
+
+      $('#lnk-cost').addClass('active');
+      $('#switch-pnl').html('<%= escape_javascript(render partial: "trade_cost_show") %>');
+
+      detailVisible = false;
+      costVisible = true;
+      noteVisible = false;
+      udfVisible = false;
+    } else if (val == 2 && !noteVisible) {
+      $('.nav-tabs li.active').removeClass('active');
+
+      $('#lnk-note').addClass('active');
+      $('#switch-pnl').html('<%= escape_javascript(render partial: "trade_note_show") %>');
+
+      detailVisible = false;
+      costVisible = false;
+      noteVisible = true;
+      udfVisible = false;
+    } else if (val == 3 && !udfVisible) {
+      $('.nav-tabs li.active').removeClass('active');
+
+      $('#lnk-udf').addClass('active');
+      $('#switch-pnl').html('<%= escape_javascript(render partial: "trade_udf_show") %>');
+
+      detailVisible = false;
+      costVisible = false;
+      noteVisible = false;
+      udfVisible = true;
+    }
+  }
+</script>

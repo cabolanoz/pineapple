@@ -1,0 +1,2 @@
+module Traffic::TrademanagerHelper
+end

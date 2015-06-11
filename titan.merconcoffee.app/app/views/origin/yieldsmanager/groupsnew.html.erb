@@ -1,0 +1,135 @@
+<div class="dashboard-wrapper">
+	<div class="main-container">
+	    <div class="row page-title">
+	      	<h2><%= t('yield_manager') %>
+		        <small>
+			        <ul class="breadcrumb" style="margin-bottom: 5px;">
+					    <li><a href="/">Home</a></li>
+					    <li><%= t('origin') %></li>
+					    <li><a href="/origin/yieldsmanager"><%= t('yield_manager') %></a></li>
+					    <li><a href="/origin/yieldsmanager/standardyields"><%= t('standard_yields') %></a></li>
+					    <li class="active"><%= t('groups') %></li>
+					</ul>
+				</small>
+	     	</h2>
+	     	<ul class="stats hidden-xs">
+		        <li>
+		          <div class="details" style="height: 30px;">
+		            <!-- Start - Loading animation -->
+		            <div class="hidden loading-spinner" style="margin-top: 0;">
+		              <div class="rect1"></div>
+		              <div class="rect2"></div>
+		              <div class="rect3"></div>
+		              <div class="rect4"></div>
+		              <div class="rect5"></div>
+		            </div>
+		            <!-- End - Loading animation -->
+		          </div>
+		        </li>
+	      	</ul>
+	    </div>
+
+	    <div class="clearfix"></div>
+    	<div class="row">
+    		<div class="col-md-6">
+    			<form class="form-horizontal">
+				    <fieldset>
+				        <legend>New Group</legend>
+				        <div class="form-group">
+				            <label for="inputDescription" class="col-lg-2 control-label">Description</label>
+				            <div class="col-lg-10">
+				                <input type="text" class="form-control remove-border" id="inputDescription" name="description" placeholder="Description" required="true">
+				            </div>
+				        </div>
+				        <div class="form-group">
+				         	<label for="toggGold" class="col-lg-2 control-label" style="margin-right:15px">Green Bean</label>
+				        	<div class="togglebutton">
+				                    <label>
+				                        <input type="checkbox" id="toggGold" name="gold">
+				                    </label>
+				                </div>
+				        </div>
+				        <div class="form-group">
+				         	<label for="toggSum" class="col-lg-2 control-label" style="margin-right:15px">Sum</label>
+				        	<div class="togglebutton">
+				                    <label>
+				                        <input type="checkbox" id="toggSum" name="sum">
+				                    </label>
+				                </div>
+				        </div>
+				        <div class="form-group">
+				            <label for="cbPhysicalState" class="col-lg-2 control-label">Physical State</label>
+				            <div class="col-lg-10">
+				            	<%=
+							      select_tag(
+							        :cbPhysicalState,
+							        options_from_collection_for_select(
+					                    RefProfitUnit.where("status_ind = ?", 1).order(profit_unit_name: :asc),
+					                    "profit_unit_num",
+					                    "profit_unit_name"
+					                  ),
+					                  {
+					                    :class => "form-control remove-border"
+					                  }
+							      )
+							    %>
+				            </div>
+				        </div>
+				        <div class="form-group">
+				         	<label for="parent" class="col-lg-2 control-label" style="margin-right:15px">Has Parent?  </label>
+				        	<div class="togglebutton">
+				                    <label>
+				                        <input type="checkbox" id="parent" name="parent">
+				                    </label>
+				                </div>
+				        </div>
+				        <div class="form-group">
+				            <label for="cbParentGroup" class="col-lg-2 control-label">Parent Group</label>
+				            <div class="col-lg-10">
+				            	<%=
+							      select_tag(
+							        :cbParentGroup,
+							        options_from_collection_for_select(
+					                    YlYieldGroups.where("yg_status = ?", 1).order(yg_description: :asc),
+					                    "YG_Id",
+					                    "YG_Description"
+					                  ),
+					                  {
+					                    :class => "form-control remove-border"
+					                  }
+							      )
+							    %>
+				            </div>
+				        </div>
+
+				        <div class="form-group">
+				            <label for="cbParentGroup" class="col-lg-2 control-label">Calculation Type</label>
+				            <div class="col-lg-10">
+				            	<%=
+							      select_tag(
+							        :cbCalcType,
+							        options_from_collection_for_select(
+					                    YlRefCalcTypes.where("ct_status = ?", 1).order(ct_description: :asc),
+					                    "CT_Id",
+					                    "CT_Description"
+					                  ),
+					                  {
+					                    :class => "form-control remove-border"
+					                  }
+							      )
+							    %>
+				            </div>
+				        </div>
+
+				        <div class="form-group">
+				            <div class="col-lg-10 col-lg-offset-2">
+				                <button class="btn btn-default" >Cancel</button>
+				                <button type="submit" class="btn btn-primary" id="btnNewGroup">Submit</button>
+				            </div>
+				        </div>
+				    </fieldset>
+				</form>
+    		</div>
+    	</div>
+    </div>	
+</div>

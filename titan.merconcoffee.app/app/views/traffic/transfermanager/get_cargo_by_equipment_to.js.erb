@@ -1,0 +1,22 @@
+$('#v_to_level').html("<%= escape_javascript(options_for_select(@levels)) %>")
+
+$('.loading-spinner').removeClass('show').addClass('hidden')
+
+if ($('#v_to_level').val()) {
+  $.ajax({
+    url: '/common/util/get_level_by_cargo',
+    data: {
+      id: $('#v_to_level').val()
+    },
+    beforeSend: function(xhr) {
+      $('.loading-spinner').removeClass('hidden').addClass('show')
+    }
+  })
+  .done(function(d) {
+    $('.loading-spinner').removeClass('show').addClass('hidden')
+
+    if (d) {
+      $('#to_cargo_qty_uom_cd').text(d.qty_uom_cd)
+    }
+  })
+}

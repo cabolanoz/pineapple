@@ -1,0 +1,193 @@
+<%= hidden_field_tag(:internal_company_num) %>
+<%= hidden_field_tag(:obligation_num) %>
+<%= hidden_field_tag(:price) %>
+<%= hidden_field_tag(:price_uom_cd) %>
+<%= hidden_field_tag(:price_curr_cd) %>
+<%= hidden_field_tag(:bbl_mt_factor) %>
+<% if type == 'from' %>
+  <%= hidden_field_tag(:from_convertion_factor) %>
+<% else %>
+  <%= hidden_field_tag(:to_convertion_factor) %>
+<% end %>
+
+<div role="tabpanel">
+  <ul class="nav nav-tabs" id="<%= type == 'from' ? 'transfer_trade_from_tab' : 'transfer_trade_to_tab' %>" role="tablist">
+    <li class="active" role="presentation"><a aria-controls="<%= type == 'from' ? 'pnl_transfer_from' : 'pnl_transfer_to' %>" data-toggle="tab" href="#<%= type == 'from' ? 'pnl_transfer_from' : 'pnl_transfer_to' %>" role="tab">Transfer</a></li>
+    <li role="presentation"><a aria-controls="<%= type == 'from' ? 'pnl_udf_from' : 'pnl_udf_to' %>" data-toggle="tab" href="#<%= type == 'from' ? 'pnl_udf_from' : 'pnl_udf_to' %>" role="tab">UDF</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane active" id="<%= type == 'from' ? 'pnl_transfer_from' : 'pnl_transfer_to' %>" role="tabpanel">
+      <div class="col-md-12" style="margin-top: 30px;">
+        <div class="form-group" id="from_to_trade_pnl">
+          <label class="col-sm-2 control-label">Trade Number</label>
+          <div class="col-sm-10">
+            <% if type == 'from' %>
+              <%=
+                text_field_tag(
+                  :from_trade,
+                  nil,
+                  {
+                    :class => "form-control",
+                    'data-parsley-error-message' => '<strong>Trade Number</strong> is required',
+                    'data-parsley-errors-container' => '#error_container',
+                    'data-parsley-group' => 'grp_transfer',
+                    'data-parsley-trigger' => 'keyup',
+                    'data-parsley-type' => 'number',
+                    'data-parsley-required' => 'true',
+                    'data-parsley-validation-threshold' => '1',
+                    :placeholder => "No. Trade"
+                  }
+                )
+              %>
+            <% else %>
+              <%=
+                text_field_tag(
+                  :to_trade,
+                  nil,
+                  {
+                    :class => "form-control",
+                    'data-parsley-error-message' => '<strong>Trade Number</strong> is required',
+                    'data-parsley-errors-container' => '#error_container',
+                    'data-parsley-group' => 'grp_transfer',
+                    'data-parsley-trigger' => 'keyup',
+                    'data-parsley-type' => 'number',
+                    'data-parsley-required' => 'true',
+                    'data-parsley-validation-threshold' => '1',
+                    :placeholder => "No. Trade"
+                  }
+                )
+              %>
+            <% end %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Counterpart</label>
+          <div class="col-sm-10">
+            <% if type == 'from' %>
+              <%= text_field_tag(:from_counterpart, nil, { :class => "form-control", :disabled => "disabled", :placeholder => "Counterpart" }) %>
+            <% else %>
+              <%= text_field_tag(:to_counterpart, nil, { :class => "form-control", :disabled => "disabled", :placeholder => "Counterpart" }) %>
+            <% end %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Open Qty</label>
+          <div class="col-sm-4">
+            <div class="input-group">
+              <% if type == 'from' %>
+                <%= text_field_tag(:from_open_qty, nil, { :class => "form-control", :disabled => "disabled", :placeholder => "Open Qty" }) %>
+                <span class="input-group-addon" id="from_open_qty_uom_cd"></span>
+              <% else %>
+                <%= text_field_tag(:to_open_qty, nil, { :class => "form-control", :disabled => "disabled", :placeholder => "Open Qty" }) %>
+                <span class="input-group-addon" id="to_open_qty_uom_cd"></span>
+              <% end %>
+            </div>
+          </div>
+          <label class="col-sm-2 control-label">Contract Qty</label>
+          <div class="col-sm-4">
+            <div class="input-group">
+              <% if type == 'from' %>
+                <%= text_field_tag(:from_contract_qty, nil, { :class => "form-control", :disabled => "disabled", :placeholder => "Contract Qty" }) %>
+                <span class="input-group-addon" id="from_contract_qty_uom_cd"></span>
+              <% else %>
+                <%= text_field_tag(:to_contract_qty, nil, { :class => "form-control", :disabled => "disabled", :placeholder => "Contract Qty" }) %>
+                <span class="input-group-addon" id="to_contract_qty_uom_cd"></span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Commodity</label>
+          <div class="col-sm-10">
+            <% if type == 'from' %>
+              <%= text_field_tag(:t_from_commodity, nil, { :class => "form-control", :disabled => "disabled", :placeholder => "Commodity" }) %>
+            <% else %>
+            <%= text_field_tag(:t_to_commodity, nil, { :class => "form-control", :disabled => "disabled", :placeholder => "Commodity" }) %>
+            <% end %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Scheduled Qty</label>
+          <div class="col-sm-4">
+            <div class="input-group">
+              <% if type == 'from' %>
+                <%=
+                  text_field_tag(
+                    :from_scheduled_qty,
+                    nil,
+                    {
+                      :class => "form-control",
+                      'data-parsley-error-message' => '<strong>Scheduled Qty</strong> is required',
+                      'data-parsley-errors-container' => '#error_container',
+                      'data-parsley-group' => 'grp_transfer',
+                      'data-parsley-trigger' => 'keyup',
+                      'data-parsley-type' => 'number',
+                      'data-parsley-required' => 'true',
+                      'data-parsley-validation-threshold' => '1',
+                      :placeholder => "Scheduled Qty"
+                    }
+                  )
+                %>
+                <span class="input-group-addon" id="from_scheduled_qty_uom_cd"></span>
+              <% else %>
+                <%=
+                  text_field_tag(
+                    :to_scheduled_qty,
+                    nil,
+                    {
+                      :class => "form-control",
+                      'data-parsley-error-message' => '<strong>Scheduled Qty</strong> is required',
+                      'data-parsley-errors-container' => '#error_container',
+                      'data-parsley-group' => 'grp_transfer',
+                      'data-parsley-trigger' => 'keyup',
+                      'data-parsley-type' => 'number',
+                      'data-parsley-required' => 'true',
+                      'data-parsley-validation-threshold' => '1',
+                      :placeholder => "Scheduled Qty"
+                    }
+                  )
+                %>
+                <span class="input-group-addon" id="to_scheduled_qty_uom_cd"></span>
+              <% end %>
+            </div>
+          </div>
+          <label class="col-sm-2 control-label">Nominal Qty</label>
+          <div class="col-sm-4">
+            <div class="input-group">
+              <% if type == 'from' %>
+                <%= text_field_tag(:from_nominal_qty, nil, { :class => "form-control", :disabled => "disabled", :placeholder => "Nominal Qty" }) %>
+                <span class="input-group-addon" id="from_nominal_qty_uom_cd"></span>
+              <% else %>
+                <%= text_field_tag(:to_nominal_qty, nil, { :class => "form-control", :disabled => "disabled", :placeholder => "Nominal Qty" }) %>
+                <span class="input-group-addon" id="to_nominal_qty_uom_cd"></span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-pane" id="<%= type == 'from' ? 'pnl_udf_from' : 'pnl_udf_to' %>" role="tabpanel">
+      <div class="col-md-12" style="margin-top: 30px;">
+        <div class="pull-right">
+          <%= button_tag('Add UDF', { :class => "btn btn-primary btn-sm", :type => "button"}) %>
+        </div>
+        <div class="clearfix"></div>
+        <div class="table-responsive">
+          <table class="table table-condensed">
+            <thead>
+              <tr>
+                <th>Field</th>
+                <th>Value</th>
+                <th style="width: 25px;"></th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

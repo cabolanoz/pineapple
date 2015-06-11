@@ -1,0 +1,2 @@
+module Origin::YieldsmanageHelper
+end

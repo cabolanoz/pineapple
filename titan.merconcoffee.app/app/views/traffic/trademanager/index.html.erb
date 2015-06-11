@@ -1,0 +1,52 @@
+<div class="dashboard-wrapper">
+  <div class="main-container">
+    <div class="row page-title">
+      <h2><%= t('trade_manager') %>
+        <small>
+          <li><a href="/"><%= t('home') %></a></li>
+          <li>/</li>
+          <li><a><%= t('traffic') %></a></li>
+          <li>/</li>
+          <li><%= t('trade_manager') %></li>
+        </small>
+      </h2>
+      <ul class="stats hidden-xs">
+        <li>
+          <div class="details" style="height: 30px;">
+            <!-- Start - Loading animation -->
+            <div class="hidden loading-spinner" style="margin-top: 0;">
+              <div class="rect1"></div>
+              <div class="rect2"></div>
+              <div class="rect3"></div>
+              <div class="rect4"></div>
+              <div class="rect5"></div>
+            </div>
+            <!-- End - Loading animation -->
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+      <div class="table-responsive" id="dt_example">
+        <table class="table table-striped" data-source="<%= traffic_trademanager_index_url(format: 'datatable') %>" id="tbl_trade" style="width: 100%;">
+          <thead>
+            <tr>
+              <th>No. Trade</th>
+              <th>No. Term</th>
+              <th>Trade Dt.</th>
+              <th>Reference</th>
+              <th>Trader</th>
+              <th>Buy/Sell</th>
+              <th>Qty</th>
+              <th>Location</th>
+              <th>Counterpart</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

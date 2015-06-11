@@ -1,0 +1,124 @@
+<%= hidden_field_tag(:lineclass, @lineclass != nil ? @lineclass.LC_id : -1) %>
+<div class="dashboard-wrapper">
+	<div class="main-container">
+	    <div class="row page-title">
+	      	<h2><%= t('yield_manager') %>
+		        <small>
+			        <ul class="breadcrumb" style="margin-bottom: 5px;">
+					    <li><a href="/">Home</a></li>
+					    <li><%= t('origin') %></li>
+					    <li><a href="/origin/yieldsmanager"><%= t('yield_manager') %></a></li>
+					    <li><a href="/origin/yieldsmanager/standardyields"><%= t('standard_yields') %></a></li>
+					    <li class="active"><%= t('lineclass') %></li>
+					    <li class="active"><%= t('edit') %></li>
+					</ul>
+				</small>
+	     	</h2>
+	     	<ul class="stats hidden-xs">
+		        <li>
+		          <div class="details" style="height: 30px;">
+		            <!-- Start - Loading animation -->
+		            <div class="hidden loading-spinner" style="margin-top: 0;">
+		              <div class="rect1"></div>
+		              <div class="rect2"></div>
+		              <div class="rect3"></div>
+		              <div class="rect4"></div>
+		              <div class="rect5"></div>
+		            </div>
+		            <!-- End - Loading animation -->
+		          </div>
+		        </li>
+	      	</ul>
+	    </div>
+
+	    <div class="clearfix"></div>
+    	<div class="row">
+    		<div class="col-md-6">
+    			<form class="form-horizontal">
+				    <fieldset>
+				        <legend>Edit Line Group</legend>
+				        <div class="form-group">
+				            <label for="cbPhysicalState" class="col-lg-2 control-label">Physical State</label>
+				            <div class="col-lg-10">
+				            	<%=
+							      select_tag(
+							        :cbPhysicalState,
+							        options_from_collection_for_select(
+					                    RefProfitUnit.where("status_ind = ?", 1).order(profit_unit_name: :asc),
+					                    "profit_unit_num",
+					                    "profit_unit_name",
+					                    @lineclass.LC_PhysicalState
+					                  ),
+					                  {
+					                    :class => "form-control remove-border"
+					                  }
+							      )
+							    %>
+				            </div>
+				        </div>
+				        <div class="form-group">
+				            <label for="cbGroup" class="col-lg-2 control-label">Group </label>
+				            <div class="col-lg-10">
+				            	<%=
+							      select_tag(
+							        :cbGroup,
+							        options_from_collection_for_select(
+							        	RefCommodityGroup
+							        	.select("T1.*")
+									      .joins("INNER JOIN [Ref_Commodity_Group] AS T1 ON T1.parent_commodity_group_num = [Ref_Commodity_Group].commodity_group_num")
+									      .where("[REF_COMMODITY_GROUP].parent_commodity_group_num is null")
+									      .order("T1.commodity_group_name"),
+					                    "commodity_group_num",
+					                    "commodity_group_name",
+					                    @lineclass.LC_GroupNum
+					                  ),
+					                  {
+					                    :class => "form-control remove-border"
+					                  }
+							      )
+							    %>
+				            </div>
+				        </div>
+				        <div class="form-group">
+				            <label for="cbGroup" class="col-lg-2 control-label">Element </label>
+				            <div class="col-lg-10">
+				            	<%=
+							      select_tag(
+							        :cbElement,
+							        options_from_collection_for_select(
+							        	YlYieldElements
+							        	.where("ye_status = ?", 1)
+							        	.order(ye_element: :asc),
+   					                    "YE_Id",
+					                    "YE_Element",
+					                    @lineclass.LC_YE_id
+					                  ),
+					                  {
+					                    :class => "form-control remove-border"
+					                  }
+							      )
+							    %>
+				            </div>
+				        </div>
+				        <div class="form-group">
+				         	<label for="forpay" class="col-lg-2 control-label" style="margin-right:15px">Use For Pay  </label>
+				        	<div class="togglebutton">
+				                    <label>
+				                        <input type="checkbox" id="forpay" name="forpay" <%= @lineclass.LC_UseForPay == true ? 'checked' : '' %>>
+				                    </label>
+				                </div>
+				        </div>
+				        
+
+				        <div class="form-group">
+				            <div class="col-lg-10 col-lg-offset-2">
+				                <button class="btn btn-default" >Cancel</button>
+				                <button type="submit" class="btn btn-primary" id="btnEditLineClass">Submit</button>
+				            </div>
+				        </div>
+				    </fieldset>
+				</form>
+    		</div>
+    	</div>
+    </div>	
+</div>

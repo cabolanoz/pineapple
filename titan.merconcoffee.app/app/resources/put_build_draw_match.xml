@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<request xmlns:xsi="http://www.w3.org/1999/XMLSchema-instance" xsi:noNamespaceSchemaLocation="request.xsd">
+  <mhead name="TPTReqPutBuildDrawMatch">
+    <sender>{C425E254-6C70-4EB8-8D0B-84C0199550C9}</sender>
+    <sent_dt>@@=val1=@@</sent_dt>
+  </mhead>
+  <mbody>
+    <data>
+      <PutBuildDrawMatch>
+        <OPS_BUILD_DRAW_MATCH table="1">
+          <bd_match_num><![CDATA[-1]]></bd_match_num>
+          <equipment_num><![CDATA[@@=val2=@@]]></equipment_num>
+          <cargo_num><![CDATA[@@=val3=@@]]></cargo_num>
+          <strategy_num><![CDATA[@@=val4=@@]]></strategy_num>
+          <match_qty><![CDATA[@@=val5=@@]]></match_qty>
+          <bd_allocation_ind><![CDATA[1]]></bd_allocation_ind>
+          <in_store_transfer_num><![CDATA[-1]]></in_store_transfer_num>
+          <copy_tag_ind><![CDATA[1]]></copy_tag_ind>
+          <OPS_BUILD_DRAW_MATCH_DETAIL table="2">
+            <bd_match_num><![CDATA[-1]]></bd_match_num>
+            <build_draw_num><![CDATA[@@=val6=@@]]></build_draw_num>
+            <equipment_num><![CDATA[@@=val2=@@]]></equipment_num>
+            <strategy_num><![CDATA[@@=val4=@@]]></strategy_num>
+            <build_draw_match_qty><![CDATA[@@=val7=@@]]></build_draw_match_qty>
+            <title_transfer_dt><![CDATA[@@=val8=@@]]></title_transfer_dt>
+          </OPS_BUILD_DRAW_MATCH_DETAIL>
+          <OPS_BUILD_DRAW_MATCH_DETAIL repeat="@@=val9=@@" table="2">
+            <bd_match_num><![CDATA[-1]]></bd_match_num>
+            <build_draw_num><![CDATA[@=@=val1=@=@]]></build_draw_num>
+            <equipment_num><![CDATA[@@=val2=@@]]></equipment_num>
+            <strategy_num><![CDATA[@@=val4=@@]]></strategy_num>
+            <build_draw_match_qty><![CDATA[@=@=val2=@=@]]></build_draw_match_qty>
+            <title_transfer_dt><![CDATA[@=@=val3=@=@]]></title_transfer_dt>
+            <OPS_BUILD_DRAW_TAG repeat="@=@=val4=@=@" table="3">
+              <build_draw_num><![CDATA[@=@=val1=@=@]]></build_draw_num>
+              <tag_type_cd><![CDATA[@=@=val2=@=@]]></tag_type_cd>
+              <ref_bd_tag_num><![CDATA[@=@=val3=@=@]]></ref_bd_tag_num>
+              <bd_tag_num><![CDATA[@=@=val4=@=@]]></bd_tag_num>
+              <cargo_num><![CDATA[@@=val3=@@]]></cargo_num>
+              <equipment_num><![CDATA[@@=val2=@@]]></equipment_num>
+              <tag_type_ind><![CDATA[0]]></tag_type_ind>
+              <tag_value1><![CDATA[@=@=val5=@=@]]></tag_value1>
+              <tag_value2><![CDATA[@=@=val6=@=@]]></tag_value2>
+              <tag_value3><![CDATA[@=@=val7=@=@]]></tag_value3>
+              <tag_value4><![CDATA[@=@=val8=@=@]]></tag_value4>
+              <tag_value7><![CDATA[@=@=val9=@=@]]></tag_value7>
+              <tag_value8><![CDATA[@=@=val10=@=@]]></tag_value8>
+              <persist_ind><![CDATA[1]]></persist_ind>
+              <qty_to_alloc><![CDATA[@=@=val11=@=@]]></qty_to_alloc>
+              <tag_qty><![CDATA[@=@=val12=@=@]]></tag_qty>
+              <tag_qty_uom_cd><![CDATA[@=@=val13=@=@]]></tag_qty_uom_cd>
+              <tag_source_ind><![CDATA[@=@=val14=@=@]]></tag_source_ind>
+              <build_draw_type_ind><![CDATA[2]]></build_draw_type_ind>
+              <build_draw_ind><![CDATA[0]]></build_draw_ind>
+              <chop_id><![CDATA[@=@=val15=@=@]]></chop_id>
+              <tag_adj_qty><![CDATA[0]]></tag_adj_qty>
+            </OPS_BUILD_DRAW_TAG>
+          </OPS_BUILD_DRAW_MATCH_DETAIL>
+        </OPS_BUILD_DRAW_MATCH>
+        <LockNumList>
+          <lockinfo><![CDATA[@@=val10=@@]]></lockinfo>
+        </LockNumList>
+      </PutBuildDrawMatch>
+    </data>
+  </mbody>
+</request>

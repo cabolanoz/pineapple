@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<request xmlns:xsi="http://www.w3.org/1999/XMLSchema-instance" xsi:noNamespaceSchemaLocation="request.xsd">
+  <mhead name="TPTReqGetMultipleTransfers">
+    <sender>{63F1EF21-571A-4D66-AFAC-7E9A5CCB36C5}</sender>
+    <sent_dt>@@=val1=@@</sent_dt>
+  </mhead>
+  <mbody>
+    <data>
+      <GetMultipleTransfers>
+        <equipment_num>0</equipment_num>
+        <transfer_num>@@=val2=@@</transfer_num>
+      </GetMultipleTransfers>
+    </data>
+  </mbody>
+</request>

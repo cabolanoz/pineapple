@@ -1,0 +1,68 @@
+if ($('#frm_new_transfer').length > 0) {
+  $('#s_from_level').html("<%= escape_javascript(options_for_select(@levels)) %>")
+  $('#s_from_commodity').val('')
+  // $('#from_storage_qty').val('')
+  $('#from_storage_qty_uom_cd').text('')
+
+  $('.loading-spinner').removeClass('show').addClass('hidden')
+
+  if ($('#from_storage').val()) {
+    $.ajax({
+      url: '/common/util/get_storage_by_id',
+      data: {
+        id: $('#from_storage').val()
+      }
+    })
+    .done(function(d) {
+      if (d) {
+        $('#location_num').val(d.location_num)
+      }
+    })
+  }
+
+  if ($('#s_from_level').val()) {
+    $.ajax({
+      url: '/common/util/get_level_by_cargo',
+      data: {
+        id: $('#s_from_level').val()
+      },
+      beforeSend: function(xhr) {
+        $('.loading-spinner').removeClass('hidden').addClass('show')
+      }
+    })
+    .done(function(d) {
+      $('.loading-spinner').removeClass('show').addClass('hidden')
+
+      if (d) {
+        $('#s_from_commodity').val(d.cmdty_cd)
+        $('#from_storage_qty_uom_cd').text(d.qty_uom_cd)
+        $('#from_internal_company_num').val(d.internal_company_num)
+      }
+    })
+  }
+} else if ($('#frm_edit_transfer').length > 0) {
+  $('#s_from_level_e').html("<%= escape_javascript(options_for_select(@levels)) %>")
+  $('#s_from_commodity_e').val('')
+  $('#from_storage_qty_uom_cd_e').text('')
+  $('.loading-spinner').removeClass('show').addClass('hidden')
+
+  if ($('#s_from_level_e').val()) {
+    $.ajax({
+      url: '/common/util/get_level_by_cargo',
+      data: {
+        id: $('#s_from_level_e').val()
+      },
+      beforeSend: function(xhr) {
+        $('.loading-spinner').removeClass('hidden').addClass('show')
+      }
+    })
+    .done(function(d) {
+      $('.loading-spinner').removeClass('show').addClass('hidden')
+
+      if (d) {
+        $('#s_from_commodity_e').val(d.cmdty_cd)
+        $('#from_storage_qty_uom_cd_e').text(d.qty_uom_cd)
+      }
+    })
+  }
+}

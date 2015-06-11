@@ -1,0 +1,99 @@
+<div role="tabpanel">
+  <ul class="nav nav-tabs" id="<%= type == 'from' ? 'transfer_storage_from_tab' : 'transfer_storage_to_tab' %>" role="tablist">
+    <li class="active" role="presentation"><a aria-controls="<%= type == 'from' ? 'pnl_transfer_from' : 'pnl_transfer_to' %>" data-toggle="tab" href="#<%= type == 'from' ? 'pnl_transfer_from' : 'pnl_transfer_to' %>" role="tab">Transfer</a></li>
+    <li role="presentation"><a aria-controls="<%= type == 'from' ? 'pnl_udf_from' : 'pnl_udf_to' %>" data-toggle="tab" href="#<%= type == 'from' ? 'pnl_udf_from' : 'pnl_udf_to' %>" role="tab">UDF</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane active" id="<%= type == 'from' ? 'pnl_transfer_from' : 'pnl_transfer_to' %>" role="tabpanel">
+      <div class="col-md-12" style="margin-top: 30px;">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Storage</label>
+          <div class="col-sm-10">
+            <% if (@transfer.from_type_ind == 1 && type == 'from') %>
+              <input class="form-control" disabled="disabled" type="text" value="<%= @transfer.from_storage.storage_cd %>">
+            <% else %>
+              <input class="form-control" disabled="disabled" type="text" value="<%= @transfer.to_storage.storage_cd %>">
+            <% end %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Level</label>
+          <div class="col-sm-10">
+            <% if (@transfer.from_type_ind == 1 && type == 'from') %>
+              <input class="form-control" disabled="disabled" type="text" value="<%= @transfer.from_cargo.cargo_name %>">
+            <% else %>
+              <input class="form-control" disabled="disabled" type="text" value="<%= @transfer.to_cargo.cargo_name %>">
+            <% end %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Commodity</label>
+          <div class="col-sm-10">
+            <% if (@transfer.from_type_ind == 1 && type == 'from') %>
+              <input class="form-control" disabled="disabled" type="text" value="<%= @transfer.from_cargo.cmdty_cd %>">
+            <% else %>
+              <input class="form-control" disabled="disabled" type="text" value="<%= @transfer.to_cargo.cmdty_cd %>">
+            <% end %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Storage Qty</label>
+          <div class="col-sm-10">
+            <div class="input-group">
+              <% if (@transfer.from_type_ind == 1 && type == 'from') %>
+                <input class="form-control" disabled="disabled" type="text" value="<%= number_with_precision(@transfer.from_qty, :precision => 2, :delimiter => ',') %>">
+                <span class="input-group-addon"><%= @transfer.from_uom_cd %></span>
+              <% else %>
+                <input class="form-control" disabled="disabled" type="text" value="<%= number_with_precision(@transfer.to_qty, :precision => 2, :delimiter => ',') %>">
+                <span class="input-group-addon"><%= @transfer.to_uom_cd %></span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Transfer At</label>
+          <div class="col-sm-10">
+            <input class="form-control" disabled="disabled" type="text" value="<%= @transfer.transfer_at.ind_value_name %>">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-pane" id="<%= type == 'from' ? 'pnl_udf_from' : 'pnl_udf_to' %>" role="tabpanel">
+      <div class="col-md-12" style="margin-top: 30px;">
+        <div class="table-responsive">
+          <table class="table table-condensed">
+            <thead>
+              <tr>
+                <th>Field</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if type == 'from' %>
+                <% if @transfer.from_udf.any? %>
+                  <% @transfer.from_udf.each do |t| %>
+                  <tr class="success">
+                    <td><%= t.udf_cd %></td>
+                    <td><%= t.udf_value %></td>
+                  </tr>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <% if @transfer.to_udf.any? %>
+                  <% @transfer.to_udf.each do |t| %>
+                  <tr class="success">
+                    <td><%= t.udf_cd %></td>
+                    <td><%= t.udf_value %></td>
+                  </tr>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
